@@ -5,52 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>بوابة المدربين | كأس شهداء المنصورية</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <script 
-        async 
-        crossorigin="anonymous" 
-        src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@4/dist/clerk.browser.js">
-    </script>
 </head>
 <body class="bg-slate-900 text-white min-h-screen flex flex-col items-center justify-center p-4">
 
     <div id="loading" class="text-center">
         <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-yellow-500 mx-auto mb-4"></div>
-        <p>جاري تهيئة منصة البطولة...</p>
+        <p>جاري تحميل المنصة...</p>
     </div>
 
     <div id="app" class="w-full max-w-md hidden"></div>
 
     <div id="dashboard" class="w-full max-w-3xl hidden bg-slate-800 p-6 rounded-2xl border border-yellow-600/30">
-        <div class="flex justify-between items-center mb-6 border-b border-gray-700 pb-4">
-            <div>
-                <h2 class="text-2xl font-black text-yellow-500">لوحة إدارة الفريق</h2>
-            </div>
-            <div id="user-button"></div>
-        </div>
+        <h2 class="text-2xl font-black text-yellow-500 mb-4">لوحة إدارة الفريق</h2>
+        <div id="user-button"></div>
     </div>
 
     <script>
-        window.addEventListener('load', async function () {
-            try {
-                // إعداد Clerk برمجياً بدلاً من الاعتماد على الـ attribute
-                const clerk = new Clerk('pk_live_Y2xlcmsuYWhtZWRyYWFkLm1lJ');
-                await clerk.load();
-                
-                document.getElementById('loading').classList.add('hidden');
-
-                if (clerk.user) {
-                    document.getElementById('dashboard').classList.remove('hidden');
-                    clerk.mountUserButton(document.getElementById('user-button'));
-                } else {
-                    document.getElementById('app').classList.remove('hidden');
-                    clerk.mountSignIn(document.getElementById('app'));
+        (async () => {
+            const script = document.createElement('script');
+            script.src = "https://cdn.jsdelivr.net/npm/@clerk/clerk-js@4/dist/clerk.browser.js";
+            script.async = true;
+            script.onload = async () => {
+                try {
+                    const clerk = new Clerk('pk_live_Y2xlcmsuYWhtZWRyYWFkLm1lJ');
+                    await clerk.load();
+                    document.getElementById('loading').classList.add('hidden');
+                    
+                    if (clerk.user) {
+                        document.getElementById('dashboard').classList.remove('hidden');
+                        clerk.mountUserButton(document.getElementById('user-button'));
+                    } else {
+                        document.getElementById('app').classList.remove('hidden');
+                        clerk.mountSignIn(document.getElementById('app'));
+                    }
+                } catch (e) {
+                    document.getElementById('loading').innerHTML = '<p class="text-red-500">فشل الاتصال: ' + e.message + '</p>';
                 }
-            } catch (error) {
-                console.error("خطأ:", error);
-                document.getElementById('loading').innerHTML = `<p class="text-red-500">فشل الاتصال: ${error.message}</p>`;
-            }
-        });
+            };
+            document.head.appendChild(script);
+        })();
     </script>
 </body>
 </html>
