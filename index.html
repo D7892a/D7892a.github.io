@@ -5,12 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>بوابة المدربين | كأس شهداء المنصورية</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script 
+        async 
+        crossorigin="anonymous" 
+        src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@4/dist/clerk.browser.js">
+    </script>
 </head>
 <body class="bg-slate-900 text-white min-h-screen flex flex-col items-center justify-center p-4">
 
     <div id="loading" class="text-center">
         <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-yellow-500 mx-auto mb-4"></div>
-        <p>جاري الاتصال بسيرفرات الأمان...</p>
+        <p>جاري تهيئة منصة البطولة...</p>
     </div>
 
     <div id="app" class="w-full max-w-md hidden"></div>
@@ -19,47 +25,30 @@
         <div class="flex justify-between items-center mb-6 border-b border-gray-700 pb-4">
             <div>
                 <h2 class="text-2xl font-black text-yellow-500">لوحة إدارة الفريق</h2>
-                <p class="text-gray-400">أهلاً بك كابتن في منصة البطولة الرسمية</p>
             </div>
             <div id="user-button"></div>
         </div>
-        
-        <div class="space-y-4">
-            <h3 class="font-bold">➕ إضافة لاعب جديد للقائمة</h3>
-            <input type="text" placeholder="اسم اللاعب الثلاثي" class="w-full p-3 rounded-lg bg-slate-900 border border-slate-600">
-            <button class="bg-green-600 w-full py-3 rounded-xl font-black hover:bg-green-500 transition">حفظ اللاعب في قاعدة البيانات</button>
-        </div>
     </div>
 
-    <script 
-        async crossorigin="anonymous" 
-        data-clerk-publishable-key="pk_live_Y2xlcmsuYWhtZWRyYWFkLm1lJ" 
-        src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@4/dist/clerk.browser.js">
-    </script>
-    
     <script>
         window.addEventListener('load', async function () {
             try {
-                console.log("جاري تحميل Clerk...");
-                await window.Clerk.load();
+                // إعداد Clerk برمجياً بدلاً من الاعتماد على الـ attribute
+                const clerk = new Clerk('pk_live_Y2xlcmsuYWhtZWRyYWFkLm1lJ');
+                await clerk.load();
+                
                 document.getElementById('loading').classList.add('hidden');
 
-                if (window.Clerk.user) {
+                if (clerk.user) {
                     document.getElementById('dashboard').classList.remove('hidden');
-                    window.Clerk.mountUserButton(document.getElementById('user-button'));
+                    clerk.mountUserButton(document.getElementById('user-button'));
                 } else {
                     document.getElementById('app').classList.remove('hidden');
-                    window.Clerk.mountSignIn(document.getElementById('app'));
+                    clerk.mountSignIn(document.getElementById('app'));
                 }
             } catch (error) {
-                console.error("خطأ فادح في التحميل:", error);
-                document.getElementById('loading').innerHTML = `
-                    <div class="bg-red-900/50 p-6 rounded-xl border border-red-500">
-                        <p class="text-red-200 font-bold mb-2">حدث خطأ في الاتصال!</p>
-                        <p class="text-sm text-gray-300 mb-4">${error.message}</p>
-                        <button onclick="location.reload()" class="bg-red-500 px-6 py-2 rounded-lg font-bold">أعد المحاولة</button>
-                    </div>
-                `;
+                console.error("خطأ:", error);
+                document.getElementById('loading').innerHTML = `<p class="text-red-500">فشل الاتصال: ${error.message}</p>`;
             }
         });
     </script>
