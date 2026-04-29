@@ -5,45 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>بوابة المدربين | كأس شهداء المنصورية</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script async crossorigin="anonymous" src="https://clerk.ahmedraad.me/npm/@clerk/clerk-js@latest/dist/clerk.browser.js"></script>
 </head>
 <body class="bg-slate-900 text-white min-h-screen flex flex-col items-center justify-center p-4">
 
     <div id="loading" class="text-center">
         <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-yellow-500 mx-auto mb-4"></div>
-        <p>جاري تحميل المنصة...</p>
+        <p>جاري التحميل من سيرفرات الأمان المباشرة...</p>
     </div>
 
     <div id="app" class="w-full max-w-md hidden"></div>
-
     <div id="dashboard" class="w-full max-w-3xl hidden bg-slate-800 p-6 rounded-2xl border border-yellow-600/30">
         <h2 class="text-2xl font-black text-yellow-500 mb-4">لوحة إدارة الفريق</h2>
         <div id="user-button"></div>
     </div>
 
     <script>
-        (async () => {
-            const script = document.createElement('script');
-            script.src = "https://cdn.jsdelivr.net/npm/@clerk/clerk-js@4/dist/clerk.browser.js";
-            script.async = true;
-            script.onload = async () => {
-                try {
-                    const clerk = new Clerk('pk_live_Y2xlcmsuYWhtZWRyYWFkLm1lJ');
-                    await clerk.load();
-                    document.getElementById('loading').classList.add('hidden');
-                    
-                    if (clerk.user) {
-                        document.getElementById('dashboard').classList.remove('hidden');
-                        clerk.mountUserButton(document.getElementById('user-button'));
-                    } else {
-                        document.getElementById('app').classList.remove('hidden');
-                        clerk.mountSignIn(document.getElementById('app'));
+        window.addEventListener('load', async () => {
+            const checkClerk = setInterval(async () => {
+                if (window.Clerk) {
+                    clearInterval(checkClerk);
+                    try {
+                        const clerk = new Clerk('pk_live_Y2xlcmsuYWhtZWRyYWFkLm1lJ');
+                        await clerk.load();
+                        document.getElementById('loading').classList.add('hidden');
+                        
+                        if (clerk.user) {
+                            document.getElementById('dashboard').classList.remove('hidden');
+                            clerk.mountUserButton(document.getElementById('user-button'));
+                        } else {
+                            document.getElementById('app').classList.remove('hidden');
+                            clerk.mountSignIn(document.getElementById('app'));
+                        }
+                    } catch (e) {
+                        document.getElementById('loading').innerHTML = '<p class="text-red-500">خطأ في التشغيل: ' + e.message + '</p>';
                     }
-                } catch (e) {
-                    document.getElementById('loading').innerHTML = '<p class="text-red-500">فشل الاتصال: ' + e.message + '</p>';
                 }
-            };
-            document.head.appendChild(script);
-        })();
+            }, 500);
+        });
     </script>
 </body>
 </html>
