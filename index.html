@@ -932,62 +932,60 @@
             ];
         }
         
-        sidebarMenu.innerHTML = menuItems.map(item => `
-            <li class="${currentSection === item.id ? 'active' : ''}" 
-                onclick="navigateTo('${item.id}')">
-                <i class="fas ${item.icon}"></i>
-                <span>${item.text}</span>
-            </li>
-        `).join('');
+        sidebarMenu.innerHTML = menuItems.map(item => 
+            '<li class="' + (currentSection === item.id ? 'active' : '') + '" onclick="navigateTo(\'' + item.id + '\')">' +
+            '<i class="fas ' + item.icon + '"></i>' +
+            '<span>' + item.text + '</span>' +
+            '</li>'
+        ).join('');
     }
     
-    // ==================== التنقل بين الأقسام ====================
     function navigateTo(section) {
         currentSection = section;
         buildSidebar();
         
-        const mainContent = document.getElementById('mainContent');
+        var mainContent = document.getElementById('mainContent');
         if (!mainContent) return;
         
-        mainContent.innerHTML = '<div class="loading"><i class="fas fa-spinner"></i><p>جاري التحميل...</p></div>';
+        mainContent.innerHTML = '<div class="loading"><i class="fas fa-spinner"></i><p>Loading...</p></div>';
         
-        switch(section) {
-            case 'dashboard':
-                renderDashboard();
-                break;
-            case 'teams':
-                if (currentUserType === 'admin') renderTeamsManagement();
-                else renderDashboard();
-                break;
-            case 'matches':
-                renderMatches();
-                break;
-            case 'results':
-                if (currentUserType === 'admin') renderResults();
-                else renderDashboard();
-                break;
-            case 'scorers':
-                renderScorers();
-                break;
-            case 'standings':
-                renderStandings();
-                break;
-            case 'coaches':
-                if (currentUserType === 'admin') renderCoachesManagement();
-                else renderDashboard();
-                break;
-            case 'myteam':
-                if (currentUserType === 'coach') renderMyTeam();
-                else renderDashboard();
-                break;
-            case 'settings':
-                if (currentUserType === 'admin') renderSettings();
-                else renderDashboard();
-                break;
-            default:
-                renderDashboard();
+        if (section === 'dashboard') {
+            renderDashboard();
+        } else if (section === 'teams' && currentUserType === 'admin') {
+            renderTeamsManagement();
+        } else if (section === 'matches') {
+            renderMatches();
+        } else if (section === 'results' && currentUserType === 'admin') {
+            renderResults();
+        } else if (section === 'scorers') {
+            renderScorers();
+        } else if (section === 'standings') {
+            renderStandings();
+        } else if (section === 'coaches' && currentUserType === 'admin') {
+            renderCoachesManagement();
+        } else if (section === 'myteam' && currentUserType === 'coach') {
+            renderMyTeam();
+        } else if (section === 'settings' && currentUserType === 'admin') {
+            renderSettings();
+        } else {
+            renderDashboard();
         }
     }
+    
+    function openModal(content) {
+        document.getElementById('modalContent').innerHTML = content;
+        document.getElementById('modalOverlay').classList.add('active');
+    }
+    
+    function closeModal() {
+        document.getElementById('modalOverlay').classList.remove('active');
+    }
+    
+    document.getElementById('modalOverlay').addEventListener('click', function(e) {
+        if (e.target === document.getElementById('modalOverlay')) {
+            closeModal();
+        }
+    });
     
     // ==================== دوال المودال ====================
     function openModal(content) {
