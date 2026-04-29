@@ -39,17 +39,27 @@
     
     <script>
         window.addEventListener('load', async function () {
-            await window.Clerk.load();
-            document.getElementById('loading').classList.add('hidden');
+            try {
+                console.log("جاري تحميل Clerk...");
+                await window.Clerk.load();
+                document.getElementById('loading').classList.add('hidden');
 
-            if (window.Clerk.user) {
-                // إذا المدرب مسجل دخول، نظهر له لوحة التحكم
-                document.getElementById('dashboard').classList.remove('hidden');
-                window.Clerk.mountUserButton(document.getElementById('user-button'));
-            } else {
-                // إذا لم يسجل دخول، نظهر له واجهة Clerk الاحترافية
-                document.getElementById('app').classList.remove('hidden');
-                window.Clerk.mountSignIn(document.getElementById('app'));
+                if (window.Clerk.user) {
+                    document.getElementById('dashboard').classList.remove('hidden');
+                    window.Clerk.mountUserButton(document.getElementById('user-button'));
+                } else {
+                    document.getElementById('app').classList.remove('hidden');
+                    window.Clerk.mountSignIn(document.getElementById('app'));
+                }
+            } catch (error) {
+                console.error("خطأ فادح في التحميل:", error);
+                document.getElementById('loading').innerHTML = `
+                    <div class="bg-red-900/50 p-6 rounded-xl border border-red-500">
+                        <p class="text-red-200 font-bold mb-2">حدث خطأ في الاتصال!</p>
+                        <p class="text-sm text-gray-300 mb-4">${error.message}</p>
+                        <button onclick="location.reload()" class="bg-red-500 px-6 py-2 rounded-lg font-bold">أعد المحاولة</button>
+                    </div>
+                `;
             }
         });
     </script>
