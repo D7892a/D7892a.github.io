@@ -946,18 +946,25 @@
         currentSection = section;
         buildSidebar();
         
+        const mainContent = document.getElementById('mainContent');
+        if (!mainContent) return;
+        
+        mainContent.innerHTML = '<div class="loading"><i class="fas fa-spinner"></i><p>جاري التحميل...</p></div>';
+        
         switch(section) {
             case 'dashboard':
                 renderDashboard();
                 break;
             case 'teams':
                 if (currentUserType === 'admin') renderTeamsManagement();
+                else renderDashboard();
                 break;
             case 'matches':
                 renderMatches();
                 break;
             case 'results':
                 if (currentUserType === 'admin') renderResults();
+                else renderDashboard();
                 break;
             case 'scorers':
                 renderScorers();
@@ -967,13 +974,18 @@
                 break;
             case 'coaches':
                 if (currentUserType === 'admin') renderCoachesManagement();
+                else renderDashboard();
                 break;
             case 'myteam':
                 if (currentUserType === 'coach') renderMyTeam();
+                else renderDashboard();
                 break;
             case 'settings':
                 if (currentUserType === 'admin') renderSettings();
+                else renderDashboard();
                 break;
+            default:
+                renderDashboard();
         }
     }
     
