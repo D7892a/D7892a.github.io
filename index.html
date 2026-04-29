@@ -3,45 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تسجيل دخول المدربين</title>
+    <title>بوابة المدربين | كأس شهداء المنصورية</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-slate-900 text-white h-screen flex flex-col items-center justify-center">
+<body class="bg-slate-900 text-white min-h-screen flex flex-col items-center justify-center p-4">
 
-    <div class="text-center mb-8">
-        <h1 class="text-3xl font-black text-yellow-500">بوابة المدربين</h1>
-        <p class="text-gray-400">بطولة كأس شهداء المنصورية</p>
-    </div>
-
-    <div id="app" class="bg-white p-4 rounded-xl shadow-2xl">
+    <div id="loginScreen" class="w-full max-w-md">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-black text-yellow-500">كأس شهداء المنصورية 🏆</h1>
+            <p class="text-gray-400 mt-2">بوابة تسجيل الفرق واللاعبين</p>
         </div>
 
-    <script 
-        async crossorigin="anonymous" 
-        data-clerk-publishable-key="pk_test_bWludC1zZWFzbXFpbC0zNS5jbGVyay5hY2NvdW50cy5kZXYk" 
-        src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@4/dist/clerk.browser.js">
-    </script>
-    
-    <script>
-        window.addEventListener('load', async function () {
-            await window.Clerk.load();
+        <div class="bg-slate-800 p-8 rounded-3xl shadow-2xl border border-yellow-600/30">
+            <h2 class="text-xl font-bold mb-6 text-center">أدخل رمز الفريق</h2>
+            <input type="text" id="teamCode" placeholder="مثال: 1234" 
+                   class="w-full p-4 rounded-xl bg-slate-900 border border-slate-700 text-white mb-4 text-center text-2xl tracking-widest focus:border-yellow-500 focus:outline-none">
             
-            if (window.Clerk.user) {
-                // إذا المدرب مسجل دخول
-                document.getElementById('app').innerHTML = `
-                    <div class="text-center text-black">
-                        <h2 class="text-xl font-bold mb-4">أهلاً كابتن! تم تسجيل الدخول</h2>
-                        <div id="user-button" class="flex justify-center"></div>
-                    </div>
-                `;
-                // عرض زر حساب المستخدم
-                window.Clerk.mountUserButton(document.getElementById('user-button'));
-            } else {
-                // إذا المدرب مممسجل دخول، نعرضله واجهة الدخول
-                window.Clerk.mountSignIn(document.getElementById('app'));
-            }
-        });
-    </script>
+            <button onclick="checkLogin()" class="bg-yellow-600 hover:bg-yellow-500 w-full py-4 rounded-xl font-black text-slate-900 text-lg transition">
+                دخول للمنصة
+            </button>
+            <p id="errorMsg" class="text-red-500 text-sm mt-4 text-center hidden font-bold">❌ الرمز غير صحيح!</p>
+        </div>
+    </div>
 
+    <div id="dashboardScreen" class="w-full max-w-3xl hidden">
+        <div class="flex justify-between items-center mb-6 border-b border-gray-700 pb-4">
+            <div>
+                <h2 class="text-2xl font-black text-yellow-500">لوحة إدارة الفريق</h2>
+                <p id="teamNameDisplay" class="text-gray-400">أهلاً كابتن</p>
+            </div>
+            <button onclick="logout()" class="bg-red-600 px-4 py-2 rounded-lg font-bold">خروج</button>
+        </div>
+
+        <div class="bg-slate-800 p-6 rounded-2xl border border-gray-700 mb-6">
+            <h3 class="font-bold mb-4">➕ إضافة لاعب جديد للقائمة</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <input type="text" id="playerName" placeholder="اسم اللاعب الثلاثي" class="p-3 rounded-lg bg-slate-900 border border-slate-600">
+                <select id="playerPosition" class="p-3 rounded-lg bg-slate-900 border border-slate-600">
+                    <option value="حارس مرمى">حارس مرمى</option>
+                    <option value="دفاع">دفاع</option>
+                    <option value="وسط">وسط</option>
+                    <option value="هجوم">هجوم</option>
+                </select>
+                <input type="number" id="playerNumber" placeholder="رقم القميص" class="p-3 rounded-lg bg-slate-900 border border-slate-600">
+            </div>
+            <button onclick="addPlayer()" class="mt-4 bg-green-600 w-full py-3 rounded-xl font-black">حفظ اللاعب</button>
+        </div>
+
+        <div>
+            <h3 class="font-bold mb-3 text-yellow-500">📋 تشكيلة الفريق:</h3>
+            <div id="playersList" class="space-y-2">
+                </div>
+        </div>
+    </div>
+
+    <script>
+        // الرموز السرية للفرق (أنت كمدير تحددها)
+        const teams = {
+            '1234': 'فريق تحدي المنصورية',
+            '5050': 'فريق الجوية'
+        };
+
+        let currentTeam = '';
+
+        function checkLogin() {
+            const code = document.getElementById('teamCode').value;
+            
+            if (teams[code]) {
+                // الكود صحيح
+                currentTeam = teams[code];
+                document.getElementById('loginScreen').classList.add('hidden');
+                document.getElementById('dashboardScreen').classList.remove('hidden');
+                document.getElementById('teamNameDisplay').innerText = `أهلاً بك مدرب ${currentTeam}`;
+            } else {
+                // الكود خطأ
+                document.getElementById('errorMsg').classList.remove('hidden');
+            }
+        }
+
+        function logout() {
+            document.getElementById('dashboardScreen').classList.add('hidden');
+            document.getElementById('loginScreen').classList.remove('hidden');
+            document.getElementById('teamCode').value = '';
+        }
+
+        function addPlayer() {
+            const name = document.getElementById('playerName').value;
+            const pos = document.getElementById('playerPosition').value;
+            const num = document.getElementById('playerNumber').value;
+
+            if(!name || !num) return alert('الرجاء إدخال اسم ورقم اللاعب');
+
+            const list = document.getElementById('playersList');
+            list.innerHTML += `
+                <div class="bg-slate-800 p-3 rounded-lg flex justify-between items-center border-r-4 border-yellow-500">
+                    <span class="font-bold">${name}</span>
+                    <div class="space-x-4 space-x-reverse text-sm text-gray-400">
+                        <span>المركز: ${pos}</span>
+                        <span class="bg-slate-900 px-2 py-1 rounded">رقم: ${num}</span>
+                    </div>
+                </div>
+            `;
+            
+            // تفريغ الحقول بعد الإضافة
+            document.getElementById('playerName').value = '';
+            document.getElementById('playerNumber').value = '';
+        }
+    </script>
 </body>
 </html>
