@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الهيئة العامة للرعاية الاجتماعية | الاستعلام الإلكتروني</title>
+    <title>SpeedTest عراقي | قياس سرعة الإنترنت بدقة</title>
     <style>
         * {
             margin: 0;
@@ -13,333 +13,433 @@
 
         body {
             font-family: 'Segoe UI', 'Tahoma', system-ui, sans-serif;
-            background: linear-gradient(135deg, #e8f0fe 0%, #d4e4fc 100%);
-            color: #1a2c3e;
-            padding: 1.5rem;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
             min-height: 100vh;
+            padding: 2rem 1rem;
         }
 
-        /* الحاوية الرئيسية */
         .container {
-            max-width: 1300px;
+            max-width: 1100px;
             margin: 0 auto;
-            background: white;
+        }
+
+        /* بطاقة القياس الرئيسية */
+        .speed-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
             border-radius: 2rem;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 25px 45px rgba(0,0,0,0.3);
         }
 
-        /* الرأس */
-        .header {
-            background: #0a4b7a;
-            padding: 1.5rem 2rem;
+        .title {
+            text-align: center;
             color: white;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
+            margin-bottom: 2rem;
         }
 
-        .logo h1 {
-            font-size: 1.6rem;
+        .title h1 {
+            font-size: 2rem;
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 10px;
         }
 
-        .logo span {
-            background: #ffc107;
-            color: #0a4b7a;
-            padding: 4px 12px;
-            border-radius: 30px;
-            font-size: 0.8rem;
-            font-weight: bold;
+        .title p {
+            color: #aaa;
+            margin-top: 0.5rem;
         }
 
-        .badge {
-            background: #ff9800;
-            padding: 6px 14px;
-            border-radius: 40px;
-            font-weight: bold;
-        }
-
-        /* شريط التنقل */
-        .navbar {
-            background: #f5f9ff;
-            padding: 0.8rem 2rem;
-            border-bottom: 1px solid #cbdde9;
-            display: flex;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-        }
-
-        .navbar a {
-            text-decoration: none;
-            color: #0a4b7a;
-            font-weight: bold;
-            padding: 0.4rem 0;
-            transition: 0.2s;
-        }
-
-        .navbar a:hover {
-            color: #ff9800;
-            border-bottom: 2px solid #ff9800;
-        }
-
-        /* محتوى البحث */
-        .content {
+        /* عداد السرعة */
+        .speed-gauge {
+            text-align: center;
             padding: 2rem;
-        }
-
-        .search-card {
-            background: #f0f6fe;
+            background: rgba(0,0,0,0.3);
             border-radius: 1.5rem;
-            padding: 2rem;
             margin-bottom: 2rem;
-            border: 1px solid #bfd9f0;
         }
 
-        .search-title {
-            font-size: 1.6rem;
-            margin-bottom: 1.5rem;
-            color: #0a4b7a;
-            border-right: 6px solid #ff9800;
-            padding-right: 1rem;
-        }
-
-        .form-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.2rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group {
-            flex: 1;
-            min-width: 180px;
-        }
-
-        label {
-            display: block;
+        .speed-number {
+            font-size: 4rem;
             font-weight: bold;
-            margin-bottom: 0.4rem;
-            color: #1e4663;
+            color: #00ff88;
         }
 
-        input, select {
-            width: 100%;
-            padding: 0.8rem 1rem;
-            border-radius: 1rem;
-            border: 1px solid #bdd4ec;
-            font-family: inherit;
-            font-size: 0.95rem;
-            background: white;
-            transition: 0.2s;
+        .speed-unit {
+            font-size: 1.2rem;
+            color: #ccc;
         }
 
-        input:focus, select:focus {
-            border-color: #ff9800;
-            outline: none;
-            box-shadow: 0 0 0 2px #ffd699;
-        }
-
-        button {
-            background: #0a4b7a;
-            color: white;
-            border: none;
-            padding: 0.8rem 2rem;
-            border-radius: 2rem;
+        .speed-label {
             font-size: 1rem;
+            color: #aaa;
+            margin-top: 0.5rem;
+        }
+
+        /* أزرار القياس */
+        .test-btn {
+            background: linear-gradient(45deg, #00b4db, #0083b0);
+            border: none;
+            color: white;
+            padding: 1rem 2rem;
+            font-size: 1.3rem;
             font-weight: bold;
+            border-radius: 3rem;
             cursor: pointer;
-            transition: 0.2s;
             width: 100%;
+            transition: transform 0.2s;
         }
 
-        button:hover {
-            background: #ff9800;
-            transform: translateY(-2px);
+        .test-btn:hover {
+            transform: scale(1.02);
         }
 
-        /* بطاقات الخدمات */
-        .services {
-            display: flex;
-            flex-wrap: wrap;
+        .test-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* مؤشر التقدم */
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(45deg, #00ff88, #00b4db);
+            transition: width 0.3s;
+        }
+
+        /* نتائج التحليل */
+        .analysis-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
             margin: 2rem 0;
         }
 
-        .service-card {
-            background: #ffffff;
+        .analysis-card {
+            background: rgba(0,0,0,0.4);
             border-radius: 1.2rem;
-            padding: 1.5rem;
-            flex: 1;
-            min-width: 180px;
-            box-shadow: 0 5px 12px rgba(0,0,0,0.05);
-            border: 1px solid #dfebf5;
-            text-align: center;
-            transition: 0.2s;
+            padding: 1.2rem;
+            border-right: 4px solid #00b4db;
         }
 
-        .service-card:hover {
-            transform: translateY(-5px);
-            border-color: #ff9800;
+        .analysis-card h3 {
+            color: #00b4db;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .service-icon {
-            font-size: 2.5rem;
+        .analysis-card p {
+            color: #ddd;
+            line-height: 1.6;
         }
 
-        .service-card h3 {
-            margin: 0.8rem 0;
-            color: #0a4b7a;
-        }
+        .good { color: #00ff88; }
+        .medium { color: #ffaa00; }
+        .bad { color: #ff4444; }
 
-        /* نتائج البحث (مثل search.aspx) */
-        .results-area {
-            background: #fef9e6;
-            border-radius: 1.5rem;
-            padding: 1.5rem;
-            margin-top: 2rem;
-            border: 1px solid #ffe0a3;
-        }
-        .result-item {
-            background: white;
-            padding: 1rem;
+        /* معلومات الاتصال */
+        .connection-info {
+            background: rgba(0,0,0,0.4);
             border-radius: 1rem;
-            margin-bottom: 1rem;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 1rem;
+            margin-top: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 1rem;
         }
 
-        .footer {
-            background: #102b3f;
-            color: #bcd3e8;
+        .info-item {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .info-label {
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        .info-value {
+            font-size: 1.1rem;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        footer {
             text-align: center;
-            padding: 1.5rem;
-            font-size: 0.85rem;
+            color: #666;
+            padding: 2rem;
+            font-size: 0.8rem;
         }
 
         @media (max-width: 700px) {
-            body { padding: 0.8rem; }
-            .content { padding: 1rem; }
+            .speed-number { font-size: 2.5rem; }
+            .title h1 { font-size: 1.3rem; }
         }
     </style>
 </head>
 <body>
+    <div class="container">
+        <div class="speed-card">
+            <div class="title">
+                <h1>🚀 SpeedTest عراقي | قياس حقيقي للسرعة</h1>
+                <p>اختبار دقيق لسرعة التحميل والرفع وجودة الاتصال</p>
+            </div>
 
-<div class="container">
-    <!-- رأس الموقع -->
-    <div class="header">
-        <div class="logo">
-            <h1>🇮🇶 الهيئة العامة للرعاية الاجتماعية <span>الاستعلام الإلكتروني</span></h1>
-        </div>
-        <div class="badge">خدمة المواطن أولاً</div>
-    </div>
+            <div class="speed-gauge">
+                <div class="speed-number" id="speedValue">--</div>
+                <div class="speed-unit" id="speedUnit">Mbps</div>
+                <div class="speed-label" id="speedType">اضغط زر الاختبار لبدء القياس</div>
+                <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+            </div>
 
-    <!-- شريط التنقل -->
-    <div class="navbar">
-        <a href="#">الرئيسية</a>
-        <a href="#">الاستعلام عن مخصصات</a>
-        <a href="#">تقديم طلب</a>
-        <a href="#">دليل المستفيدين</a>
-        <a href="#">اتصل بنا</a>
-    </div>
+            <button class="test-btn" id="startTestBtn">▶ ابدأ اختبار السرعة</button>
 
-    <div class="content">
-        <!-- قسم البحث الرئيسي (محاكي search.aspx) -->
-        <div class="search-card">
-            <div class="search-title">📋 نظام الاستعلام عن معاملات الرعاية الاجتماعية</div>
-            <form id="searchForm">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>رقم الهوية الوطنية</label>
-                        <input type="text" id="nationalId" placeholder="مثال: 12345678901">
-                    </div>
-                    <div class="form-group">
-                        <label>المحافظة</label>
-                        <select id="gov">
-                            <option>جميع المحافظات</option>
-                            <option>بغداد</option><option>البصرة</option><option>نينوى</option>
-                            <option>أربيل</option><option>السليمانية</option><option>دهوك</option>
-                            <option>كركوك</option><option>صلاح الدين</option><option>الأنبار</option>
-                            <option>بابل</option><option>واسط</option><option>ذي قار</option>
-                            <option>ميسان</option><option>النجف</option><option>كربلاء</option>
-                            <option>القادسية</option><option>المثنى</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>نوع المعاملة</label>
-                        <select id="type">
-                            <option>الكل</option>
-                            <option>معاش الرعاية الاجتماعية</option>
-                            <option>بطاقة التمكين</option>
-                            <option>إعانة ذوي الإعاقة</option>
-                            <option>إعانة الأيتام</option>
-                            <option>دعم الطلبة</option>
-                        </select>
-                    </div>
-                </div>
-                <button type="button" id="searchBtn">🔍 استعلام</button>
-            </form>
-        </div>
-
-        <!-- خدمات سريعة -->
-        <div class="services">
-            <div class="service-card"><div class="service-icon">🆔</div><h3>الاستعلام عن المعاش</h3><p>تفاصيل الراتب والمستحقات</p></div>
-            <div class="service-card"><div class="service-icon">📄</div><h3>تقديم طلب جديد</h3><p>التسجيل في برامج الدعم</p></div>
-            <div class="service-card"><div class="service-icon">♿</div><h3>خدمات ذوي الإعاقة</h3><p>الإعانات والخدمات</p></div>
-            <div class="service-card"><div class="service-icon">📞</div><h3>الخط الساخن</h3><p>159 - خدمة المستفيدين</p></div>
-        </div>
-
-        <!-- منطقة عرض النتائج (محاكية لـ search.aspx) -->
-        <div class="results-area" id="resultsArea">
-            <h3 style="display:flex; align-items:center; gap:8px;">📌 آخر الاستعلامات والنتائج</h3>
-            <div id="resultsList">
-                <div class="result-item"><strong>رقم الهوية: *****12345</strong> - معاش الرعاية الاجتماعية: 150,000 دينار (دفعة شهر نيسان) - حالة الطلب: مكتمل</div>
-                <div class="result-item"><strong>بطاقة التمكين:</strong> تم إصدار البطاقة لمستفيدي البصرة والموصل، استلمها من مركز التوزيع.</div>
-                <div class="result-item"><strong>إعانة الأيتام:</strong> تم صرف الدعم لشهر أيار يوم 2025-05-05.</div>
+            <!-- معلومات الاتصال -->
+            <div class="connection-info" id="connectionInfo">
+                <div class="info-item"><div class="info-label">🌐 نوع الاتصال</div><div class="info-value" id="connType">--</div></div>
+                <div class="info-item"><div class="info-label">📍 مزود الخدمة (ISP)</div><div class="info-value" id="ispInfo">--</div></div>
+                <div class="info-item"><div class="info-label">📡 عنوان IP</div><div class="info-value" id="ipInfo">--</div></div>
+                <div class="info-item"><div class="info-label">📶 البينغ (Ping)</div><div class="info-value" id="pingInfo">-- ms</div></div>
             </div>
         </div>
+
+        <!-- تحليل النتائج والتوصيات -->
+        <div class="analysis-section" id="analysisSection">
+            <!-- سيتم ملؤها ديناميكياً -->
+        </div>
+
+        <footer>
+            ⚡ اختبار حقيقي يعتمد على تحميل ملف عشوائي | النتائج تقريبية وتعكس أداء الشبكة لحظة الاختبار
+        </footer>
     </div>
 
-    <div class="footer">
-        © 2025 الهيئة العامة للرعاية الاجتماعية - جمهورية العراق | مركز البيانات والاستعلامات الإلكترونية
-    </div>
-</div>
+    <script>
+        // قياس السرعة بشكل حقيقي باستخدام تحميل ملف عشوائي
+        let isTesting = false;
 
-<script>
-    // وظيفة البحث (محاكاة استعلام الرعاية الاجتماعية)
-    document.getElementById('searchBtn').addEventListener('click', function() {
-        const nationalNumber = document.getElementById('nationalId').value;
-        const gov = document.getElementById('gov').value;
-        const requestType = document.getElementById('type').value;
+        const speedValueEl = document.getElementById('speedValue');
+        const speedUnitEl = document.getElementById('speedUnit');
+        const speedTypeEl = document.getElementById('speedType');
+        const progressFill = document.getElementById('progressFill');
+        const startBtn = document.getElementById('startTestBtn');
+        const pingInfoEl = document.getElementById('pingInfo');
 
-        let resultMsg = '';
-
-        if (nationalNumber.trim() === "") {
-            resultMsg = `<div class="result-item"><strong>⚠️ يرجى إدخال رقم هوية صالح للاستعلام.</strong></div>`;
-        } else {
-            // محاكاة قاعدة بيانات الرعاية الاجتماعية
-            resultMsg = `<div class="result-item">
-                <strong>✅ نتيجة الاستعلام للهوية: ${nationalNumber}</strong><br>
-                🏛️ المحافظة: ${gov}<br>
-                📂 نوع المعاملة: ${requestType}<br>
-                💰 المبلغ المستحق: 165,000 دينار عراقي <br>
-                📅 تاريخ الصرف القادم: 2025-05-20 <br>
-                🟢 حالة الأهلية: مؤهل (يستحق الدعم)
-                </div>`;
-            
-            if (requestType === "بطاقة التمكين") {
-                resultMsg += `<div class="result-item">🎫 تم إصدار بطاقة التمكين الإلكترونية، يمكنك طباعتها من أقرب مركز خدمة.</div>`;
-            } else if (requestType === "إعانة ذوي الإعاقة") {
-                resultMsg += `<div class="result-item">♿ إعانة الإعاقة الشهرية: 125,000 دينار + الخدمات الصحية المجانية.</div>`;
+        // جلب معلومات الاتصال الحقيقية
+        async function getConnectionInfo() {
+            try {
+                // جلب IP والموقع التقريبي
+                const ipRes = await fetch('https://api.ipify.org?format=json');
+                const ipData = await ipRes.json();
+                document.getElementById('ipInfo').innerText = ipData.ip;
+                
+                // جلب معلومات ISP (تقريبية)
+                const geoRes = await fetch(`https://ipapi.co/${ipData.ip}/json/`);
+                const geoData = await geoRes.json();
+                document.getElementById('ispInfo').innerText = geoData.org || geoData.asn || 'غير معروف';
+                document.getElementById('connType').innerText = navigator.connection ? 
+                    (navigator.connection.effectiveType || 'غير معروف') : 'غير مدعوم';
+            } catch(e) {
+                document.getElementById('ipInfo').innerText = 'غير متاح';
+                document.getElementById('ispInfo').innerText = 'غير متاح';
             }
         }
 
-        // عرض النتائج مع تاريخ الاستعلام
-        document.getElementById('resultsList').innerHTML = `<div class="result-item" style="background:#e9f0f9;">📅 نتيجة الاستعلام (${new Date().toLocaleString()})</div>` + resultMsg;
-    });
-</script>
+        // قياس Ping
+        async function measurePing() {
+            const start = performance.now();
+            try {
+                await fetch('https://api.ipify.org?format=json', { cache: 'no-store' });
+                const end = performance.now();
+                return Math.round(end - start);
+            } catch(e) {
+                return null;
+            }
+        }
+
+        // قياس سرعة التحميل (Download)
+        async function measureDownloadSpeed() {
+            const testFile = 'https://speed.cloudflare.com/__down?bytes='; // ملف اختبار عشوائي
+            const sizes = [500000, 1000000, 2000000]; // بايت (0.5MB, 1MB, 2MB)
+            let totalBits = 0;
+            let totalTime = 0;
+            
+            for(let size of sizes) {
+                const url = testFile + size + '&cache=' + Date.now();
+                const startTime = performance.now();
+                try {
+                    const response = await fetch(url, { cache: 'no-store' });
+                    const data = await response.arrayBuffer();
+                    const endTime = performance.now();
+                    const duration = (endTime - startTime) / 1000; // ثواني
+                    const bitsLoaded = size * 8;
+                    totalBits += bitsLoaded;
+                    totalTime += duration;
+                    
+                    // تحديث进度
+                    const progress = ((sizes.indexOf(size) + 1) / sizes.length) * 50;
+                    progressFill.style.width = progress + '%';
+                } catch(e) {
+                    console.error('خطأ في القياس', e);
+                }
+            }
+            
+            if(totalTime > 0) {
+                const speedMbps = (totalBits / totalTime) / 1000000;
+                return Math.round(speedMbps * 10) / 10;
+            }
+            return 0;
+        }
+
+        // قياس سرعة الرفع (Upload)
+        async function measureUploadSpeed() {
+            const uploadUrl = 'https://httpbin.org/post';
+            const testData = new ArrayBuffer(500000); // 0.5MB
+            const startTime = performance.now();
+            
+            try {
+                await fetch(uploadUrl, {
+                    method: 'POST',
+                    body: testData,
+                    cache: 'no-store'
+                });
+                const endTime = performance.now();
+                const duration = (endTime - startTime) / 1000;
+                const bitsLoaded = 500000 * 8;
+                const speedMbps = (bitsLoaded / duration) / 1000000;
+                return Math.round(speedMbps * 10) / 10;
+            } catch(e) {
+                return 0;
+            }
+        }
+
+        // تحليل النتائج وتقديم التوصيات
+        function analyzeResults(downloadSpeed, uploadSpeed, pingMs) {
+            const analysisDiv = document.getElementById('analysisSection');
+            
+            let downloadClass = downloadSpeed >= 25 ? 'good' : (downloadSpeed >= 10 ? 'medium' : 'bad');
+            let uploadClass = uploadSpeed >= 10 ? 'good' : (uploadSpeed >= 5 ? 'medium' : 'bad');
+            let pingClass = pingMs <= 50 ? 'good' : (pingMs <= 100 ? 'medium' : 'bad');
+            
+            let videoQuality = '';
+            if(downloadSpeed >= 25) videoQuality = '4K فائقة الدقة (Ultra HD)';
+            else if(downloadSpeed >= 10) videoQuality = 'Full HD 1080p';
+            else if(downloadSpeed >= 5) videoQuality = 'HD 720p';
+            else if(downloadSpeed >= 2) videoQuality = '480p';
+            else videoQuality = '144p - 360p (ضعيفة جداً)';
+            
+            let youtubeUpload = '';
+            if(uploadSpeed >= 20) youtubeUpload = 'رفع 4K بسرعة ممتازة';
+            else if(uploadSpeed >= 10) youtubeUpload = 'رفع 1080p بسرعة جيدة';
+            else if(uploadSpeed >= 5) youtubeUpload = 'رفع 720p متوسط';
+            else if(uploadSpeed >= 2) youtubeUpload = 'رفع 480p بطيء';
+            else uploadSpeed = 'رفع الفيديو صعب بهذه السرعة';
+            
+            let gaming = '';
+            if(pingMs <= 30) gaming = '🎮 ألعاب تنافسية ممتازة (بدون تأخير)';
+            else if(pingMs <= 60) gaming = '🎮 ألعاب جيدة (تأخير بسيط)';
+            else if(pingMs <= 100) gaming = '🎮 ألعاب مقبولة (تأخير ملحوظ)';
+            else gaming = '🎮 ألعاب صعبة (تأخير عالي)';
+            
+            let banking = downloadSpeed >= 1 ? '✅ مناسب للتعاملات البنكية' : '⚠️ تحذير: السرعة ضعيفة جداً للبنوك';
+            
+            let reason = '';
+            if(downloadSpeed < 5) reason = '• ربما تكون متصلاً عبر الجوال أو شبكة مزدحمة<br>• جرب استخدام كابل Ethernet بدلاً من الواي فاي<br>• أعد تشغيل الراوتر';
+            else if(downloadSpeed < 15) reason = '• شبكة مقبولة لكن قد تتأثر وقت الذروة<br>• جرب تغيير قناة الواي فاي';
+            else reason = '• سرعة ممتازة تناسب جميع الاستخدامات';
+            
+            analysisDiv.innerHTML = `
+                <div class="analysis-card">
+                    <h3>📺 جودة الفيديو التي يمكنك مشاهدتها</h3>
+                    <p class="${downloadClass}">${videoQuality}</p>
+                    <p style="font-size:0.85rem; margin-top:0.5rem;">سرعة التحميل: ${downloadSpeed} Mbps</p>
+                </div>
+                <div class="analysis-card">
+                    <h3>⬆️ رفع فيديو ليوتيوب</h3>
+                    <p class="${uploadClass}">${youtubeUpload}</p>
+                    <p style="font-size:0.85rem;">سرعة الرفع: ${uploadSpeed} Mbps</p>
+                </div>
+                <div class="analysis-card">
+                    <h3>🎮 الألعاب عبر الإنترنت</h3>
+                    <p class="${pingClass}">${gaming}</p>
+                    <p style="font-size:0.85rem;">البينغ: ${pingMs} ms</p>
+                </div>
+                <div class="analysis-card">
+                    <h3>🏦 التعاملات البنكية</h3>
+                    <p>${banking}</p>
+                </div>
+                <div class="analysis-card">
+                    <h3>🔧 سبب ضعف السرعة (إن وجد)</h3>
+                    <p style="color:#ffaa00; font-size:0.9rem;">${reason}</p>
+                </div>
+            `;
+        }
+
+        // الاختبار الرئيسي
+        async function runSpeedTest() {
+            if(isTesting) return;
+            isTesting = true;
+            startBtn.disabled = true;
+            startBtn.innerText = '🔄 جاري قياس السرعة...';
+            progressFill.style.width = '0%';
+            speedValueEl.innerText = '--';
+            speedTypeEl.innerText = 'جاري قياس البينغ...';
+            
+            // قياس Ping أولاً
+            const ping = await measurePing();
+            pingInfoEl.innerText = ping ? ping : '--';
+            
+            speedTypeEl.innerText = 'جاري قياس سرعة التحميل...';
+            progressFill.style.width = '10%';
+            
+            const downloadSpeed = await measureDownloadSpeed();
+            speedValueEl.innerText = downloadSpeed;
+            speedUnitEl.innerText = 'Mbps';
+            speedTypeEl.innerText = 'جاري قياس سرعة الرفع...';
+            progressFill.style.width = '60%';
+            
+            const uploadSpeed = await measureUploadSpeed();
+            progressFill.style.width = '100%';
+            
+            speedValueEl.innerText = downloadSpeed;
+            speedTypeEl.innerText = `تحميل: ${downloadSpeed} Mbps | رفع: ${uploadSpeed} Mbps`;
+            
+            // تحليل وتقديم النتائج
+            analyzeResults(downloadSpeed, uploadSpeed, ping || 0);
+            
+            startBtn.disabled = false;
+            startBtn.innerText = '▶ ابدأ اختبار السرعة';
+            isTesting = false;
+            
+            setTimeout(() => { progressFill.style.width = '0%'; }, 1000);
+        }
+        
+        // جلب معلومات الاتصال عند التحميل
+        getConnectionInfo();
+        
+        // ربط زر الاختبار
+        startBtn.addEventListener('click', runSpeedTest);
+        
+        // عرض نوع الاتصال بشكل ديناميكي إذا كان المدعوم
+        if(navigator.connection) {
+            navigator.connection.addEventListener('change', () => {
+                document.getElementById('connType').innerText = navigator.connection.effectiveType || 'غير معروف';
+            });
+        }
+    </script>
 </body>
 </html>
