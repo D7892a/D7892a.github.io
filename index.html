@@ -2,8 +2,8 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SpeedTest عراقي | قياس سرعة الإنترنت بدقة</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>أحمد رعد | Speed Test Pro - قياس سرعة الإنترنت بدقة عالية</title>
     <style>
         * {
             margin: 0;
@@ -12,101 +12,146 @@
         }
 
         body {
-            font-family: 'Segoe UI', 'Tahoma', system-ui, sans-serif;
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            font-family: 'Poppins', 'Segoe UI', 'Tahoma', system-ui, sans-serif;
+            background: radial-gradient(circle at 20% 30%, #0a0f1e, #05070f);
             min-height: 100vh;
-            padding: 2rem 1rem;
+            padding: 1.5rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* تأثير خلفية متحرك */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                repeating-linear-gradient(90deg, rgba(0,255,136,0.03) 0px, rgba(0,255,136,0.03) 1px, transparent 1px, transparent 100px),
+                repeating-linear-gradient(0deg, rgba(0,255,136,0.03) 0px, rgba(0,255,136,0.03) 1px, transparent 1px, transparent 100px);
+            pointer-events: none;
+            z-index: 0;
         }
 
         .container {
-            max-width: 1100px;
+            max-width: 1300px;
             margin: 0 auto;
+            position: relative;
+            z-index: 2;
         }
 
-        /* بطاقة القياس الرئيسية */
+        /* بطاقة القياس الرئيسية - بتأثير زجاجي قوي */
         .speed-card {
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 2rem;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            border: 1px solid rgba(255,255,255,0.2);
-            box-shadow: 0 25px 45px rgba(0,0,0,0.3);
+            background: rgba(12, 20, 30, 0.65);
+            backdrop-filter: blur(16px);
+            border-radius: 3rem;
+            padding: 2.5rem;
+            border: 1px solid rgba(0, 255, 136, 0.25);
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,255,136,0.1);
+            transition: all 0.3s;
         }
 
-        .title {
-            text-align: center;
-            color: white;
-            margin-bottom: 2rem;
-        }
-
-        .title h1 {
-            font-size: 2rem;
+        /* رأس الموقع مع اسم المطور */
+        .header {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            gap: 10px;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(0,255,136,0.2);
         }
 
-        .title p {
+        .logo h1 {
+            font-size: 1.6rem;
+            background: linear-gradient(135deg, #fff, #00ff88);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .logo p {
+            font-size: 0.7rem;
+            color: #00ff88aa;
+            letter-spacing: 1px;
+        }
+
+        .dev-badge {
+            background: rgba(0,255,136,0.1);
+            padding: 0.4rem 1.2rem;
+            border-radius: 2rem;
+            border-right: 2px solid #00ff88;
+        }
+
+        .dev-badge span {
+            color: #00ff88;
+            font-weight: bold;
+        }
+
+        .dev-badge small {
             color: #aaa;
-            margin-top: 0.5rem;
+            font-size: 0.7rem;
         }
 
-        /* عداد السرعة */
+        /* عداد السرعة الرئيسي - أنيميشن */
         .speed-gauge {
             text-align: center;
-            padding: 2rem;
+            padding: 2rem 1rem;
             background: rgba(0,0,0,0.3);
-            border-radius: 1.5rem;
+            border-radius: 2rem;
             margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .speed-gauge::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0,255,136,0.05) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         .speed-number {
-            font-size: 4rem;
-            font-weight: bold;
-            color: #00ff88;
+            font-size: 5.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff, #00ff88);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 30px rgba(0,255,136,0.3);
+            position: relative;
+            z-index: 2;
         }
 
         .speed-unit {
-            font-size: 1.2rem;
-            color: #ccc;
+            font-size: 1.5rem;
+            color: #00ff88;
+            font-weight: bold;
         }
 
         .speed-label {
-            font-size: 1rem;
             color: #aaa;
             margin-top: 0.5rem;
+            font-size: 0.9rem;
         }
 
-        /* أزرار القياس */
-        .test-btn {
-            background: linear-gradient(45deg, #00b4db, #0083b0);
-            border: none;
-            color: white;
-            padding: 1rem 2rem;
-            font-size: 1.3rem;
-            font-weight: bold;
-            border-radius: 3rem;
-            cursor: pointer;
+        /* مؤشر التقدم ثلاثي الأبعاد */
+        .progress-container {
             width: 100%;
-            transition: transform 0.2s;
-        }
-
-        .test-btn:hover {
-            transform: scale(1.02);
-        }
-
-        .test-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        /* مؤشر التقدم */
-        .progress-bar {
-            width: 100%;
-            height: 8px;
-            background: rgba(255,255,255,0.2);
+            height: 10px;
+            background: rgba(255,255,255,0.1);
             border-radius: 10px;
             margin: 1.5rem 0;
             overflow: hidden;
@@ -115,331 +160,351 @@
         .progress-fill {
             width: 0%;
             height: 100%;
-            background: linear-gradient(45deg, #00ff88, #00b4db);
-            transition: width 0.3s;
+            background: linear-gradient(90deg, #00ff88, #00b4db);
+            border-radius: 10px;
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px #00ff88;
         }
 
-        /* نتائج التحليل */
-        .analysis-section {
+        /* زر الاختبار القوي */
+        .test-btn {
+            background: linear-gradient(135deg, #00ff88, #00b4db);
+            border: none;
+            color: #0a0f1e;
+            padding: 1.2rem 2rem;
+            font-size: 1.3rem;
+            font-weight: bold;
+            border-radius: 3rem;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 0 20px rgba(0,255,136,0.4);
+        }
+
+        .test-btn:hover:not(:disabled) {
+            transform: scale(1.02);
+            box-shadow: 0 0 35px rgba(0,255,136,0.7);
+        }
+
+        .test-btn:disabled {
+            opacity: 0.6;
+            cursor: wait;
+        }
+
+        /* معلومات الاتصال بشبكة */
+        .connection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .conn-card {
+            background: rgba(0,0,0,0.4);
+            border-radius: 1.2rem;
+            padding: 1rem;
+            text-align: center;
+            border: 1px solid rgba(0,255,136,0.2);
+        }
+
+        .conn-card .label {
+            font-size: 0.7rem;
+            color: #00ff88aa;
+            text-transform: uppercase;
+        }
+
+        .conn-card .value {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: white;
+            margin-top: 0.3rem;
+        }
+
+        /* شبكة التحليلات - 5 بطاقات */
+        .analysis-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
             margin: 2rem 0;
         }
 
-        .analysis-card {
-            background: rgba(0,0,0,0.4);
-            border-radius: 1.2rem;
-            padding: 1.2rem;
-            border-right: 4px solid #00b4db;
+        .ana-card {
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            border-radius: 1.5rem;
+            padding: 1.3rem;
+            border-left: 4px solid #00ff88;
+            transition: transform 0.2s;
         }
 
-        .analysis-card h3 {
-            color: #00b4db;
+        .ana-card:hover {
+            transform: translateY(-5px);
+            background: rgba(0,0,0,0.6);
+        }
+
+        .ana-card h3 {
+            color: #00ff88;
             margin-bottom: 0.8rem;
             display: flex;
             align-items: center;
             gap: 8px;
-        }
-
-        .analysis-card p {
-            color: #ddd;
-            line-height: 1.6;
-        }
-
-        .good { color: #00ff88; }
-        .medium { color: #ffaa00; }
-        .bad { color: #ff4444; }
-
-        /* معلومات الاتصال */
-        .connection-info {
-            background: rgba(0,0,0,0.4);
-            border-radius: 1rem;
-            padding: 1rem;
-            margin-top: 1rem;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            gap: 1rem;
-        }
-
-        .info-item {
-            flex: 1;
-            min-width: 150px;
-        }
-
-        .info-label {
-            font-size: 0.8rem;
-            color: #888;
-        }
-
-        .info-value {
             font-size: 1.1rem;
-            color: #fff;
-            font-weight: bold;
         }
 
-        footer {
+        .ana-card p {
+            color: #ddd;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .good { color: #00ff88; font-weight: bold; }
+        .medium { color: #ffaa00; font-weight: bold; }
+        .bad { color: #ff4444; font-weight: bold; }
+
+        /* تذييل بقوة المطور */
+        .footer {
             text-align: center;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            border-top: 1px solid rgba(0,255,136,0.15);
+        }
+
+        .footer .dev-name {
+            color: #00ff88;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .footer small {
             color: #666;
-            padding: 2rem;
-            font-size: 0.8rem;
         }
 
         @media (max-width: 700px) {
-            .speed-number { font-size: 2.5rem; }
-            .title h1 { font-size: 1.3rem; }
+            body { padding: 1rem; }
+            .speed-number { font-size: 3rem; }
+            .test-btn { font-size: 1rem; padding: 1rem; }
+            .header { flex-direction: column; text-align: center; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="speed-card">
-            <div class="title">
-                <h1>🚀 SpeedTest عراقي | قياس حقيقي للسرعة</h1>
-                <p>اختبار دقيق لسرعة التحميل والرفع وجودة الاتصال</p>
+
+<div class="container">
+    <div class="speed-card">
+        
+        <!-- رأس الموقع مع اسم المطور بشكل قوي -->
+        <div class="header">
+            <div class="logo">
+                <h1>⚡ SPEED TEST PRO</h1>
+                <p>قياس دقيق • احترافي • فوري</p>
             </div>
-
-            <div class="speed-gauge">
-                <div class="speed-number" id="speedValue">--</div>
-                <div class="speed-unit" id="speedUnit">Mbps</div>
-                <div class="speed-label" id="speedType">اضغط زر الاختبار لبدء القياس</div>
-                <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-            </div>
-
-            <button class="test-btn" id="startTestBtn">▶ ابدأ اختبار السرعة</button>
-
-            <!-- معلومات الاتصال -->
-            <div class="connection-info" id="connectionInfo">
-                <div class="info-item"><div class="info-label">🌐 نوع الاتصال</div><div class="info-value" id="connType">--</div></div>
-                <div class="info-item"><div class="info-label">📍 مزود الخدمة (ISP)</div><div class="info-value" id="ispInfo">--</div></div>
-                <div class="info-item"><div class="info-label">📡 عنوان IP</div><div class="info-value" id="ipInfo">--</div></div>
-                <div class="info-item"><div class="info-label">📶 البينغ (Ping)</div><div class="info-value" id="pingInfo">-- ms</div></div>
+            <div class="dev-badge">
+                <span>أحمد رعد</span> <small>المطور والمصمم</small>
             </div>
         </div>
 
-        <!-- تحليل النتائج والتوصيات -->
-        <div class="analysis-section" id="analysisSection">
-            <!-- سيتم ملؤها ديناميكياً -->
+        <!-- منطقة عرض السرعة -->
+        <div class="speed-gauge">
+            <div class="speed-number" id="speedValue">--</div>
+            <div class="speed-unit" id="speedUnit">Mbps</div>
+            <div class="speed-label" id="speedType">اضغط لبدء الاختبار</div>
+            <div class="progress-container">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
         </div>
 
-        <footer>
-            ⚡ اختبار حقيقي يعتمد على تحميل ملف عشوائي | النتائج تقريبية وتعكس أداء الشبكة لحظة الاختبار
-        </footer>
+        <!-- زر الاختبار الرئيسي -->
+        <button class="test-btn" id="startTestBtn">▶ ابدأ اختبار السرعة</button>
+
+        <!-- معلومات الاتصال (حقيقية) -->
+        <div class="connection-grid" id="connectionGrid">
+            <div class="conn-card"><div class="label">📡 البينغ (Ping)</div><div class="value" id="pingVal">-- ms</div></div>
+            <div class="conn-card"><div class="label">🌐 نوع الشبكة</div><div class="value" id="netType">--</div></div>
+            <div class="conn-card"><div class="label">📍 مزود الخدمة (ISP)</div><div class="value" id="ispVal">--</div></div>
+            <div class="conn-card"><div class="label">🖥️ عنوان IP</div><div class="value" id="ipVal">--</div></div>
+            <div class="conn-card"><div class="label">📅 وقت الاختبار</div><div class="value" id="timeVal">--</div></div>
+        </div>
     </div>
 
-    <script>
-        // قياس السرعة بشكل حقيقي باستخدام تحميل ملف عشوائي
-        let isTesting = false;
+    <!-- منطقة التحليل والتوصيات (قوية جدا) -->
+    <div class="analysis-grid" id="analysisGrid">
+        <!-- سيتم تعبئتها بواسطة JS -->
+        <div class="ana-card"><h3>⏳ جاري التحضير...</h3><p>قم بإجراء الاختبار أولاً لتحليل سرعتك.</p></div>
+    </div>
 
-        const speedValueEl = document.getElementById('speedValue');
-        const speedUnitEl = document.getElementById('speedUnit');
-        const speedTypeEl = document.getElementById('speedType');
-        const progressFill = document.getElementById('progressFill');
-        const startBtn = document.getElementById('startTestBtn');
-        const pingInfoEl = document.getElementById('pingInfo');
+    <div class="footer">
+        <div class="dev-name">🚀 تم التطوير بواسطة: أحمد رعد</div>
+        <small>اختبار حقيقي للسرعة • نتائج دقيقة تعكس أداء شبكتك لحظة الاختبار</small><br>
+        <small style="font-size: 0.7rem;">© 2025 جميع الحقوق محفوظة | تقنية قياس متطورة</small>
+    </div>
+</div>
 
-        // جلب معلومات الاتصال الحقيقية
-        async function getConnectionInfo() {
-            try {
-                // جلب IP والموقع التقريبي
-                const ipRes = await fetch('https://api.ipify.org?format=json');
-                const ipData = await ipRes.json();
-                document.getElementById('ipInfo').innerText = ipData.ip;
-                
-                // جلب معلومات ISP (تقريبية)
-                const geoRes = await fetch(`https://ipapi.co/${ipData.ip}/json/`);
-                const geoData = await geoRes.json();
-                document.getElementById('ispInfo').innerText = geoData.org || geoData.asn || 'غير معروف';
-                document.getElementById('connType').innerText = navigator.connection ? 
-                    (navigator.connection.effectiveType || 'غير معروف') : 'غير مدعوم';
-            } catch(e) {
-                document.getElementById('ipInfo').innerText = 'غير متاح';
-                document.getElementById('ispInfo').innerText = 'غير متاح';
-            }
-        }
+<script>
+    // === قياس السرعة بشكل حقيقي ===
+    let isTesting = false;
 
-        // قياس Ping
-        async function measurePing() {
+    // عناصر DOM
+    const speedVal = document.getElementById('speedValue');
+    const speedUnitSpan = document.getElementById('speedUnit');
+    const speedTypeSpan = document.getElementById('speedType');
+    const progressFill = document.getElementById('progressFill');
+    const startBtn = document.getElementById('startTestBtn');
+    const pingSpan = document.getElementById('pingVal');
+    const netTypeSpan = document.getElementById('netType');
+    const ispSpan = document.getElementById('ispVal');
+    const ipSpan = document.getElementById('ipVal');
+    const timeSpan = document.getElementById('timeVal');
+
+    // جلب معلومات IP و ISP بشكل حقيقي
+    async function getNetworkInfo() {
+        try {
+            const res = await fetch('https://api.ipify.org?format=json');
+            const data = await res.json();
+            ipSpan.innerText = data.ip;
+            
+            const geoRes = await fetch(`https://ipapi.co/${data.ip}/json/`);
+            const geo = await geoRes.json();
+            ispSpan.innerText = geo.org || geo.asn || 'غير متاح';
+        } catch(e) { ipSpan.innerText = 'غير متاح'; ispSpan.innerText = 'غير متاح'; }
+        
+        if(navigator.connection) {
+            netTypeSpan.innerText = navigator.connection.effectiveType || 'غير معروف';
+        } else { netTypeSpan.innerText = 'غير مدعوم'; }
+        
+        timeSpan.innerText = new Date().toLocaleTimeString();
+    }
+
+    // قياس Ping
+    async function measurePing() {
+        const start = performance.now();
+        try {
+            await fetch('https://api.ipify.org?format=json', { cache: 'no-store' });
+            const end = performance.now();
+            return Math.round(end - start);
+        } catch(e) { return null; }
+    }
+
+    // قياس تحميل (حقيقي)
+    async function measureDownload() {
+        const sizes = [500000, 1000000, 2000000];
+        let totalBits = 0, totalTime = 0;
+        for(let size of sizes) {
+            const url = `https://speed.cloudflare.com/__down?bytes=${size}&cache=${Date.now()}`;
             const start = performance.now();
             try {
-                await fetch('https://api.ipify.org?format=json', { cache: 'no-store' });
+                const resp = await fetch(url, { cache: 'no-store' });
+                await resp.arrayBuffer();
                 const end = performance.now();
-                return Math.round(end - start);
-            } catch(e) {
-                return null;
-            }
+                const duration = (end - start) / 1000;
+                totalBits += size * 8;
+                totalTime += duration;
+                let prog = ((sizes.indexOf(size)+1)/sizes.length)*40;
+                progressFill.style.width = prog+'%';
+            } catch(e) {}
         }
+        if(totalTime > 0) return (totalBits / totalTime) / 1e6;
+        return 0;
+    }
 
-        // قياس سرعة التحميل (Download)
-        async function measureDownloadSpeed() {
-            const testFile = 'https://speed.cloudflare.com/__down?bytes='; // ملف اختبار عشوائي
-            const sizes = [500000, 1000000, 2000000]; // بايت (0.5MB, 1MB, 2MB)
-            let totalBits = 0;
-            let totalTime = 0;
-            
-            for(let size of sizes) {
-                const url = testFile + size + '&cache=' + Date.now();
-                const startTime = performance.now();
-                try {
-                    const response = await fetch(url, { cache: 'no-store' });
-                    const data = await response.arrayBuffer();
-                    const endTime = performance.now();
-                    const duration = (endTime - startTime) / 1000; // ثواني
-                    const bitsLoaded = size * 8;
-                    totalBits += bitsLoaded;
-                    totalTime += duration;
-                    
-                    // تحديث进度
-                    const progress = ((sizes.indexOf(size) + 1) / sizes.length) * 50;
-                    progressFill.style.width = progress + '%';
-                } catch(e) {
-                    console.error('خطأ في القياس', e);
-                }
-            }
-            
-            if(totalTime > 0) {
-                const speedMbps = (totalBits / totalTime) / 1000000;
-                return Math.round(speedMbps * 10) / 10;
-            }
-            return 0;
-        }
+    // قياس رفع
+    async function measureUpload() {
+        const uploadUrl = 'https://httpbin.org/post';
+        const payload = new ArrayBuffer(500000);
+        const start = performance.now();
+        try {
+            await fetch(uploadUrl, { method: 'POST', body: payload, cache: 'no-store' });
+            const end = performance.now();
+            const duration = (end - start) / 1000;
+            const bits = 500000 * 8;
+            return (bits / duration) / 1e6;
+        } catch(e) { return 0; }
+    }
 
-        // قياس سرعة الرفع (Upload)
-        async function measureUploadSpeed() {
-            const uploadUrl = 'https://httpbin.org/post';
-            const testData = new ArrayBuffer(500000); // 0.5MB
-            const startTime = performance.now();
-            
-            try {
-                await fetch(uploadUrl, {
-                    method: 'POST',
-                    body: testData,
-                    cache: 'no-store'
-                });
-                const endTime = performance.now();
-                const duration = (endTime - startTime) / 1000;
-                const bitsLoaded = 500000 * 8;
-                const speedMbps = (bitsLoaded / duration) / 1000000;
-                return Math.round(speedMbps * 10) / 10;
-            } catch(e) {
-                return 0;
-            }
-        }
-
-        // تحليل النتائج وتقديم التوصيات
-        function analyzeResults(downloadSpeed, uploadSpeed, pingMs) {
-            const analysisDiv = document.getElementById('analysisSection');
-            
-            let downloadClass = downloadSpeed >= 25 ? 'good' : (downloadSpeed >= 10 ? 'medium' : 'bad');
-            let uploadClass = uploadSpeed >= 10 ? 'good' : (uploadSpeed >= 5 ? 'medium' : 'bad');
-            let pingClass = pingMs <= 50 ? 'good' : (pingMs <= 100 ? 'medium' : 'bad');
-            
-            let videoQuality = '';
-            if(downloadSpeed >= 25) videoQuality = '4K فائقة الدقة (Ultra HD)';
-            else if(downloadSpeed >= 10) videoQuality = 'Full HD 1080p';
-            else if(downloadSpeed >= 5) videoQuality = 'HD 720p';
-            else if(downloadSpeed >= 2) videoQuality = '480p';
-            else videoQuality = '144p - 360p (ضعيفة جداً)';
-            
-            let youtubeUpload = '';
-            if(uploadSpeed >= 20) youtubeUpload = 'رفع 4K بسرعة ممتازة';
-            else if(uploadSpeed >= 10) youtubeUpload = 'رفع 1080p بسرعة جيدة';
-            else if(uploadSpeed >= 5) youtubeUpload = 'رفع 720p متوسط';
-            else if(uploadSpeed >= 2) youtubeUpload = 'رفع 480p بطيء';
-            else uploadSpeed = 'رفع الفيديو صعب بهذه السرعة';
-            
-            let gaming = '';
-            if(pingMs <= 30) gaming = '🎮 ألعاب تنافسية ممتازة (بدون تأخير)';
-            else if(pingMs <= 60) gaming = '🎮 ألعاب جيدة (تأخير بسيط)';
-            else if(pingMs <= 100) gaming = '🎮 ألعاب مقبولة (تأخير ملحوظ)';
-            else gaming = '🎮 ألعاب صعبة (تأخير عالي)';
-            
-            let banking = downloadSpeed >= 1 ? '✅ مناسب للتعاملات البنكية' : '⚠️ تحذير: السرعة ضعيفة جداً للبنوك';
-            
-            let reason = '';
-            if(downloadSpeed < 5) reason = '• ربما تكون متصلاً عبر الجوال أو شبكة مزدحمة<br>• جرب استخدام كابل Ethernet بدلاً من الواي فاي<br>• أعد تشغيل الراوتر';
-            else if(downloadSpeed < 15) reason = '• شبكة مقبولة لكن قد تتأثر وقت الذروة<br>• جرب تغيير قناة الواي فاي';
-            else reason = '• سرعة ممتازة تناسب جميع الاستخدامات';
-            
-            analysisDiv.innerHTML = `
-                <div class="analysis-card">
-                    <h3>📺 جودة الفيديو التي يمكنك مشاهدتها</h3>
-                    <p class="${downloadClass}">${videoQuality}</p>
-                    <p style="font-size:0.85rem; margin-top:0.5rem;">سرعة التحميل: ${downloadSpeed} Mbps</p>
-                </div>
-                <div class="analysis-card">
-                    <h3>⬆️ رفع فيديو ليوتيوب</h3>
-                    <p class="${uploadClass}">${youtubeUpload}</p>
-                    <p style="font-size:0.85rem;">سرعة الرفع: ${uploadSpeed} Mbps</p>
-                </div>
-                <div class="analysis-card">
-                    <h3>🎮 الألعاب عبر الإنترنت</h3>
-                    <p class="${pingClass}">${gaming}</p>
-                    <p style="font-size:0.85rem;">البينغ: ${pingMs} ms</p>
-                </div>
-                <div class="analysis-card">
-                    <h3>🏦 التعاملات البنكية</h3>
-                    <p>${banking}</p>
-                </div>
-                <div class="analysis-card">
-                    <h3>🔧 سبب ضعف السرعة (إن وجد)</h3>
-                    <p style="color:#ffaa00; font-size:0.9rem;">${reason}</p>
-                </div>
-            `;
-        }
-
-        // الاختبار الرئيسي
-        async function runSpeedTest() {
-            if(isTesting) return;
-            isTesting = true;
-            startBtn.disabled = true;
-            startBtn.innerText = '🔄 جاري قياس السرعة...';
-            progressFill.style.width = '0%';
-            speedValueEl.innerText = '--';
-            speedTypeEl.innerText = 'جاري قياس البينغ...';
-            
-            // قياس Ping أولاً
-            const ping = await measurePing();
-            pingInfoEl.innerText = ping ? ping : '--';
-            
-            speedTypeEl.innerText = 'جاري قياس سرعة التحميل...';
-            progressFill.style.width = '10%';
-            
-            const downloadSpeed = await measureDownloadSpeed();
-            speedValueEl.innerText = downloadSpeed;
-            speedUnitEl.innerText = 'Mbps';
-            speedTypeEl.innerText = 'جاري قياس سرعة الرفع...';
-            progressFill.style.width = '60%';
-            
-            const uploadSpeed = await measureUploadSpeed();
-            progressFill.style.width = '100%';
-            
-            speedValueEl.innerText = downloadSpeed;
-            speedTypeEl.innerText = `تحميل: ${downloadSpeed} Mbps | رفع: ${uploadSpeed} Mbps`;
-            
-            // تحليل وتقديم النتائج
-            analyzeResults(downloadSpeed, uploadSpeed, ping || 0);
-            
-            startBtn.disabled = false;
-            startBtn.innerText = '▶ ابدأ اختبار السرعة';
-            isTesting = false;
-            
-            setTimeout(() => { progressFill.style.width = '0%'; }, 1000);
-        }
+    // تحليل النتائج بشكل قوي ومفصل
+    function renderAnalysis(down, up, ping) {
+        const grid = document.getElementById('analysisGrid');
         
-        // جلب معلومات الاتصال عند التحميل
-        getConnectionInfo();
+        let downGrade = down >= 30 ? 'good' : (down >= 10 ? 'medium' : 'bad');
+        let upGrade = up >= 15 ? 'good' : (up >= 5 ? 'medium' : 'bad');
+        let pingGrade = ping <= 40 ? 'good' : (ping <= 80 ? 'medium' : 'bad');
         
-        // ربط زر الاختبار
-        startBtn.addEventListener('click', runSpeedTest);
+        let videoRec = '';
+        if(down >= 30) videoRec = '4K Ultra HD (بدون تقطيع)';
+        else if(down >= 15) videoRec = '4K خفيف / 1440p';
+        else if(down >= 8) videoRec = 'Full HD 1080p ممتاز';
+        else if(down >= 4) videoRec = 'HD 720p جيد';
+        else videoRec = '480p أو أقل (ضعيف)';
         
-        // عرض نوع الاتصال بشكل ديناميكي إذا كان المدعوم
-        if(navigator.connection) {
-            navigator.connection.addEventListener('change', () => {
-                document.getElementById('connType').innerText = navigator.connection.effectiveType || 'غير معروف';
-            });
-        }
-    </script>
+        let youtubeUpRec = '';
+        if(up >= 20) youtubeUpRec = 'رفع فيديوهات 4K بسرعة فائقة';
+        else if(up >= 10) youtubeUpRec = 'رفع 1080p ممتاز';
+        else if(up >= 5) youtubeUpRec = 'رفع 720p مقبول';
+        else youtubeUpRec = 'رفع بطيء جداً (يحتاج صبر)';
+        
+        let gamingExp = '';
+        if(ping <= 30) gamingExp = '🎮 مثالية للألعاب التنافسية (ببجي، فيفا، كول أوف ديوتي)';
+        else if(ping <= 60) gamingExp = '🎮 جيدة، تأخير بسيط';
+        else if(ping <= 100) gamingExp = '🎮 مقبولة، قد تلاحظ بطئاً في الاستجابة';
+        else gamingExp = '⚠️ صعبة للألعاب السريعة، تأخير عالي';
+        
+        let bankingNote = down >= 2 ? '✅ مناسب للتحويلات والدفع الإلكتروني' : '❌ غير مستقر، يُفضل استخدام شبكة أقوى';
+        
+        let reasonAdvice = '';
+        if(down < 5) reasonAdvice = '• استخدم كابل بدلاً من الواي فاي<br>• أعد تشغيل الراوتر<br>• قد تكون الشبكة مزدحمة';
+        else if(down < 15) reasonAdvice = '• سرعة متوسطة مناسبة للاستخدام العادي<br>• للتحسين: قرّب من جهاز التوجيه';
+        else reasonAdvice = '• سرعة ممتازة جداً، لا داعي للتحسين';
+        
+        grid.innerHTML = `
+            <div class="ana-card"><h3>🎬 جودة الفيديو</h3><p class="${downGrade}">${videoRec}</p><p style="font-size:0.8rem;">سرعة التحميل: ${down} Mbps</p></div>
+            <div class="ana-card"><h3>⬆️ رفع يوتيوب</h3><p class="${upGrade}">${youtubeUpRec}</p><p>الرفع: ${up} Mbps</p></div>
+            <div class="ana-card"><h3>🎮 تجربة الألعاب</h3><p class="${pingGrade}">${gamingExp}</p><p>البينغ: ${ping} ms</p></div>
+            <div class="ana-card"><h3>🏦 التعاملات البنكية</h3><p>${bankingNote}</p></div>
+            <div class="ana-card"><h3>🔧 تحسين الأداء</h3><p style="color:#ffaa88;">${reasonAdvice}</p></div>
+            <div class="ana-card"><h3>📊 ملخص الحالة</h3><p>${down>=15 ? '⚡ اتصال سريع جداً' : (down>=5 ? '🟡 اتصال متوسط' : '🔴 اتصال ضعيف')}<br>ينصح ${down>=15 ? 'بأي استخدام ثقيل' : (down>=5 ? 'بالاستخدام العادي' : 'بتحسين الشبكة')}</p></div>
+        `;
+    }
+
+    // الاختبار الرئيسي
+    async function runFullTest() {
+        if(isTesting) return;
+        isTesting = true;
+        startBtn.disabled = true;
+        startBtn.innerText = '🔄 جاري الاختبار الحقيقي ...';
+        progressFill.style.width = '0%';
+        speedVal.innerText = '--';
+        speedTypeSpan.innerText = 'قياس البينغ ...';
+        
+        const ping = await measurePing();
+        pingSpan.innerText = ping ? `${ping} ms` : '--';
+        
+        speedTypeSpan.innerText = 'قياس سرعة التحميل ...';
+        progressFill.style.width = '15%';
+        const down = await measureDownload();
+        speedVal.innerText = down.toFixed(1);
+        speedUnitSpan.innerText = 'Mbps';
+        
+        speedTypeSpan.innerText = 'قياس سرعة الرفع ...';
+        progressFill.style.width = '60%';
+        const up = await measureUpload();
+        progressFill.style.width = '100%';
+        
+        speedTypeSpan.innerText = `تم ✅ تحميل: ${down.toFixed(1)} | رفع: ${up.toFixed(1)} Mbps`;
+        renderAnalysis(down.toFixed(1), up.toFixed(1), ping || 0);
+        
+        startBtn.disabled = false;
+        startBtn.innerText = '▶ ابدأ اختبار السرعة';
+        isTesting = false;
+        setTimeout(() => { progressFill.style.width = '0%'; }, 1500);
+    }
+
+    // بدء التحميلات
+    getNetworkInfo();
+    startBtn.addEventListener('click', runFullTest);
+    if(navigator.connection) navigator.connection.addEventListener('change', () => {
+        netTypeSpan.innerText = navigator.connection.effectiveType || 'غير معروف';
+    });
+</script>
 </body>
 </html>
