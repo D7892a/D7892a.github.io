@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أحمد رعد | الموقع الرسمي</title>
+    <title>البوابة المناخية العراقية | البحث المتقدم</title>
     <style>
         * {
             margin: 0;
@@ -12,275 +12,300 @@
         }
 
         body {
-            font-family: 'Tahoma', 'Arial', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #333;
-            line-height: 1.6;
+            font-family: 'Segoe UI', 'Tahoma', system-ui, sans-serif;
+            background: linear-gradient(rgba(0, 40, 70, 0.85), rgba(0, 20, 40, 0.9)), url('https://www.spa.gov.iq/images/background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #eee;
+            padding: 2rem 1rem;
+            min-height: 100vh;
         }
 
-        /* شريط التنقل */
-        nav {
-            background: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .nav-container {
+        /* حاوية الصفحة الرئيسية */
+        .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(3px);
+            border-radius: 2rem;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        /* الرأس والشعار */
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #4aa3ff;
+            padding-bottom: 1rem;
         }
 
         .logo {
-            font-size: 1.5rem;
+            font-size: 2.2rem;
             font-weight: bold;
-            color: #764ba2;
+            letter-spacing: 2px;
+            color: #fff;
+            text-shadow: 0 2px 5px #004070;
         }
 
-        .nav-links {
+        .logo span {
+            color: #ffd966;
+        }
+
+        .sub {
+            font-size: 1rem;
+            color: #ccdeee;
+        }
+
+        /* بطاقة البحث */
+        .search-card {
+            background: rgba(0, 20, 40, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid #2c5a7a;
+        }
+
+        .search-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            color: #ffd966;
+        }
+
+        .search-form {
             display: flex;
+            flex-direction: column;
             gap: 1.5rem;
-            list-style: none;
         }
 
-        .nav-links a {
-            text-decoration: none;
-            color: #667eea;
-            font-weight: bold;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: #764ba2;
-        }
-
-        /* الأقسام العامة */
-        section {
-            padding: 4rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2rem;
-            color: white;
-            margin-bottom: 2rem;
-            border-bottom: 3px solid white;
-            display: inline-block;
-            width: auto;
-        }
-
-        .title-center {
-            text-align: center;
-        }
-
-        /* البطاقات */
-        .cards {
+        .form-row {
             display: flex;
-            gap: 2rem;
             flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .card {
-            background: white;
-            border-radius: 15px;
-            padding: 2rem;
-            text-align: center;
-            flex: 1;
-            min-width: 200px;
-            transition: transform 0.3s;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-        }
-
-        .card h3 {
-            color: #764ba2;
-            margin-bottom: 1rem;
-        }
-
-        /* قسم الترحيب الرئيسي */
-        .hero {
-            background: rgba(255,255,255,0.95);
-            text-align: center;
-            padding: 4rem 2rem;
-            border-radius: 30px;
-            margin: 2rem auto;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            color: #764ba2;
-            margin-bottom: 1rem;
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            color: #555;
-        }
-
-        /* قسم من أنا */
-        .about-content {
-            background: white;
-            border-radius: 20px;
-            padding: 2rem;
-            text-align: center;
-        }
-
-        /* نموذج الاتصال */
-        .contact-form {
-            background: white;
-            border-radius: 20px;
-            padding: 2rem;
-            max-width: 600px;
-            margin: 0 auto;
+            gap: 1rem;
+            align-items: flex-end;
         }
 
         .form-group {
-            margin-bottom: 1rem;
+            flex: 1;
+            min-width: 180px;
         }
 
-        input, textarea {
+        label {
+            display: block;
+            margin-bottom: 0.4rem;
+            font-weight: bold;
+            font-size: 0.9rem;
+            color: #cce7ff;
+        }
+
+        input, select {
             width: 100%;
-            padding: 0.8rem;
-            border: 1px solid #ddd;
-            border-radius: 10px;
+            padding: 0.8rem 1rem;
+            border-radius: 2rem;
+            border: none;
+            background: #f0f8ff;
             font-family: inherit;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        input:focus, select:focus {
+            box-shadow: 0 0 0 3px #ffd96680;
+            background: white;
         }
 
         button {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(45deg, #0077b6, #00b4d8);
+            border: none;
             color: white;
             padding: 0.8rem 2rem;
-            border: none;
-            border-radius: 30px;
-            font-size: 1rem;
+            border-radius: 3rem;
+            font-size: 1.1rem;
+            font-weight: bold;
             cursor: pointer;
-            transition: transform 0.3s;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 1rem;
+            width: 100%;
         }
 
         button:hover {
-            transform: scale(1.05);
+            transform: scale(1.02);
+            box-shadow: 0 8px 20px rgba(0,180,216,0.4);
+            background: linear-gradient(45deg, #005f8c, #0096c7);
         }
 
-        /* تذييل الصفحة */
-        footer {
-            background: #2d2d2d;
-            color: white;
-            text-align: center;
+        /* نتائج البحث (نموذجية) */
+        .results-section {
+            margin-top: 2.5rem;
+            background: rgba(0,0,0,0.3);
+            border-radius: 1.5rem;
             padding: 1.5rem;
-            margin-top: 2rem;
         }
 
-        /* استجابة للجوال */
-        @media (max-width: 768px) {
-            .nav-container {
-                flex-direction: column;
-                gap: 1rem;
+        .results-header {
+            font-size: 1.5rem;
+            border-right: 5px solid #ffd966;
+            padding-right: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .result-item {
+            background: rgba(255,255,255,0.1);
+            margin-bottom: 0.8rem;
+            padding: 1rem;
+            border-radius: 1rem;
+            transition: background 0.2s;
+        }
+
+        .result-item:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .result-title {
+            font-weight: bold;
+            color: #ffd966;
+        }
+
+        /* الفوتر */
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            font-size: 0.8rem;
+            color: #bbd4ff;
+            border-top: 1px solid #2c5a7a;
+            padding-top: 1.5rem;
+        }
+
+        @media (max-width: 700px) {
+            .container {
+                padding: 1rem;
             }
-            .hero h1 {
-                font-size: 2rem;
+            .logo {
+                font-size: 1.4rem;
             }
-            section {
-                padding: 2rem 1rem;
+            .search-title {
+                font-size: 1.3rem;
             }
         }
     </style>
 </head>
 <body>
 
-<!-- شريط التنقل (أقسام التصفح) -->
-<nav>
-    <div class="nav-container">
-        <div class="logo">أحمد رعد</div>
-        <ul class="nav-links">
-            <li><a href="#home">الرئيسية</a></li>
-            <li><a href="#about">من أنا</a></li>
-            <li><a href="#services">خدماتي</a></li>
-            <li><a href="#contact">اتصل بي</a></li>
-        </ul>
+<div class="container">
+    <!-- رأس الموقع -->
+    <div class="header">
+        <div class="logo">🇮🇶 <span>الأنواء الجوية</span> والرصد الزلزالي</div>
+        <div class="sub">البوابة الوطنية للبيانات المناخية والزلزالية | العراق</div>
     </div>
-</nav>
 
-<!-- القسم 1: الرئيسية (الترحيب) -->
-<section id="home">
-    <div class="hero">
-        <h1>مرحباً بكم في موقع أحمد رعد</h1>
-        <p>أهلاً وسهلاً بكم في موقعي الرسمي. هنا ستجدون كل ما هو جديد ومفيد.</p>
-        <p style="margin-top:1rem">أنا سعيد بتواجدكم معي ❤️</p>
-    </div>
-</section>
-
-<!-- القسم 2: من أنا -->
-<section id="about">
-    <div class="title-center">
-        <h2 class="section-title">من أنا</h2>
-    </div>
-    <div class="about-content">
-        <p>أنا <strong>أحمد رعد</strong>، مطور ومصمم ويب شغوف بإنشاء تجارب رقمية مميزة. أحب تطوير مواقع حديثة وسهلة الاستخدام. هدفي هو تقديم محتوى مفيد وخدمات احترافية لعملائي.</p>
-        <p style="margin-top:1rem">أؤمن بأن البرمجة هي لغة المستقبل، وأسعى دائماً لتطوير نفسي ومشاركة معرفتي مع الآخرين.</p>
-    </div>
-</section>
-
-<!-- القسم 3: الخدمات -->
-<section id="services">
-    <div class="title-center">
-        <h2 class="section-title">خدماتي</h2>
-    </div>
-    <div class="cards">
-        <div class="card">
-            <h3>🖥️ تصميم مواقع</h3>
-            <p>تصاميم عصرية متجاوبة مع جميع الأجهزة.</p>
-        </div>
-        <div class="card">
-            <h3>📱 تطوير واجهات</h3>
-            <p>استخدام أحدث تقنيات HTML, CSS, JavaScript.</p>
-        </div>
-        <div class="card">
-            <h3>🚀 تحسين أداء</h3>
-            <p>جعل موقعك سريعاً ومُحسّناً لمحركات البحث.</p>
-        </div>
-    </div>
-</section>
-
-<!-- القسم 4: اتصل بي -->
-<section id="contact">
-    <div class="title-center">
-        <h2 class="section-title">اتصل بي</h2>
-    </div>
-    <div class="contact-form">
-        <form action="#" method="post">
-            <div class="form-group">
-                <input type="text" placeholder="الاسم الكامل" required>
+    <!-- بطاقة البحث الرئيسية (جوهر الموقع) -->
+    <div class="search-card">
+        <div class="search-title">🔍 محرك البحث المتقدم للمحطات والبيانات</div>
+        <form class="search-form" id="searchForm">
+            <div class="form-row">
+                <div class="form-group">
+                    <label>🗺️ المحافظة / المنطقة</label>
+                    <select id="governorate">
+                        <option value="">جميع المحافظات</option>
+                        <option>بغداد</option><option>البصرة</option><option>نينوى</option>
+                        <option>أربيل</option><option>السليمانية</option><option>دهوك</option>
+                        <option>كركوك</option><option>صلاح الدين</option><option>الأنبار</option>
+                        <option>بابل</option><option>واسط</option><option>ذي قار</option>
+                        <option>ميسان</option><option>النجف</option><option>كربلاء</option>
+                        <option>القادسية</option><option>المثنى</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>📅 نوع البيانات</label>
+                    <select id="dataType">
+                        <option value="">الكل</option>
+                        <option>درجات الحرارة</option>
+                        <option>الرطوبة والرياح</option>
+                        <option>الزلازل</option>
+                        <option>تساقط الأمطار</option>
+                        <option>تحذيرات جوية</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>📆 السنة</label>
+                    <select id="year">
+                        <option value="">أي سنة</option>
+                        <option>2025</option><option>2024</option><option>2023</option>
+                        <option>2022</option><option>2021</option>
+                    </select>
+                </div>
             </div>
-            <div class="form-group">
-                <input type="email" placeholder="البريد الإلكتروني" required>
-            </div>
-            <div class="form-group">
-                <textarea rows="4" placeholder="رسالتك....."></textarea>
-            </div>
-            <div class="form-group" style="text-align:center">
-                <button type="submit">إرسال الرسالة</button>
-            </div>
+            <button type="button" id="searchBtn">ابحث الآن</button>
         </form>
     </div>
-</section>
 
-<!-- تذييل الموقع -->
-<footer>
-    <p>© 2025 جميع الحقوق محفوظة - أحمد رعد | شكراً لزيارتكم</p>
-</footer>
+    <!-- منطقة عرض النتائج (ديناميكية) -->
+    <div class="results-section" id="resultsArea">
+        <div class="results-header">📋 آخر النتائج والتقارير</div>
+        <div id="resultsList">
+            <!-- سيتم عرض النتائج هنا بواسطة JavaScript -->
+            <div class="result-item">
+                <div class="result-title">محطة بغداد - الرصد الجوي</div>
+                <div>درجة الحرارة: 34°C | الرطوبة: 45% | الرياح: شمالية غربية 12 كم/س</div>
+                <small>تم التحديث: 2025-04-30 14:20</small>
+            </div>
+            <div class="result-item">
+                <div class="result-title">تنبيه زلزالي - المنطقة الشمالية</div>
+                <div>هزة أرضية خفيفة (3.2) على بعد 35كم شمال شرق أربيل - بدون خطر.</div>
+                <small>التاريخ: 2025-04-29 22:05</small>
+            </div>
+            <div class="result-item">
+                <div class="result-title">تقرير الأمطار - البصرة</div>
+                <div>كمية الهطول 8.7 ملم خلال الـ 24 ساعة الماضية.</div>
+                <small>2025-04-28</small>
+            </div>
+        </div>
+    </div>
 
+    <div class="footer">
+        © 2025 هيئة الأنواء الجوية والرصد الزلزالي العراقية | بيانات رسمية لأغراض البحث والتخطيط
+    </div>
+</div>
+
+<script>
+    // محاكاة عملية البحث بناءً على المدخلات (تعمل مثل الـ search.aspx)
+    document.getElementById('searchBtn').addEventListener('click', function() {
+        const gov = document.getElementById('governorate').value;
+        const type = document.getElementById('dataType').value;
+        const year = document.getElementById('year').value;
+
+        // نتائج افتراضية ديناميكية (توحي بالبحث الحقيقي)
+        let resultHTML = '';
+        
+        // إذا لم يختر المستخدم شيئاً -> نعرض نتائج عامة
+        if (!gov && !type && !year) {
+            resultHTML = `
+                <div class="result-item"><div class="result-title">🌦️ النتائج العامة (أحدث البيانات)</div><div>بغداد: صافي، 38°C | البصرة: رطب، 42°C | الموصل: معتدل، 28°C</div><small>تحديث فوري</small></div>
+                <div class="result-item"><div class="result-title">📊 التقرير الشهري للرصد الزلزالي</div><div>عدد الهزات المسجلة في نيسان: 7 هزات ضعيفة إلى متوسطة.</div><small>أبريل 2025</small></div>
+            `;
+        } else {
+            // نتائج مخصصة حسب الاختيار
+            let filters = [];
+            if(gov) filters.push(`محافظة: ${gov}`);
+            if(type) filters.push(`نوع: ${type}`);
+            if(year) filters.push(`سنة: ${year}`);
+            
+            resultHTML = `<div class="result-item"><div class="result-title">✅ نتائج البحث (${filters.join(' | ')})</div>
+                         <div>تم العثور على 3 سجلات مطابقة للبيانات المحددة.</div>
+                         <div>• محطة ${gov || 'الرصد الرئيسية'} : متوسط درجة الحرارة ${Math.floor(20+Math.random()*25)}°C</div>
+                         <div>• تقرير ${type || 'مناخي'} مسجل في ${year || 'أحدث السنوات'}</div>
+                         <div>• للاطلاع على التفاصيل الكاملة يرجى التواصل مع مركز البيانات.</div>
+                         <small>نتائج محاكاة - نظام البحث التجريبي</small>
+                         </div>`;
+        }
+        
+        // إضافة رسالة "تم البحث"
+        const searchSummary = `<div class="result-item" style="background:#004466"><div class="result-title">🔎 عملية بحث جارية ...</div><div>عرض النتائج المتعلقة بمعايير البحث الخاصة بك.</div></div>`;
+        document.getElementById('resultsList').innerHTML = searchSummary + resultHTML;
+    });
+</script>
 </body>
 </html>
