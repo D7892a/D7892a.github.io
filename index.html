@@ -3,99 +3,284 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مرحباً - أحمد رعد</title>
+    <title>أحمد رعد | الموقع الرسمي</title>
     <style>
-        body {
-            font-family: 'Arial', 'Tahoma', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        * {
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            text-align: center;
+            box-sizing: border-box;
         }
-        
-        .container {
-            background-color: white;
-            border-radius: 20px;
-            padding: 50px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-            max-width: 600px;
-            margin: 20px;
-            animation: fadeIn 1s ease-in;
-        }
-        
-        h1 {
-            color: #667eea;
-            font-size: 2.5em;
-            margin-bottom: 20px;
-            border-bottom: 3px solid #764ba2;
-            display: inline-block;
-            padding-bottom: 10px;
-        }
-        
-        .welcome-message {
-            font-size: 1.3em;
+
+        body {
+            font-family: 'Tahoma', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: #333;
             line-height: 1.6;
-            margin: 30px 0;
         }
-        
-        .name {
-            color: #764ba2;
+
+        /* شريط التنقل */
+        nav {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.5rem;
             font-weight: bold;
-            font-size: 1.2em;
+            color: #764ba2;
         }
-        
-        .footer {
-            margin-top: 30px;
-            color: #888;
-            font-size: 0.9em;
-            border-top: 1px solid #eee;
-            padding-top: 20px;
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
         }
-        
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #667eea;
+            font-weight: bold;
+            transition: color 0.3s;
         }
-        
+
+        .nav-links a:hover {
+            color: #764ba2;
+        }
+
+        /* الأقسام العامة */
+        section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            color: white;
+            margin-bottom: 2rem;
+            border-bottom: 3px solid white;
+            display: inline-block;
+            width: auto;
+        }
+
+        .title-center {
+            text-align: center;
+        }
+
+        /* البطاقات */
+        .cards {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            flex: 1;
+            min-width: 200px;
+            transition: transform 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .card h3 {
+            color: #764ba2;
+            margin-bottom: 1rem;
+        }
+
+        /* قسم الترحيب الرئيسي */
+        .hero {
+            background: rgba(255,255,255,0.95);
+            text-align: center;
+            padding: 4rem 2rem;
+            border-radius: 30px;
+            margin: 2rem auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            color: #764ba2;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: #555;
+        }
+
+        /* قسم من أنا */
+        .about-content {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        /* نموذج الاتصال */
+        .contact-form {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-family: inherit;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        /* تذييل الصفحة */
+        footer {
+            background: #2d2d2d;
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        /* استجابة للجوال */
         @media (max-width: 768px) {
-            .container {
-                padding: 30px;
-                margin: 15px;
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
             }
-            
-            h1 {
-                font-size: 1.8em;
+            .hero h1 {
+                font-size: 2rem;
             }
-            
-            .welcome-message {
-                font-size: 1.1em;
+            section {
+                padding: 2rem 1rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>مرحباً بكم</h1>
-        
-        <div class="welcome-message">
-            <p>أهلاً وسهلاً بكم في موقع <span class="name">أحمد رعد</span></p>
-            <p>يسعدنا تواجدكم معنا، ونتمنى لكم تجربة مميزة في موقعنا</p>
+
+<!-- شريط التنقل (أقسام التصفح) -->
+<nav>
+    <div class="nav-container">
+        <div class="logo">أحمد رعد</div>
+        <ul class="nav-links">
+            <li><a href="#home">الرئيسية</a></li>
+            <li><a href="#about">من أنا</a></li>
+            <li><a href="#services">خدماتي</a></li>
+            <li><a href="#contact">اتصل بي</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- القسم 1: الرئيسية (الترحيب) -->
+<section id="home">
+    <div class="hero">
+        <h1>مرحباً بكم في موقع أحمد رعد</h1>
+        <p>أهلاً وسهلاً بكم في موقعي الرسمي. هنا ستجدون كل ما هو جديد ومفيد.</p>
+        <p style="margin-top:1rem">أنا سعيد بتواجدكم معي ❤️</p>
+    </div>
+</section>
+
+<!-- القسم 2: من أنا -->
+<section id="about">
+    <div class="title-center">
+        <h2 class="section-title">من أنا</h2>
+    </div>
+    <div class="about-content">
+        <p>أنا <strong>أحمد رعد</strong>، مطور ومصمم ويب شغوف بإنشاء تجارب رقمية مميزة. أحب تطوير مواقع حديثة وسهلة الاستخدام. هدفي هو تقديم محتوى مفيد وخدمات احترافية لعملائي.</p>
+        <p style="margin-top:1rem">أؤمن بأن البرمجة هي لغة المستقبل، وأسعى دائماً لتطوير نفسي ومشاركة معرفتي مع الآخرين.</p>
+    </div>
+</section>
+
+<!-- القسم 3: الخدمات -->
+<section id="services">
+    <div class="title-center">
+        <h2 class="section-title">خدماتي</h2>
+    </div>
+    <div class="cards">
+        <div class="card">
+            <h3>🖥️ تصميم مواقع</h3>
+            <p>تصاميم عصرية متجاوبة مع جميع الأجهزة.</p>
         </div>
-        
-        <div class="footer">
-            <p>© 2024 جميع الحقوق محفوظة - أحمد رعد</p>
+        <div class="card">
+            <h3>📱 تطوير واجهات</h3>
+            <p>استخدام أحدث تقنيات HTML, CSS, JavaScript.</p>
+        </div>
+        <div class="card">
+            <h3>🚀 تحسين أداء</h3>
+            <p>جعل موقعك سريعاً ومُحسّناً لمحركات البحث.</p>
         </div>
     </div>
+</section>
+
+<!-- القسم 4: اتصل بي -->
+<section id="contact">
+    <div class="title-center">
+        <h2 class="section-title">اتصل بي</h2>
+    </div>
+    <div class="contact-form">
+        <form action="#" method="post">
+            <div class="form-group">
+                <input type="text" placeholder="الاسم الكامل" required>
+            </div>
+            <div class="form-group">
+                <input type="email" placeholder="البريد الإلكتروني" required>
+            </div>
+            <div class="form-group">
+                <textarea rows="4" placeholder="رسالتك....."></textarea>
+            </div>
+            <div class="form-group" style="text-align:center">
+                <button type="submit">إرسال الرسالة</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<!-- تذييل الموقع -->
+<footer>
+    <p>© 2025 جميع الحقوق محفوظة - أحمد رعد | شكراً لزيارتكم</p>
+</footer>
+
 </body>
 </html>
