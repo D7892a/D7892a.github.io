@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>البوابة المناخية العراقية | البحث المتقدم</title>
+    <title>الهيئة العامة للرعاية الاجتماعية | الاستعلام الإلكتروني</title>
     <style>
         * {
             margin: 0;
@@ -13,78 +13,106 @@
 
         body {
             font-family: 'Segoe UI', 'Tahoma', system-ui, sans-serif;
-            background: linear-gradient(rgba(0, 40, 70, 0.85), rgba(0, 20, 40, 0.9)), url('https://www.spa.gov.iq/images/background.jpg') no-repeat center center fixed;
-            background-size: cover;
-            color: #eee;
-            padding: 2rem 1rem;
+            background: linear-gradient(135deg, #e8f0fe 0%, #d4e4fc 100%);
+            color: #1a2c3e;
+            padding: 1.5rem;
             min-height: 100vh;
         }
 
-        /* حاوية الصفحة الرئيسية */
+        /* الحاوية الرئيسية */
         .container {
-            max-width: 1200px;
+            max-width: 1300px;
             margin: 0 auto;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(3px);
+            background: white;
             border-radius: 2rem;
-            padding: 2rem;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
         }
 
-        /* الرأس والشعار */
+        /* الرأس */
         .header {
-            text-align: center;
-            margin-bottom: 2rem;
-            border-bottom: 2px solid #4aa3ff;
-            padding-bottom: 1rem;
+            background: #0a4b7a;
+            padding: 1.5rem 2rem;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
 
-        .logo {
-            font-size: 2.2rem;
-            font-weight: bold;
-            letter-spacing: 2px;
-            color: #fff;
-            text-shadow: 0 2px 5px #004070;
+        .logo h1 {
+            font-size: 1.6rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .logo span {
-            color: #ffd966;
+            background: #ffc107;
+            color: #0a4b7a;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: bold;
         }
 
-        .sub {
-            font-size: 1rem;
-            color: #ccdeee;
+        .badge {
+            background: #ff9800;
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-weight: bold;
         }
 
-        /* بطاقة البحث */
+        /* شريط التنقل */
+        .navbar {
+            background: #f5f9ff;
+            padding: 0.8rem 2rem;
+            border-bottom: 1px solid #cbdde9;
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: #0a4b7a;
+            font-weight: bold;
+            padding: 0.4rem 0;
+            transition: 0.2s;
+        }
+
+        .navbar a:hover {
+            color: #ff9800;
+            border-bottom: 2px solid #ff9800;
+        }
+
+        /* محتوى البحث */
+        .content {
+            padding: 2rem;
+        }
+
         .search-card {
-            background: rgba(0, 20, 40, 0.7);
-            backdrop-filter: blur(10px);
+            background: #f0f6fe;
             border-radius: 1.5rem;
             padding: 2rem;
-            margin: 2rem 0;
-            border: 1px solid #2c5a7a;
+            margin-bottom: 2rem;
+            border: 1px solid #bfd9f0;
         }
 
         .search-title {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             margin-bottom: 1.5rem;
-            text-align: center;
-            color: #ffd966;
-        }
-
-        .search-form {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
+            color: #0a4b7a;
+            border-right: 6px solid #ff9800;
+            padding-right: 1rem;
         }
 
         .form-row {
             display: flex;
             flex-wrap: wrap;
-            gap: 1rem;
-            align-items: flex-end;
+            gap: 1.2rem;
+            margin-bottom: 1.5rem;
         }
 
         .form-group {
@@ -94,101 +122,107 @@
 
         label {
             display: block;
-            margin-bottom: 0.4rem;
             font-weight: bold;
-            font-size: 0.9rem;
-            color: #cce7ff;
+            margin-bottom: 0.4rem;
+            color: #1e4663;
         }
 
         input, select {
             width: 100%;
             padding: 0.8rem 1rem;
-            border-radius: 2rem;
-            border: none;
-            background: #f0f8ff;
+            border-radius: 1rem;
+            border: 1px solid #bdd4ec;
             font-family: inherit;
-            font-size: 1rem;
-            outline: none;
+            font-size: 0.95rem;
+            background: white;
             transition: 0.2s;
         }
 
         input:focus, select:focus {
-            box-shadow: 0 0 0 3px #ffd96680;
-            background: white;
+            border-color: #ff9800;
+            outline: none;
+            box-shadow: 0 0 0 2px #ffd699;
         }
 
         button {
-            background: linear-gradient(45deg, #0077b6, #00b4d8);
-            border: none;
+            background: #0a4b7a;
             color: white;
+            border: none;
             padding: 0.8rem 2rem;
-            border-radius: 3rem;
-            font-size: 1.1rem;
+            border-radius: 2rem;
+            font-size: 1rem;
             font-weight: bold;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            margin-top: 1rem;
+            transition: 0.2s;
             width: 100%;
         }
 
         button:hover {
-            transform: scale(1.02);
-            box-shadow: 0 8px 20px rgba(0,180,216,0.4);
-            background: linear-gradient(45deg, #005f8c, #0096c7);
+            background: #ff9800;
+            transform: translateY(-2px);
         }
 
-        /* نتائج البحث (نموذجية) */
-        .results-section {
-            margin-top: 2.5rem;
-            background: rgba(0,0,0,0.3);
+        /* بطاقات الخدمات */
+        .services {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .service-card {
+            background: #ffffff;
+            border-radius: 1.2rem;
+            padding: 1.5rem;
+            flex: 1;
+            min-width: 180px;
+            box-shadow: 0 5px 12px rgba(0,0,0,0.05);
+            border: 1px solid #dfebf5;
+            text-align: center;
+            transition: 0.2s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-color: #ff9800;
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+        }
+
+        .service-card h3 {
+            margin: 0.8rem 0;
+            color: #0a4b7a;
+        }
+
+        /* نتائج البحث (مثل search.aspx) */
+        .results-area {
+            background: #fef9e6;
             border-radius: 1.5rem;
             padding: 1.5rem;
+            margin-top: 2rem;
+            border: 1px solid #ffe0a3;
         }
-
-        .results-header {
-            font-size: 1.5rem;
-            border-right: 5px solid #ffd966;
-            padding-right: 1rem;
-            margin-bottom: 1rem;
-        }
-
         .result-item {
-            background: rgba(255,255,255,0.1);
-            margin-bottom: 0.8rem;
+            background: white;
             padding: 1rem;
             border-radius: 1rem;
-            transition: background 0.2s;
+            margin-bottom: 1rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
 
-        .result-item:hover {
-            background: rgba(255,255,255,0.2);
-        }
-
-        .result-title {
-            font-weight: bold;
-            color: #ffd966;
-        }
-
-        /* الفوتر */
         .footer {
+            background: #102b3f;
+            color: #bcd3e8;
             text-align: center;
-            margin-top: 3rem;
-            font-size: 0.8rem;
-            color: #bbd4ff;
-            border-top: 1px solid #2c5a7a;
-            padding-top: 1.5rem;
+            padding: 1.5rem;
+            font-size: 0.85rem;
         }
 
         @media (max-width: 700px) {
-            .container {
-                padding: 1rem;
-            }
-            .logo {
-                font-size: 1.4rem;
-            }
-            .search-title {
-                font-size: 1.3rem;
-            }
+            body { padding: 0.8rem; }
+            .content { padding: 1rem; }
         }
     </style>
 </head>
@@ -197,114 +231,114 @@
 <div class="container">
     <!-- رأس الموقع -->
     <div class="header">
-        <div class="logo">🇮🇶 <span>الأنواء الجوية</span> والرصد الزلزالي</div>
-        <div class="sub">البوابة الوطنية للبيانات المناخية والزلزالية | العراق</div>
+        <div class="logo">
+            <h1>🇮🇶 الهيئة العامة للرعاية الاجتماعية <span>الاستعلام الإلكتروني</span></h1>
+        </div>
+        <div class="badge">خدمة المواطن أولاً</div>
     </div>
 
-    <!-- بطاقة البحث الرئيسية (جوهر الموقع) -->
-    <div class="search-card">
-        <div class="search-title">🔍 محرك البحث المتقدم للمحطات والبيانات</div>
-        <form class="search-form" id="searchForm">
-            <div class="form-row">
-                <div class="form-group">
-                    <label>🗺️ المحافظة / المنطقة</label>
-                    <select id="governorate">
-                        <option value="">جميع المحافظات</option>
-                        <option>بغداد</option><option>البصرة</option><option>نينوى</option>
-                        <option>أربيل</option><option>السليمانية</option><option>دهوك</option>
-                        <option>كركوك</option><option>صلاح الدين</option><option>الأنبار</option>
-                        <option>بابل</option><option>واسط</option><option>ذي قار</option>
-                        <option>ميسان</option><option>النجف</option><option>كربلاء</option>
-                        <option>القادسية</option><option>المثنى</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>📅 نوع البيانات</label>
-                    <select id="dataType">
-                        <option value="">الكل</option>
-                        <option>درجات الحرارة</option>
-                        <option>الرطوبة والرياح</option>
-                        <option>الزلازل</option>
-                        <option>تساقط الأمطار</option>
-                        <option>تحذيرات جوية</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>📆 السنة</label>
-                    <select id="year">
-                        <option value="">أي سنة</option>
-                        <option>2025</option><option>2024</option><option>2023</option>
-                        <option>2022</option><option>2021</option>
-                    </select>
-                </div>
-            </div>
-            <button type="button" id="searchBtn">ابحث الآن</button>
-        </form>
+    <!-- شريط التنقل -->
+    <div class="navbar">
+        <a href="#">الرئيسية</a>
+        <a href="#">الاستعلام عن مخصصات</a>
+        <a href="#">تقديم طلب</a>
+        <a href="#">دليل المستفيدين</a>
+        <a href="#">اتصل بنا</a>
     </div>
 
-    <!-- منطقة عرض النتائج (ديناميكية) -->
-    <div class="results-section" id="resultsArea">
-        <div class="results-header">📋 آخر النتائج والتقارير</div>
-        <div id="resultsList">
-            <!-- سيتم عرض النتائج هنا بواسطة JavaScript -->
-            <div class="result-item">
-                <div class="result-title">محطة بغداد - الرصد الجوي</div>
-                <div>درجة الحرارة: 34°C | الرطوبة: 45% | الرياح: شمالية غربية 12 كم/س</div>
-                <small>تم التحديث: 2025-04-30 14:20</small>
-            </div>
-            <div class="result-item">
-                <div class="result-title">تنبيه زلزالي - المنطقة الشمالية</div>
-                <div>هزة أرضية خفيفة (3.2) على بعد 35كم شمال شرق أربيل - بدون خطر.</div>
-                <small>التاريخ: 2025-04-29 22:05</small>
-            </div>
-            <div class="result-item">
-                <div class="result-title">تقرير الأمطار - البصرة</div>
-                <div>كمية الهطول 8.7 ملم خلال الـ 24 ساعة الماضية.</div>
-                <small>2025-04-28</small>
+    <div class="content">
+        <!-- قسم البحث الرئيسي (محاكي search.aspx) -->
+        <div class="search-card">
+            <div class="search-title">📋 نظام الاستعلام عن معاملات الرعاية الاجتماعية</div>
+            <form id="searchForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>رقم الهوية الوطنية</label>
+                        <input type="text" id="nationalId" placeholder="مثال: 12345678901">
+                    </div>
+                    <div class="form-group">
+                        <label>المحافظة</label>
+                        <select id="gov">
+                            <option>جميع المحافظات</option>
+                            <option>بغداد</option><option>البصرة</option><option>نينوى</option>
+                            <option>أربيل</option><option>السليمانية</option><option>دهوك</option>
+                            <option>كركوك</option><option>صلاح الدين</option><option>الأنبار</option>
+                            <option>بابل</option><option>واسط</option><option>ذي قار</option>
+                            <option>ميسان</option><option>النجف</option><option>كربلاء</option>
+                            <option>القادسية</option><option>المثنى</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>نوع المعاملة</label>
+                        <select id="type">
+                            <option>الكل</option>
+                            <option>معاش الرعاية الاجتماعية</option>
+                            <option>بطاقة التمكين</option>
+                            <option>إعانة ذوي الإعاقة</option>
+                            <option>إعانة الأيتام</option>
+                            <option>دعم الطلبة</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="button" id="searchBtn">🔍 استعلام</button>
+            </form>
+        </div>
+
+        <!-- خدمات سريعة -->
+        <div class="services">
+            <div class="service-card"><div class="service-icon">🆔</div><h3>الاستعلام عن المعاش</h3><p>تفاصيل الراتب والمستحقات</p></div>
+            <div class="service-card"><div class="service-icon">📄</div><h3>تقديم طلب جديد</h3><p>التسجيل في برامج الدعم</p></div>
+            <div class="service-card"><div class="service-icon">♿</div><h3>خدمات ذوي الإعاقة</h3><p>الإعانات والخدمات</p></div>
+            <div class="service-card"><div class="service-icon">📞</div><h3>الخط الساخن</h3><p>159 - خدمة المستفيدين</p></div>
+        </div>
+
+        <!-- منطقة عرض النتائج (محاكية لـ search.aspx) -->
+        <div class="results-area" id="resultsArea">
+            <h3 style="display:flex; align-items:center; gap:8px;">📌 آخر الاستعلامات والنتائج</h3>
+            <div id="resultsList">
+                <div class="result-item"><strong>رقم الهوية: *****12345</strong> - معاش الرعاية الاجتماعية: 150,000 دينار (دفعة شهر نيسان) - حالة الطلب: مكتمل</div>
+                <div class="result-item"><strong>بطاقة التمكين:</strong> تم إصدار البطاقة لمستفيدي البصرة والموصل، استلمها من مركز التوزيع.</div>
+                <div class="result-item"><strong>إعانة الأيتام:</strong> تم صرف الدعم لشهر أيار يوم 2025-05-05.</div>
             </div>
         </div>
     </div>
 
     <div class="footer">
-        © 2025 هيئة الأنواء الجوية والرصد الزلزالي العراقية | بيانات رسمية لأغراض البحث والتخطيط
+        © 2025 الهيئة العامة للرعاية الاجتماعية - جمهورية العراق | مركز البيانات والاستعلامات الإلكترونية
     </div>
 </div>
 
 <script>
-    // محاكاة عملية البحث بناءً على المدخلات (تعمل مثل الـ search.aspx)
+    // وظيفة البحث (محاكاة استعلام الرعاية الاجتماعية)
     document.getElementById('searchBtn').addEventListener('click', function() {
-        const gov = document.getElementById('governorate').value;
-        const type = document.getElementById('dataType').value;
-        const year = document.getElementById('year').value;
+        const nationalNumber = document.getElementById('nationalId').value;
+        const gov = document.getElementById('gov').value;
+        const requestType = document.getElementById('type').value;
 
-        // نتائج افتراضية ديناميكية (توحي بالبحث الحقيقي)
-        let resultHTML = '';
-        
-        // إذا لم يختر المستخدم شيئاً -> نعرض نتائج عامة
-        if (!gov && !type && !year) {
-            resultHTML = `
-                <div class="result-item"><div class="result-title">🌦️ النتائج العامة (أحدث البيانات)</div><div>بغداد: صافي، 38°C | البصرة: رطب، 42°C | الموصل: معتدل، 28°C</div><small>تحديث فوري</small></div>
-                <div class="result-item"><div class="result-title">📊 التقرير الشهري للرصد الزلزالي</div><div>عدد الهزات المسجلة في نيسان: 7 هزات ضعيفة إلى متوسطة.</div><small>أبريل 2025</small></div>
-            `;
+        let resultMsg = '';
+
+        if (nationalNumber.trim() === "") {
+            resultMsg = `<div class="result-item"><strong>⚠️ يرجى إدخال رقم هوية صالح للاستعلام.</strong></div>`;
         } else {
-            // نتائج مخصصة حسب الاختيار
-            let filters = [];
-            if(gov) filters.push(`محافظة: ${gov}`);
-            if(type) filters.push(`نوع: ${type}`);
-            if(year) filters.push(`سنة: ${year}`);
+            // محاكاة قاعدة بيانات الرعاية الاجتماعية
+            resultMsg = `<div class="result-item">
+                <strong>✅ نتيجة الاستعلام للهوية: ${nationalNumber}</strong><br>
+                🏛️ المحافظة: ${gov}<br>
+                📂 نوع المعاملة: ${requestType}<br>
+                💰 المبلغ المستحق: 165,000 دينار عراقي <br>
+                📅 تاريخ الصرف القادم: 2025-05-20 <br>
+                🟢 حالة الأهلية: مؤهل (يستحق الدعم)
+                </div>`;
             
-            resultHTML = `<div class="result-item"><div class="result-title">✅ نتائج البحث (${filters.join(' | ')})</div>
-                         <div>تم العثور على 3 سجلات مطابقة للبيانات المحددة.</div>
-                         <div>• محطة ${gov || 'الرصد الرئيسية'} : متوسط درجة الحرارة ${Math.floor(20+Math.random()*25)}°C</div>
-                         <div>• تقرير ${type || 'مناخي'} مسجل في ${year || 'أحدث السنوات'}</div>
-                         <div>• للاطلاع على التفاصيل الكاملة يرجى التواصل مع مركز البيانات.</div>
-                         <small>نتائج محاكاة - نظام البحث التجريبي</small>
-                         </div>`;
+            if (requestType === "بطاقة التمكين") {
+                resultMsg += `<div class="result-item">🎫 تم إصدار بطاقة التمكين الإلكترونية، يمكنك طباعتها من أقرب مركز خدمة.</div>`;
+            } else if (requestType === "إعانة ذوي الإعاقة") {
+                resultMsg += `<div class="result-item">♿ إعانة الإعاقة الشهرية: 125,000 دينار + الخدمات الصحية المجانية.</div>`;
+            }
         }
-        
-        // إضافة رسالة "تم البحث"
-        const searchSummary = `<div class="result-item" style="background:#004466"><div class="result-title">🔎 عملية بحث جارية ...</div><div>عرض النتائج المتعلقة بمعايير البحث الخاصة بك.</div></div>`;
-        document.getElementById('resultsList').innerHTML = searchSummary + resultHTML;
+
+        // عرض النتائج مع تاريخ الاستعلام
+        document.getElementById('resultsList').innerHTML = `<div class="result-item" style="background:#e9f0f9;">📅 نتيجة الاستعلام (${new Date().toLocaleString()})</div>` + resultMsg;
     });
 </script>
 </body>
