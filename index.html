@@ -11,8 +11,8 @@
 
     <style>
         :root {
-            --primary: #0b2384; /* الأزرق الغامق من الصورة */
-            --accent: #fbb034;  /* البرتقالي من الصورة */
+            --primary: #0b2384; 
+            --accent: #fbb034;  
             --white: #ffffff;
             --gray: #f8f9fa;
         }
@@ -20,12 +20,9 @@
         body {
             font-family: 'Cairo', sans-serif;
             background-color: var(--primary);
-            margin: 0;
-            padding: 0;
-            color: var(--white);
+            margin: 0; padding: 0; color: var(--white);
         }
 
-        /* الهيدر وتصميم البداية */
         header {
             text-align: center;
             padding: 50px 20px;
@@ -34,120 +31,53 @@
         }
 
         .soon-badge {
-            background-color: var(--white);
-            color: var(--primary);
-            padding: 5px 25px;
-            border-radius: 50px;
-            font-weight: 900;
-            font-size: 1.2rem;
-            display: inline-block;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            background-color: var(--white); color: var(--primary);
+            padding: 5px 25px; border-radius: 50px; font-weight: 900;
+            font-size: 1.2rem; display: inline-block; margin-bottom: 15px;
         }
 
-        h1 { font-size: 2.5rem; margin: 10px 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
-        .sub-title { font-size: 1.1rem; opacity: 0.9; margin-bottom: 20px; }
+        h1 { font-size: 2.2rem; margin: 10px 0; }
+        .container { max-width: 800px; margin: -40px auto 50px; padding: 0 15px; }
 
-        .container { max-width: 900px; margin: -40px auto 50px; padding: 0 15px; }
-
-        /* البطاقات */
         .card {
-            background: var(--white);
-            border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 25px;
-            color: #333;
+            background: var(--white); border-radius: 20px;
+            padding: 25px; margin-bottom: 25px; color: #333;
             box-shadow: 0 15px 35px rgba(0,0,0,0.3);
         }
 
         .section-title {
-            background: var(--accent);
-            color: #000;
-            display: inline-block;
-            padding: 8px 30px;
-            border-radius: 12px;
-            font-weight: bold;
-            margin-bottom: 25px;
-            font-size: 1.3rem;
-        }
-
-        /* قائمة التفاصيل */
-        .details-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
+            background: var(--accent); color: #000;
+            display: inline-block; padding: 8px 30px;
+            border-radius: 12px; font-weight: bold; margin-bottom: 20px;
         }
 
         .detail-item {
-            display: flex;
-            align-items: center;
-            padding: 12px;
-            background: var(--gray);
+            padding: 12px; background: var(--gray);
             border-right: 5px solid var(--accent);
-            border-radius: 8px;
-            font-size: 1.1rem;
+            border-radius: 8px; margin-bottom: 10px; font-size: 1.1rem;
         }
 
-        .detail-item strong { color: var(--primary); margin: 0 5px; }
-
-        /* المنظمون */
-        .organizers {
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            font-weight: bold;
-            color: #555;
-        }
-
-        /* الفورم */
         input {
-            width: 100%;
-            padding: 15px;
-            margin-bottom: 15px;
-            border: 2px solid #ddd;
-            border-radius: 10px;
-            font-family: 'Cairo';
-            font-size: 1rem;
+            width: 100%; padding: 15px; margin-bottom: 15px;
+            border: 2px solid #ddd; border-radius: 10px; font-family: 'Cairo';
             box-sizing: border-box;
         }
 
         button {
-            width: 100%;
-            padding: 18px;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
+            width: 100%; padding: 18px; background: var(--primary);
+            color: white; border: none; border-radius: 10px;
+            font-size: 1.2rem; font-weight: bold; cursor: pointer;
         }
 
-        button:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
-
-        /* صناديق الحالة */
-        .status-box {
-            display: none;
-            text-align: center;
-            padding: 30px;
-            border-radius: 15px;
-            margin-top: 10px;
-        }
+        .status-box { display: none; text-align: center; padding: 25px; border-radius: 15px; }
         .pending { background: #fff8e1; color: #b7791f; border: 1px solid #fbe38e; }
         .accepted { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
-        .rejected { background: #ffeea7; color: #c62828; border: 1px solid #ef9a9a; }
+        .rejected { background: #fce4ec; color: #c62828; border: 1px solid #f8bbd0; }
 
-        /* لوحة الإدارة */
-        #admin-area { display: none; background: #fff; color: #333; padding: 20px; border-radius: 15px; margin-top: 30px; overflow-x: auto; }
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-        th, td { padding: 12px; border: 1px solid #eee; text-align: center; }
-        th { background: var(--primary); color: #fff; }
-        .action-btn { padding: 5px 15px; border-radius: 5px; cursor: pointer; border: none; color: #fff; margin: 2px; }
-
+        #admin-area { display: none; background: #fff; color: #333; padding: 20px; border-radius: 15px; margin-top: 30px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.9rem; }
+        th, td { padding: 10px; border: 1px solid #eee; text-align: center; }
+        .action-btn { padding: 5px 10px; border-radius: 5px; cursor: pointer; border: none; color: #fff; margin: 2px; }
     </style>
 </head>
 <body>
@@ -155,78 +85,72 @@
 <header>
     <div class="soon-badge">قريبـــــاً SOON.</div>
     <h1>دوري شهداء المنصورية</h1>
-    <div class="sub-title">Martyrs of Mansouriya League</div>
     <div style="font-weight: bold; color: var(--accent);">تحت إشراف لجنة المنصورية</div>
 </header>
 
 <div class="container">
     <div class="card">
         <div class="section-title">التفاصيل الدوري</div>
-        <div class="details-grid">
-            <div class="detail-item">1- أن يكون حصراً مواليد <strong>2007 | 2008</strong></div>
-            <div class="detail-item">2- وقت الشوط الواحد هو <strong>20 دقيقة</strong></div>
-            <div class="detail-item">3- الدوري تحت إشراف <strong>لجنة المنصورية</strong></div>
-            <div class="detail-item">4- يعتمد الدوري على <strong>حكام اتحاديين</strong></div>
-            <div class="detail-item">5- يوجد في كل المباريات <strong>إعلام</strong></div>
-        </div>
-        
-        <div class="organizers">
-            <span>تنظيم الكابتن: أحمد الطائي</span>
-            <span>تنظيم الكابتن: علي محمد</span>
+        <div class="detail-item">1- أن يكون حصراً مواليد <strong>2007 | 2008</strong></div>
+        <div class="detail-item">2- وقت الشوط الواحد هو <strong>20 دقيقة</strong></div>
+        <div class="detail-item">3- الدوري تحت إشراف <strong>لجنة المنصورية</strong></div>
+        <div class="detail-item">4- يعتمد الدوري على <strong>حكام اتحاديين</strong></div>
+        <div class="detail-item">5- يوجد في كل المباريات <strong>إعلام</strong></div>
+        <div style="margin-top:15px; font-weight:bold; color:#666; text-align:center;">
+            تنظيم: الكابتن أحمد الطائي & الكابتن علي محمد
         </div>
     </div>
 
-    <div class="card" id="reg-card">
-        <div class="section-title">تسجيل الفريق</div>
-        
+    <div class="card">
+        <div class="section-title">تسجيل فريق جديد</div>
         <div id="form-wrapper">
-            <label>اسم الكابتن (المدرب):</label>
-            <input type="text" id="coach-name" placeholder="مثال: الكابتن محمد علي">
-            
-            <label>اسم الفريق:</label>
-            <input type="text" id="team-name" placeholder="مثال: صقور المنصورية">
-            
+            <input type="text" id="coach-name" placeholder="اسم المدرب / الكابتن">
+            <input type="text" id="team-name" placeholder="اسم الفريق">
             <button onclick="submitToFirebase()">إرسال طلب التسجيل</button>
         </div>
 
         <div id="status-display" class="status-box">
             <h2 id="status-title"></h2>
             <p id="status-body"></p>
-            <button onclick="newRequest()" style="background:#888; padding:8px; font-size:0.9rem; width:auto;">تقديم طلب آخر</button>
+            <button onclick="newRequest()" style="background:#888; padding:8px; font-size:0.8rem; width:auto; margin-top:10px;">تقديم طلب آخر</button>
         </div>
     </div>
 
     <center>
-        <button onclick="accessAdmin()" style="background:none; color:#ddd; font-size:0.8rem; border:1px solid #555; width:auto; padding:5px 20px;">دخول الإدارة 🔐</button>
+        <button onclick="accessAdmin()" style="background:none; color:#ddd; font-size:0.8rem; border:1px solid #555; width:auto; padding:5px 20px; margin-bottom:20px;">دخول الإدارة 🔐</button>
     </center>
 
-    <div id="admin-area">
-        <h2 style="color:var(--primary)">طلبات المدربين الواردة</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>المدرب</th>
-                    <th>الفريق</th>
-                    <th>الحالة</th>
-                    <th>الإجراء</th>
-                </tr>
-            </thead>
-            <tbody id="admin-table-body"></tbody>
-        </table>
+    <div id="admin-area" class="card">
+        <h2 style="color:var(--primary); margin-top:0;">طلبات الفرق الواردة</h2>
+        <div style="overflow-x:auto;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>المدرب</th>
+                        <th>الفريق</th>
+                        <th>الحالة</th>
+                        <th>الإجراء</th>
+                    </tr>
+                </thead>
+                <tbody id="admin-table-body"></tbody>
+            </table>
+        </div>
     </div>
 </div>
 
 <script>
-    // تكوين Firebase (ضع بياناتك هنا)
+    // --- المعلومات من صورتك ---
     const firebaseConfig = {
-        apiKey: "AIzaSy...", 
-        authDomain: "your-app.firebaseapp.com",
-        projectId: "your-app-id",
-        storageBucket: "your-app.appspot.com",
-        messagingSenderId: "...",
-        appId: "..."
+        apiKey: "AIzaSyAaE_9LHxQkApNESYh9quBNZcj9PKnK-jI",
+        authDomain: "mansouriya2024.firebaseapp.com",
+        projectId: "mansouriya2024",
+        storageBucket: "mansouriya2024.firebasestorage.app",
+        messagingSenderId: "456547547834",
+        appId: "1:456547547834:web:b7a1e06a5e0ba058dc6083",
+        measurementId: "G-W0JCJZGDF1"
     };
 
+    // تشغيل فايبربيس
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
@@ -235,26 +159,29 @@
         const coach = document.getElementById('coach-name').value;
         const team = document.getElementById('team-name').value;
 
-        if(!coach || !team) { alert("يرجى ملء كافة الحقول"); return; }
+        if(!coach || !team) { alert("أدخل اسمك واسم فريقك"); return; }
 
         try {
-            const docRef = await db.collection("mansouriya_league").add({
+            const docRef = await db.collection("registrations").add({
                 coach: coach,
                 team: team,
                 status: "pending",
-                date: new Date().toLocaleString('ar-EG')
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
             });
-            localStorage.setItem('my_league_request_id', docRef.id);
+            localStorage.setItem('my_request_id', docRef.id);
+            alert("تم الإرسال بنجاح، بانتظار موافقة الإدارة.");
             checkStatus();
-        } catch (e) { alert("خطأ في الاتصال بقاعدة البيانات"); }
+        } catch (e) {
+            alert("خطأ: تأكد من تفعيل قواعد Firestore (Rules) في الموقع.");
+        }
     }
 
     // متابعة الحالة للمدرب
     function checkStatus() {
-        const reqId = localStorage.getItem('my_league_request_id');
+        const reqId = localStorage.getItem('my_request_id');
         if(!reqId) return;
 
-        db.collection("mansouriya_league").doc(reqId).onSnapshot((doc) => {
+        db.collection("registrations").doc(reqId).onSnapshot((doc) => {
             if (doc.exists) {
                 const data = doc.data();
                 document.getElementById('form-wrapper').style.display = 'none';
@@ -263,14 +190,14 @@
                 box.className = 'status-box ' + data.status;
 
                 if(data.status === 'pending') {
-                    document.getElementById('status-title').innerText = "طلبك قيد الانتظار ⏳";
-                    document.getElementById('status-body').innerText = `الكابتن ${data.coach}، طلبك لفريق "${data.team}" تحت مراجعة اللجنة الآن.`;
+                    document.getElementById('status-title').innerText = "طلبك قيد المراجعة ⏳";
+                    document.getElementById('status-body').innerText = `الكابتن ${data.coach}، فريق "${data.team}" بانتظار قرار اللجنة.`;
                 } else if(data.status === 'accepted') {
-                    document.getElementById('status-title').innerText = "تم القبول بنجاح ✅";
-                    document.getElementById('status-body').innerText = "أهلاً بك وبفريقك في دوري شهداء المنصورية.";
+                    document.getElementById('status-title').innerText = "تم القبول! ✅";
+                    document.getElementById('status-body').innerText = "تم اعتماد فريقك في دوري شهداء المنصورية.";
                 } else if(data.status === 'rejected') {
-                    document.getElementById('status-title').innerText = "نعتذر منك ❌";
-                    document.getElementById('status-body').innerText = "تم رفض طلب التسجيل، يرجى مراجعة اللجنة.";
+                    document.getElementById('status-title').innerText = "نعتذر، الطلب مرفوض ❌";
+                    document.getElementById('status-body').innerText = "تم رفض التسجيل، يرجى مراجعة الكابتن أحمد أو علي.";
                 }
             }
         });
@@ -282,11 +209,11 @@
         if(pin === "a1234") {
             document.getElementById('admin-area').style.display = 'block';
             loadAdminPanel();
-        } else { alert("الرمز غير صحيح"); }
+        } else { alert("الرمز خطأ"); }
     }
 
     function loadAdminPanel() {
-        db.collection("mansouriya_league").onSnapshot((snapshot) => {
+        db.collection("registrations").orderBy("timestamp", "desc").onSnapshot((snapshot) => {
             const table = document.getElementById('admin-table-body');
             table.innerHTML = "";
             snapshot.forEach((doc) => {
@@ -307,11 +234,11 @@
     }
 
     function updateReq(id, val) {
-        db.collection("mansouriya_league").doc(id).update({ status: val });
+        db.collection("registrations").doc(id).update({ status: val });
     }
 
     function newRequest() {
-        localStorage.removeItem('my_league_request_id');
+        localStorage.removeItem('my_request_id');
         location.reload();
     }
 
