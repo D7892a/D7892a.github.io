@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>رادار المنصورية | Mansouriya Radar</title>
+    <title>Mansouriya Radar | رادار المنصورية</title>
     
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
@@ -12,35 +13,78 @@
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
 
     <style>
-        :root { --primary: #2563eb; --bg: #f1f5f9; --accent: #059669; }
-        body { font-family: 'Segoe UI', sans-serif; background-color: var(--bg); margin: 0; padding: 15px; text-align: center; }
-        .card { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
-        h1 { color: #1e293b; margin-bottom: 10px; }
-        .mode-selector { display: flex; gap: 10px; justify-content: center; margin: 20px 0; }
-        button { padding: 12px 20px; border: none; border-radius: 12px; cursor: pointer; font-weight: bold; font-size: 16px; transition: 0.3s; flex: 1; }
-        .btn-sender { background: var(--accent); color: white; }
-        .btn-viewer { background: var(--primary); color: white; }
-        #map { height: 450px; width: 100%; border-radius: 15px; margin-top: 20px; border: 2px solid #e2e8f0; display: none; }
-        .status { padding: 15px; border-radius: 10px; background: #f8fafc; margin-top: 10px; display: none; border-right: 5px solid var(--primary); }
+        * { box-sizing: border-box; font-family: 'Tajawal', sans-serif; }
+        body, html { margin: 0; padding: 0; height: 100%; background: #f0f2f5; }
+        
+        /* تصميم الخارطة لتملأ الشاشة */
+        #map { height: 100vh; width: 100%; position: absolute; z-index: 1; }
+
+        /* البطاقة العلوية */
+        .top-panel {
+            position: absolute; top: 20px; left: 50%; transform: translateX(-50%);
+            z-index: 100; width: 90%; max-width: 400px;
+            background: white; padding: 15px; border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2); text-align: center;
+        }
+
+        /* لوحة التحكم السفلية */
+        .bottom-panel {
+            position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+            z-index: 100; width: 90%; max-width: 400px;
+            background: rgba(255, 255, 255, 0.95); padding: 20px; border-radius: 25px;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.1); backdrop-filter: blur(10px);
+        }
+
+        .btn-group { display: flex; gap: 10px; margin-top: 15px; }
+        
+        button {
+            flex: 1; padding: 12px; border: none; border-radius: 15px;
+            font-weight: bold; cursor: pointer; transition: 0.3s; font-size: 14px;
+        }
+
+        .btn-send { background: #00b894; color: white; }
+        .btn-view { background: #0984e3; color: white; }
+        .btn-send:hover, .btn-view:hover { opacity: 0.8; transform: translateY(-2px); }
+
+        .status-indicator {
+            font-size: 12px; color: #636e72; margin-top: 8px;
+            display: flex; align-items: center; justify-content: center; gap: 5px;
+        }
+
+        .dot { height: 8px; width: 8px; background-color: #dfe6e9; border-radius: 50%; display: inline-block; }
+        .online { background-color: #00b894; animation: blink 1s infinite; }
+
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+
+        #info-text { font-size: 14px; color: #2d3436; font-weight: bold; }
     </style>
 </head>
 <body>
 
-<div class="card">
-    <h1>📍 رادار عائلة المنصورية</h1>
-    <p>اختر دورك في هذا الجهاز:</p>
+<div class="top-panel">
+    <h3 style="margin:0; color:#2d3436;">📍 رادار عائلة المنصورية</h3>
+    <div id="info-text">بانتظار تحديد الدور...</div>
+</div>
 
-    <div class="mode-selector">
-        <button class="btn-sender" onclick="initSender()">أنا (إرسال الموقع)</button>
-        <button class="btn-viewer" onclick="initViewer()">المراقب (فتح الخارطة)</button>
+<div id="map"></div>
+
+<div class="bottom-panel">
+    <div id="update-timer" style="font-size: 11px; color: #b2bec3; margin-bottom: 5px; display: none;">
+        التحديث القادم خلال: <span id="seconds">10</span> ثواني
+    </div>
+    <div class="status-indicator">
+        <span id="status-dot" class="dot"></span>
+        <span id="status-msg">النظام جاهز</span>
     </div>
 
-    <div id="status" class="status"></div>
-    <div id="map"></div>
+    <div class="btn-group">
+        <button class="btn-send" onclick="modeSender()">بث موقعي (إرسال)</button>
+        <button class="btn-view" onclick="modeViewer()">مراقبة الخريطة (عرض)</button>
+    </div>
 </div>
 
 <script>
-    // إعدادات Firebase الخاصة بك من الصورة
+    // إعدادات Firebase الخاصة بك
     const firebaseConfig = {
         apiKey: "AIzaSyAaE_9lHxQkApNESYh9quBNZcj9PKnK-jI",
         authDomain: "mansouriya2024.firebaseapp.com",
@@ -48,65 +92,86 @@
         storageBucket: "mansouriya2024.firebasestorage.app",
         messagingSenderId: "456547547834",
         appId: "1:456547547834:web:b7a1e06a5e0ba058dc6083",
-        measurementId: "G-W0JCJZGDF1",
-        // ملاحظة: تأكد من تفعيل Realtime Database في الكونسول
-        databaseURL: "https://mansouriya2024-default-rtdb.firebaseio.com" 
+        databaseURL: "https://mansouriya2024-default-rtdb.firebaseio.com"
     };
-    
+
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
-    let map, marker;
+    let map, marker, updateInterval;
 
-    // --- وضع إرسال الإحداثيات (الموبايل المفقود أو الشخص) ---
-    function initSender() {
-        showStatus("⏳ جاري محاولة تحديد موقعك...");
-        document.getElementById('map').style.display = 'none';
-
-        if (navigator.geolocation) {
-            navigator.geolocation.watchPosition((pos) => {
-                const myData = {
-                    lat: pos.coords.latitude,
-                    lng: pos.coords.longitude,
-                    time: new Date().toLocaleTimeString()
-                };
-                
-                // حفظ الموقع في قاعدة بياناتك
-                db.ref('live_tracking/person1').set(myData);
-                
-                showStatus(`✅ موقعك يُبث الآن!<br>آخر تحديث: ${myData.time}`);
-            }, (err) => {
-                showStatus("❌ فشل: يرجى تفعيل الـ GPS في الموبايل.");
-            }, { enableHighAccuracy: true });
+    // تهيئة الخارطة
+    function initMap() {
+        if (!map) {
+            map = L.map('map', { zoomControl: false }).setView([31.05, 46.25], 15);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+            L.control.zoom({ position: 'bottomright' }).addTo(map);
+            marker = L.marker([31.05, 46.25]).addTo(map);
         }
     }
 
-    // --- وضع المراقب (الخارطة) ---
-    function initViewer() {
-        document.getElementById('map').style.display = 'block';
-        showStatus("🔍 بانتظار استلام إحداثيات...");
+    // --- وضع الإرسال (تحديث كل 10 ثواني) ---
+    function modeSender() {
+        initMap();
+        document.getElementById('update-timer').style.display = 'block';
+        updateStatus("جاري البث...", true);
+        
+        let countdown = 10;
+        
+        // وظيفة الإرسال الفعلي
+        const sendLocation = () => {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition((pos) => {
+                    const data = {
+                        lat: pos.coords.latitude,
+                        lng: pos.coords.longitude,
+                        time: new Date().toLocaleTimeString('ar-EG')
+                    };
+                    db.ref('live_tracking/person1').set(data);
+                    document.getElementById('info-text').innerText = "تم تحديث موقعك بنجاح";
+                }, null, { enableHighAccuracy: true });
+            }
+        };
 
-        if (!map) {
-            map = L.map('map').setView([31.05, 46.25], 13); // البداية من الناصرية
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-            marker = L.marker([31.05, 46.25]).addTo(map).bindPopup('موقع الشخص').openPopup();
-        }
+        // إرسال أول مرة فوراً
+        sendLocation();
 
-        // الاستماع للتحديثات الحية من قاعدة بياناتك
+        // إعداد المؤقت والتحديث الدوري
+        if(updateInterval) clearInterval(updateInterval);
+        
+        updateInterval = setInterval(() => {
+            countdown--;
+            document.getElementById('seconds').innerText = countdown;
+            
+            if (countdown <= 0) {
+                sendLocation();
+                countdown = 10;
+            }
+        }, 1000);
+    }
+
+    // --- وضع العرض (تلقائي الحدوث من Firebase) ---
+    function modeViewer() {
+        initMap();
+        updateStatus("جاري المراقبة الحية...", true);
+        document.getElementById('update-timer').style.display = 'none';
+
         db.ref('live_tracking/person1').on('value', (snap) => {
             const data = snap.val();
             if (data) {
-                const latlng = [data.lat, data.lng];
-                marker.setLatLng(latlng);
-                map.panTo(latlng);
-                showStatus(`📍 الشخص متصل الآن<br>آخر تحديث: ${data.time}`);
+                const pos = [data.lat, data.lng];
+                marker.setLatLng(pos);
+                map.panTo(pos);
+                document.getElementById('info-text').innerHTML = `آخر ظهور: ${data.time}`;
+                marker.bindPopup(`الشخص هنا حالياً<br>${data.time}`).openPopup();
             }
         });
     }
 
-    function showStatus(msg) {
-        const s = document.getElementById('status');
-        s.style.display = 'block';
-        s.innerHTML = msg;
+    function updateStatus(msg, online) {
+        document.getElementById('status-msg').innerText = msg;
+        const dot = document.getElementById('status-dot');
+        if (online) dot.classList.add('online');
+        else dot.classList.remove('online');
     }
 </script>
 
