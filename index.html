@@ -3,246 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>دوري شهداء المنصورية</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <title>رادار المنصورية | Mansouriya Radar</title>
     
-    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore-compat.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
 
     <style>
-        :root {
-            --primary: #0b2384; 
-            --accent: #fbb034;  
-            --white: #ffffff;
-            --gray: #f8f9fa;
-        }
-
-        body {
-            font-family: 'Cairo', sans-serif;
-            background-color: var(--primary);
-            margin: 0; padding: 0; color: var(--white);
-        }
-
-        header {
-            text-align: center;
-            padding: 50px 20px;
-            background: radial-gradient(circle at top right, #1a36a3, var(--primary));
-            border-bottom: 6px solid var(--accent);
-        }
-
-        .soon-badge {
-            background-color: var(--white); color: var(--primary);
-            padding: 5px 25px; border-radius: 50px; font-weight: 900;
-            font-size: 1.2rem; display: inline-block; margin-bottom: 15px;
-        }
-
-        h1 { font-size: 2.2rem; margin: 10px 0; }
-        .container { max-width: 800px; margin: -40px auto 50px; padding: 0 15px; }
-
-        .card {
-            background: var(--white); border-radius: 20px;
-            padding: 25px; margin-bottom: 25px; color: #333;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-        }
-
-        .section-title {
-            background: var(--accent); color: #000;
-            display: inline-block; padding: 8px 30px;
-            border-radius: 12px; font-weight: bold; margin-bottom: 20px;
-        }
-
-        .detail-item {
-            padding: 12px; background: var(--gray);
-            border-right: 5px solid var(--accent);
-            border-radius: 8px; margin-bottom: 10px; font-size: 1.1rem;
-        }
-
-        input {
-            width: 100%; padding: 15px; margin-bottom: 15px;
-            border: 2px solid #ddd; border-radius: 10px; font-family: 'Cairo';
-            box-sizing: border-box;
-        }
-
-        button {
-            width: 100%; padding: 18px; background: var(--primary);
-            color: white; border: none; border-radius: 10px;
-            font-size: 1.2rem; font-weight: bold; cursor: pointer;
-        }
-
-        .status-box { display: none; text-align: center; padding: 25px; border-radius: 15px; }
-        .pending { background: #fff8e1; color: #b7791f; border: 1px solid #fbe38e; }
-        .accepted { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
-        .rejected { background: #fce4ec; color: #c62828; border: 1px solid #f8bbd0; }
-
-        #admin-area { display: none; background: #fff; color: #333; padding: 20px; border-radius: 15px; margin-top: 30px; }
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.9rem; }
-        th, td { padding: 10px; border: 1px solid #eee; text-align: center; }
-        .action-btn { padding: 5px 10px; border-radius: 5px; cursor: pointer; border: none; color: #fff; margin: 2px; }
+        :root { --primary: #2563eb; --bg: #f1f5f9; --accent: #059669; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: var(--bg); margin: 0; padding: 15px; text-align: center; }
+        .card { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        h1 { color: #1e293b; margin-bottom: 10px; }
+        .mode-selector { display: flex; gap: 10px; justify-content: center; margin: 20px 0; }
+        button { padding: 12px 20px; border: none; border-radius: 12px; cursor: pointer; font-weight: bold; font-size: 16px; transition: 0.3s; flex: 1; }
+        .btn-sender { background: var(--accent); color: white; }
+        .btn-viewer { background: var(--primary); color: white; }
+        #map { height: 450px; width: 100%; border-radius: 15px; margin-top: 20px; border: 2px solid #e2e8f0; display: none; }
+        .status { padding: 15px; border-radius: 10px; background: #f8fafc; margin-top: 10px; display: none; border-right: 5px solid var(--primary); }
     </style>
 </head>
 <body>
 
-<header>
-    <div class="soon-badge">قريبـــــاً SOON.</div>
-    <h1>دوري شهداء المنصورية</h1>
-    <div style="font-weight: bold; color: var(--accent);">تحت إشراف لجنة المنصورية</div>
-</header>
+<div class="card">
+    <h1>📍 رادار عائلة المنصورية</h1>
+    <p>اختر دورك في هذا الجهاز:</p>
 
-<div class="container">
-    <div class="card">
-        <div class="section-title">التفاصيل الدوري</div>
-        <div class="detail-item">1- أن يكون حصراً مواليد <strong>2007 | 2008</strong></div>
-        <div class="detail-item">2- وقت الشوط الواحد هو <strong>20 دقيقة</strong></div>
-        <div class="detail-item">3- الدوري تحت إشراف <strong>لجنة المنصورية</strong></div>
-        <div class="detail-item">4- يعتمد الدوري على <strong>حكام اتحاديين</strong></div>
-        <div class="detail-item">5- يوجد في كل المباريات <strong>إعلام</strong></div>
-        <div style="margin-top:15px; font-weight:bold; color:#666; text-align:center;">
-            تنظيم: الكابتن أحمد الطائي & الكابتن علي محمد
-        </div>
+    <div class="mode-selector">
+        <button class="btn-sender" onclick="initSender()">أنا (إرسال الموقع)</button>
+        <button class="btn-viewer" onclick="initViewer()">المراقب (فتح الخارطة)</button>
     </div>
 
-    <div class="card">
-        <div class="section-title">تسجيل فريق جديد</div>
-        <div id="form-wrapper">
-            <input type="text" id="coach-name" placeholder="اسم المدرب / الكابتن">
-            <input type="text" id="team-name" placeholder="اسم الفريق">
-            <button onclick="submitToFirebase()">إرسال طلب التسجيل</button>
-        </div>
-
-        <div id="status-display" class="status-box">
-            <h2 id="status-title"></h2>
-            <p id="status-body"></p>
-            <button onclick="newRequest()" style="background:#888; padding:8px; font-size:0.8rem; width:auto; margin-top:10px;">تقديم طلب آخر</button>
-        </div>
-    </div>
-
-    <center>
-        <button onclick="accessAdmin()" style="background:none; color:#ddd; font-size:0.8rem; border:1px solid #555; width:auto; padding:5px 20px; margin-bottom:20px;">دخول الإدارة 🔐</button>
-    </center>
-
-    <div id="admin-area" class="card">
-        <h2 style="color:var(--primary); margin-top:0;">طلبات الفرق الواردة</h2>
-        <div style="overflow-x:auto;">
-            <table>
-                <thead>
-                    <tr>
-                        <th>المدرب</th>
-                        <th>الفريق</th>
-                        <th>الحالة</th>
-                        <th>الإجراء</th>
-                    </tr>
-                </thead>
-                <tbody id="admin-table-body"></tbody>
-            </table>
-        </div>
-    </div>
+    <div id="status" class="status"></div>
+    <div id="map"></div>
 </div>
 
 <script>
-    // --- المعلومات من صورتك ---
+    // إعدادات Firebase الخاصة بك من الصورة
     const firebaseConfig = {
-        apiKey: "AIzaSyAaE_9LHxQkApNESYh9quBNZcj9PKnK-jI",
+        apiKey: "AIzaSyAaE_9lHxQkApNESYh9quBNZcj9PKnK-jI",
         authDomain: "mansouriya2024.firebaseapp.com",
         projectId: "mansouriya2024",
         storageBucket: "mansouriya2024.firebasestorage.app",
         messagingSenderId: "456547547834",
         appId: "1:456547547834:web:b7a1e06a5e0ba058dc6083",
-        measurementId: "G-W0JCJZGDF1"
+        measurementId: "G-W0JCJZGDF1",
+        // ملاحظة: تأكد من تفعيل Realtime Database في الكونسول
+        databaseURL: "https://mansouriya2024-default-rtdb.firebaseio.com" 
     };
-
-    // تشغيل فايبربيس
+    
     firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
+    const db = firebase.database();
+    let map, marker;
 
-    // إرسال الطلب
-    async function submitToFirebase() {
-        const coach = document.getElementById('coach-name').value;
-        const team = document.getElementById('team-name').value;
+    // --- وضع إرسال الإحداثيات (الموبايل المفقود أو الشخص) ---
+    function initSender() {
+        showStatus("⏳ جاري محاولة تحديد موقعك...");
+        document.getElementById('map').style.display = 'none';
 
-        if(!coach || !team) { alert("أدخل اسمك واسم فريقك"); return; }
-
-        try {
-            const docRef = await db.collection("registrations").add({
-                coach: coach,
-                team: team,
-                status: "pending",
-                timestamp: firebase.firestore.FieldValue.serverTimestamp()
-            });
-            localStorage.setItem('my_request_id', docRef.id);
-            alert("تم الإرسال بنجاح، بانتظار موافقة الإدارة.");
-            checkStatus();
-        } catch (e) {
-            alert("خطأ: تأكد من تفعيل قواعد Firestore (Rules) في الموقع.");
+        if (navigator.geolocation) {
+            navigator.geolocation.watchPosition((pos) => {
+                const myData = {
+                    lat: pos.coords.latitude,
+                    lng: pos.coords.longitude,
+                    time: new Date().toLocaleTimeString()
+                };
+                
+                // حفظ الموقع في قاعدة بياناتك
+                db.ref('live_tracking/person1').set(myData);
+                
+                showStatus(`✅ موقعك يُبث الآن!<br>آخر تحديث: ${myData.time}`);
+            }, (err) => {
+                showStatus("❌ فشل: يرجى تفعيل الـ GPS في الموبايل.");
+            }, { enableHighAccuracy: true });
         }
     }
 
-    // متابعة الحالة للمدرب
-    function checkStatus() {
-        const reqId = localStorage.getItem('my_request_id');
-        if(!reqId) return;
+    // --- وضع المراقب (الخارطة) ---
+    function initViewer() {
+        document.getElementById('map').style.display = 'block';
+        showStatus("🔍 بانتظار استلام إحداثيات...");
 
-        db.collection("registrations").doc(reqId).onSnapshot((doc) => {
-            if (doc.exists) {
-                const data = doc.data();
-                document.getElementById('form-wrapper').style.display = 'none';
-                const box = document.getElementById('status-display');
-                box.style.display = 'block';
-                box.className = 'status-box ' + data.status;
+        if (!map) {
+            map = L.map('map').setView([31.05, 46.25], 13); // البداية من الناصرية
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+            marker = L.marker([31.05, 46.25]).addTo(map).bindPopup('موقع الشخص').openPopup();
+        }
 
-                if(data.status === 'pending') {
-                    document.getElementById('status-title').innerText = "طلبك قيد المراجعة ⏳";
-                    document.getElementById('status-body').innerText = `الكابتن ${data.coach}، فريق "${data.team}" بانتظار قرار اللجنة.`;
-                } else if(data.status === 'accepted') {
-                    document.getElementById('status-title').innerText = "تم القبول! ✅";
-                    document.getElementById('status-body').innerText = "تم اعتماد فريقك في دوري شهداء المنصورية.";
-                } else if(data.status === 'rejected') {
-                    document.getElementById('status-title').innerText = "نعتذر، الطلب مرفوض ❌";
-                    document.getElementById('status-body').innerText = "تم رفض التسجيل، يرجى مراجعة الكابتن أحمد أو علي.";
-                }
+        // الاستماع للتحديثات الحية من قاعدة بياناتك
+        db.ref('live_tracking/person1').on('value', (snap) => {
+            const data = snap.val();
+            if (data) {
+                const latlng = [data.lat, data.lng];
+                marker.setLatLng(latlng);
+                map.panTo(latlng);
+                showStatus(`📍 الشخص متصل الآن<br>آخر تحديث: ${data.time}`);
             }
         });
     }
 
-    // الإدارة
-    function accessAdmin() {
-        const pin = prompt("أدخل رمز المرور السري:");
-        if(pin === "a1234") {
-            document.getElementById('admin-area').style.display = 'block';
-            loadAdminPanel();
-        } else { alert("الرمز خطأ"); }
+    function showStatus(msg) {
+        const s = document.getElementById('status');
+        s.style.display = 'block';
+        s.innerHTML = msg;
     }
-
-    function loadAdminPanel() {
-        db.collection("registrations").orderBy("timestamp", "desc").onSnapshot((snapshot) => {
-            const table = document.getElementById('admin-table-body');
-            table.innerHTML = "";
-            snapshot.forEach((doc) => {
-                const d = doc.data();
-                table.innerHTML += `
-                    <tr>
-                        <td>${d.coach}</td>
-                        <td>${d.team}</td>
-                        <td><b>${d.status}</b></td>
-                        <td>
-                            <button class="action-btn" style="background:green" onclick="updateReq('${doc.id}', 'accepted')">قبول</button>
-                            <button class="action-btn" style="background:red" onclick="updateReq('${doc.id}', 'rejected')">رفض</button>
-                        </td>
-                    </tr>
-                `;
-            });
-        });
-    }
-
-    function updateReq(id, val) {
-        db.collection("registrations").doc(id).update({ status: val });
-    }
-
-    function newRequest() {
-        localStorage.removeItem('my_request_id');
-        location.reload();
-    }
-
-    window.onload = checkStatus;
 </script>
 
 </body>
