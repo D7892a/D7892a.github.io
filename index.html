@@ -3,309 +3,227 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>اختبار Firebase</title>
+<title>ملعبي — Mal3abi | إدارة البطولات</title>
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-  font-family: 'Segoe UI', sans-serif;
-  background: #0f172a;
-  color: #e2e8f0;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-.card {
-  background: #1e293b;
-  border-radius: 20px;
-  padding: 40px;
-  width: 100%;
-  max-width: 480px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-}
-h1 { font-size: 22px; margin-bottom: 8px; color: #6366f1; }
-p { font-size: 13px; color: #94a3b8; margin-bottom: 28px; }
-.step {
-  background: #0f172a;
-  border-radius: 12px;
-  padding: 16px;
-  margin-bottom: 12px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  border: 1px solid #1e293b;
-  transition: border-color 0.3s;
-}
-.step.success { border-color: #10b981; }
-.step.error { border-color: #ef4444; }
-.step.loading { border-color: #6366f1; }
-.step-icon {
-  width: 36px; height: 36px;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 18px;
-  background: #1e293b;
-  flex-shrink: 0;
-}
-.step.success .step-icon { background: rgba(16,185,129,0.15); }
-.step.error .step-icon { background: rgba(239,68,68,0.15); }
-.step.loading .step-icon { background: rgba(99,102,241,0.15); }
-.step-info { flex: 1; }
-.step-title { font-size: 14px; font-weight: 600; }
-.step-desc { font-size: 12px; color: #64748b; margin-top: 3px; }
-.step.success .step-title { color: #10b981; }
-.step.error .step-title { color: #ef4444; }
-.step.loading .step-title { color: #6366f1; }
-
-input {
-  width: 100%;
-  background: #0f172a;
-  border: 1px solid #334155;
-  border-radius: 10px;
-  padding: 12px 16px;
-  color: #e2e8f0;
-  font-size: 14px;
-  margin-bottom: 10px;
-  outline: none;
-  transition: border-color 0.2s;
-}
-input:focus { border-color: #6366f1; }
-button {
-  width: 100%;
-  background: #6366f1;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  padding: 13px;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-  margin-bottom: 10px;
-}
-button:hover { background: #5558e3; transform: translateY(-1px); }
-button:disabled { background: #334155; cursor: not-allowed; transform: none; }
-.btn-outline {
-  background: transparent;
-  border: 1px solid #6366f1;
-  color: #6366f1;
-}
-.btn-outline:hover { background: rgba(99,102,241,0.1); }
-.divider { border: none; border-top: 1px solid #1e293b; margin: 20px 0; }
-.log-box {
-  background: #0a0f1a;
-  border-radius: 10px;
-  padding: 14px;
-  font-size: 12px;
-  color: #64748b;
-  max-height: 150px;
-  overflow-y: auto;
-  font-family: monospace;
-  line-height: 1.8;
-}
-.log-box .ok { color: #10b981; }
-.log-box .err { color: #ef4444; }
-.log-box .info { color: #6366f1; }
-.spinner {
-  display: inline-block;
-  width: 14px; height: 14px;
-  border: 2px solid #6366f1;
-  border-top-color: transparent;
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
+  :root {
+    --bg-main: #0f172a;
+    --bg-card: #1e293b;
+    --primary: #6366f1;
+    --primary-hover: #4f46e5;
+    --text-main: #e2e8f0;
+    --text-muted: #94a3b8;
+    --success: #10b981;
+    --danger: #ef4444;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+  body { background: var(--bg-main); color: var(--text-main); min-height: 100vh; }
+  
+  /* --- شاشة تسجيل الدخول --- */
+  #auth-screen {
+    display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; padding: 20px;
+  }
+  .auth-card {
+    background: var(--bg-card); padding: 40px; border-radius: 16px; width: 100%; max-width: 400px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center;
+  }
+  .auth-card h1 { color: var(--primary); margin-bottom: 10px; font-size: 28px; }
+  .auth-card p { color: var(--text-muted); margin-bottom: 25px; font-size: 14px; }
+  
+  /* --- لوحة التحكم (التطبيق) --- */
+  #app-screen { display: none; }
+  .navbar {
+    background: var(--bg-card); padding: 15px 30px; display: flex; justify-content: space-between;
+    align-items: center; border-bottom: 1px solid #334155;
+  }
+  .navbar h2 { color: var(--primary); }
+  .user-info { display: flex; align-items: center; gap: 15px; }
+  .container { max-width: 1000px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: 1fr 2fr; gap: 20px; }
+  
+  /* --- عناصر مشتركة --- */
+  .card { background: var(--bg-card); padding: 25px; border-radius: 16px; margin-bottom: 20px; border: 1px solid #334155; }
+  .card h3 { margin-bottom: 15px; border-bottom: 1px solid #334155; padding-bottom: 10px; }
+  
+  input, select {
+    width: 100%; background: #0a0f1a; border: 1px solid #334155; border-radius: 8px;
+    padding: 12px 15px; color: var(--text-main); margin-bottom: 15px; outline: none; transition: 0.3s;
+  }
+  input:focus, select:focus { border-color: var(--primary); }
+  
+  button {
+    width: 100%; background: var(--primary); color: white; border: none; border-radius: 8px;
+    padding: 12px; font-size: 15px; font-weight: bold; cursor: pointer; transition: 0.2s; margin-bottom: 10px;
+  }
+  button:hover { background: var(--primary-hover); transform: translateY(-2px); }
+  button.danger { background: var(--danger); }
+  button.danger:hover { background: #dc2626; }
+  
+  .tournament-item {
+    background: #0a0f1a; padding: 15px; border-radius: 8px; border: 1px solid #334155; margin-bottom: 10px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .badge { background: var(--primary); padding: 4px 8px; border-radius: 4px; font-size: 12px; }
 </style>
 </head>
 <body>
-<div class="card">
-  <h1>🔥 اختبار Firebase</h1>
-  <p>تحقق من اتصال مشروعك بـ Firebase خطوة بخطوة</p>
 
-  <!-- خطوات الاختبار -->
-  <div class="step" id="step1">
-    <div class="step-icon">1️⃣</div>
-    <div class="step-info">
-      <div class="step-title">تحميل Firebase SDK</div>
-      <div class="step-desc">في الانتظار...</div>
-    </div>
-  </div>
-  <div class="step" id="step2">
-    <div class="step-icon">2️⃣</div>
-    <div class="step-info">
-      <div class="step-title">الاتصال بالمشروع</div>
-      <div class="step-desc">في الانتظار...</div>
-    </div>
-  </div>
-  <div class="step" id="step3">
-    <div class="step-icon">3️⃣</div>
-    <div class="step-info">
-      <div class="step-title">Firestore Database</div>
-      <div class="step-desc">في الانتظار...</div>
-    </div>
-  </div>
-  <div class="step" id="step4">
-    <div class="step-icon">4️⃣</div>
-    <div class="step-info">
-      <div class="step-title">Authentication</div>
-      <div class="step-desc">في الانتظار...</div>
+  <!-- شاشة الدخول / التسجيل -->
+  <div id="auth-screen">
+    <div class="auth-card">
+      <h1>⚽ ملعبي</h1>
+      <p>منصة إدارة البطولات الرياضية</p>
+      <input type="email" id="email" placeholder="البريد الإلكتروني">
+      <input type="password" id="password" placeholder="كلمة المرور">
+      <button id="btnLogin">تسجيل الدخول</button>
+      <button id="btnRegister" style="background: transparent; border: 1px solid var(--primary); color: var(--primary);">إنشاء حساب جديد</button>
+      <div id="auth-msg" style="color: var(--danger); margin-top: 10px; font-size: 13px;"></div>
     </div>
   </div>
 
-  <hr class="divider">
+  <!-- شاشة التطبيق الرئيسية -->
+  <div id="app-screen">
+    <nav class="navbar">
+      <h2>ملعبي — Mal3abi</h2>
+      <div class="user-info">
+        <span id="user-email"></span>
+        <button id="btnLogout" class="danger" style="width: auto; margin: 0; padding: 8px 15px;">تسجيل خروج</button>
+      </div>
+    </nav>
 
-  <!-- تسجيل الدخول التجريبي -->
-  <div id="authSection">
-    <input type="email" id="testEmail" placeholder="البريد الإلكتروني" value="admin@gmail.com">
-    <input type="password" id="testPass" placeholder="كلمة المرور" value="">
-    <button onclick="testLogin()" id="loginBtn">🔐 اختبار تسجيل الدخول</button>
-    <button class="btn-outline" onclick="testRegister()" id="regBtn">➕ اختبار إنشاء حساب جديد</button>
+    <div class="container">
+      <!-- قسم إنشاء بطولة -->
+      <div class="card">
+        <h3>🏆 إنشاء بطولة جديدة</h3>
+        <input type="text" id="t-name" placeholder="اسم البطولة (مثال: كأس شهداء المنصورية)">
+        <select id="t-teams">
+          <option value="4">4 فرق</option>
+          <option value="8">8 فرق (مجاني)</option>
+          <option value="16" disabled>16 فريق (برو 🔒)</option>
+        </select>
+        <button id="btnCreateTour">إنشاء البطولة ➕</button>
+        <div id="tour-msg" style="color: var(--success); font-size: 13px; margin-top: 10px;"></div>
+      </div>
+
+      <!-- قسم عرض البطولات -->
+      <div class="card">
+        <h3>📋 بطولاتي</h3>
+        <div id="tournaments-list">
+          <p style="color: var(--text-muted); font-size: 14px;">جاري تحميل البطولات...</p>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <hr class="divider">
-
-  <!-- سجل العمليات -->
-  <div class="log-box" id="logBox">
-    <span class="info">► جاهز للاختبار...</span>
-  </div>
-</div>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, collection, getDocs, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+  // استيراد أدوات Firebase
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import { getFirestore, collection, addDoc, getDocs, query, where, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+  import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-// ====== إعدادات Firebase ======
-const firebaseConfig = {
-  apiKey: "AIzaSyAaE_9lHxQkApNESYh9quBNZcj9PKnK-jI",
-  authDomain: "mansouriya2024.firebaseapp.com",
-  projectId: "mansouriya2024",
-  storageBucket: "mansouriya2024.appspot.com",
-  messagingSenderId: "456547547834",
-  appId: "1:456547547834:web:b7a1e06a5e0ba058dc6083"
-};
+  // إعدادات مشروعك
+  const firebaseConfig = {
+    apiKey: "AIzaSyAaE_9lHxQkApNESYh9quBNZcj9PKnK-jI",
+    authDomain: "mansouriya2024.firebaseapp.com",
+    projectId: "mansouriya2024",
+    storageBucket: "mansouriya2024.appspot.com",
+    messagingSenderId: "456547547834",
+    appId: "1:456547547834:web:b7a1e06a5e0ba058dc6083"
+  };
 
-let app, db, auth;
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const auth = getAuth(app);
 
-function log(msg, type = 'info') {
-  const box = document.getElementById('logBox');
-  const line = document.createElement('div');
-  line.className = type;
-  line.textContent = '► ' + msg;
-  box.appendChild(line);
-  box.scrollTop = box.scrollHeight;
-}
+  let currentUser = null;
 
-function setStep(id, status, desc) {
-  const el = document.getElementById(id);
-  el.className = 'step ' + status;
-  el.querySelector('.step-desc').textContent = desc;
-  if (status === 'loading') el.querySelector('.step-icon').innerHTML = '<div class="spinner"></div>';
-  else if (status === 'success') el.querySelector('.step-icon').textContent = '✅';
-  else if (status === 'error') el.querySelector('.step-icon').textContent = '❌';
-}
+  // عناصر الواجهة
+  const authScreen = document.getElementById('auth-screen');
+  const appScreen = document.getElementById('app-screen');
+  const authMsg = document.getElementById('auth-msg');
+  const tourMsg = document.getElementById('tour-msg');
+  const tournamentsList = document.getElementById('tournaments-list');
 
-// الخطوة 1: تحميل SDK
-async function runTests() {
-  setStep('step1', 'loading', 'جاري التحميل...');
-  log('تحميل Firebase SDK...', 'info');
-
-  try {
-    app = initializeApp(firebaseConfig);
-    setStep('step1', 'success', 'تم تحميل SDK بنجاح');
-    log('Firebase SDK محمّل ✓', 'ok');
-  } catch(e) {
-    setStep('step1', 'error', e.message);
-    log('خطأ في SDK: ' + e.message, 'err');
-    return;
-  }
-
-  // الخطوة 2: الاتصال بالمشروع
-  setStep('step2', 'loading', 'جاري الاتصال...');
-  log('الاتصال بمشروع mansouriya2024...', 'info');
-
-  try {
-    db = getFirestore(app);
-    auth = getAuth(app);
-    setStep('step2', 'success', 'متصل بالمشروع ✓');
-    log('الاتصال بالمشروع نجح ✓', 'ok');
-  } catch(e) {
-    setStep('step2', 'error', e.message);
-    log('خطأ في الاتصال: ' + e.message, 'err');
-    return;
-  }
-
-  // الخطوة 3: Firestore
-  setStep('step3', 'loading', 'جاري الاختبار...');
-  log('اختبار Firestore...', 'info');
-
-  try {
-    const snap = await getDocs(collection(db, 'test_connection'));
-    setStep('step3', 'success', 'Firestore يعمل ✓');
-    log('Firestore متصل ✓', 'ok');
-  } catch(e) {
-    if (e.code === 'permission-denied') {
-      setStep('step3', 'success', 'Firestore متصل (قواعد الأمان نشطة)');
-      log('Firestore متصل — قواعد الأمان تعمل ✓', 'ok');
-    } else {
-      setStep('step3', 'error', e.message);
-      log('خطأ Firestore: ' + e.message, 'err');
-    }
-  }
-
-  // الخطوة 4: Auth
-  setStep('step4', 'loading', 'جاري الاختبار...');
-  log('اختبار Authentication...', 'info');
-
+  // مراقبة حالة تسجيل الدخول
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      setStep('step4', 'success', 'مسجل دخول: ' + user.email);
-      log('مستخدم مسجل: ' + user.email, 'ok');
+      currentUser = user;
+      document.getElementById('user-email').textContent = user.email;
+      authScreen.style.display = 'none';
+      appScreen.style.display = 'block';
+      loadTournaments(); // جلب بطولات المستخدم
     } else {
-      setStep('step4', 'success', 'Authentication يعمل ✓ (لا يوجد مستخدم حالي)');
-      log('Authentication جاهز ✓', 'ok');
+      currentUser = null;
+      authScreen.style.display = 'flex';
+      appScreen.style.display = 'none';
     }
-  }, (e) => {
-    setStep('step4', 'error', e.message);
-    log('خطأ Auth: ' + e.message, 'err');
   });
-}
 
-window.testLogin = async () => {
-  const email = document.getElementById('testEmail').value;
-  const pass = document.getElementById('testPass').value;
-  if (!email || !pass) { log('أدخل البريد وكلمة السر', 'err'); return; }
-  log('محاولة تسجيل الدخول بـ ' + email + '...', 'info');
-  document.getElementById('loginBtn').disabled = true;
-  try {
-    const cred = await signInWithEmailAndPassword(auth, email, pass);
-    log('✅ تسجيل الدخول نجح! UID: ' + cred.user.uid, 'ok');
-    setStep('step4', 'success', 'مسجل دخول: ' + email);
-  } catch(e) {
-    log('❌ فشل تسجيل الدخول: ' + e.message, 'err');
+  // تسجيل الدخول
+  document.getElementById('btnLogin').onclick = async () => {
+    const e = document.getElementById('email').value;
+    const p = document.getElementById('password').value;
+    try { await signInWithEmailAndPassword(auth, e, p); } 
+    catch (err) { authMsg.textContent = "خطأ: " + err.message; }
+  };
+
+  // إنشاء حساب
+  document.getElementById('btnRegister').onclick = async () => {
+    const e = document.getElementById('email').value;
+    const p = document.getElementById('password').value;
+    try { await createUserWithEmailAndPassword(auth, e, p); } 
+    catch (err) { authMsg.textContent = "خطأ: " + err.message; }
+  };
+
+  // تسجيل خروج
+  document.getElementById('btnLogout').onclick = () => signOut(auth);
+
+  // إنشاء بطولة جديدة (Firestore)
+  document.getElementById('btnCreateTour').onclick = async () => {
+    const name = document.getElementById('t-name').value;
+    const teamsCount = document.getElementById('t-teams').value;
+    
+    if (!name) { tourMsg.textContent = "يرجى كتابة اسم البطولة!"; tourMsg.style.color = 'var(--danger)'; return; }
+
+    try {
+      await addDoc(collection(db, "tournaments"), {
+        ownerId: currentUser.uid,
+        name: name,
+        teamsCount: parseInt(teamsCount),
+        createdAt: serverTimestamp()
+      });
+      tourMsg.textContent = "✅ تم إنشاء البطولة بنجاح!";
+      tourMsg.style.color = 'var(--success)';
+      document.getElementById('t-name').value = '';
+      loadTournaments(); // تحديث القائمة
+    } catch (err) {
+      tourMsg.textContent = "❌ خطأ: " + err.message;
+      tourMsg.style.color = 'var(--danger)';
+    }
+  };
+
+  // جلب البطولات الخاصة بالمستخدم الحالي
+  async function loadTournaments() {
+    tournamentsList.innerHTML = '';
+    const q = query(collection(db, "tournaments"), where("ownerId", "==", currentUser.uid));
+    const querySnapshot = await getDocs(q);
+    
+    if (querySnapshot.empty) {
+      tournamentsList.innerHTML = '<p style="color: var(--text-muted); font-size: 14px;">لا توجد بطولات بعد. ابدأ بإنشاء واحدة!</p>';
+      return;
+    }
+
+    querySnapshot.forEach((doc) => {
+      const tour = doc.data();
+      tournamentsList.innerHTML += `
+        <div class="tournament-item">
+          <div>
+            <strong>${tour.name}</strong>
+            <div style="font-size: 12px; color: var(--text-muted); margin-top: 5px;">عدد الفرق: ${tour.teamsCount}</div>
+          </div>
+          <span class="badge">إدارة البطولة ⚙️</span>
+        </div>
+      `;
+    });
   }
-  document.getElementById('loginBtn').disabled = false;
-};
-
-window.testRegister = async () => {
-  const email = document.getElementById('testEmail').value;
-  const pass = document.getElementById('testPass').value;
-  if (!email || !pass) { log('أدخل البريد وكلمة السر', 'err'); return; }
-  log('إنشاء حساب جديد بـ ' + email + '...', 'info');
-  document.getElementById('regBtn').disabled = true;
-  try {
-    const cred = await createUserWithEmailAndPassword(auth, email, pass);
-    log('✅ الحساب أنشئ بنجاح! UID: ' + cred.user.uid, 'ok');
-    setStep('step4', 'success', 'حساب جديد: ' + email);
-  } catch(e) {
-    log('❌ فشل إنشاء الحساب: ' + e.message, 'err');
-  }
-  document.getElementById('regBtn').disabled = false;
-};
-
-// ابدأ الاختبار تلقائياً
-runTests();
 </script>
 </body>
 </html>
