@@ -32,21 +32,19 @@
             direction: rtl;
         }
 
-        /* ===== تسجيل الدخول ===== */
         .auth-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, var(--...
-    z-index: 2000;
-    display: flex; /* غير هذه الكلمة */
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-}
-
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
 
         .auth-container.hidden {
             display: none;
@@ -107,11 +105,6 @@
             border: 2px solid var(--primary);
         }
 
-        .btn-secondary-auth:hover {
-            background: var(--primary);
-            color: white;
-        }
-
         .auth-toggle {
             text-align: center;
             margin-top: 15px;
@@ -124,25 +117,25 @@
             font-weight: 600;
         }
 
-        .auth-error {
-            background: #fee2e2;
-            color: #991b1b;
+        .auth-error, .auth-success {
             padding: 10px;
             border-radius: 8px;
             margin-bottom: 15px;
             font-size: 14px;
+            display: none;
+        }
+
+        .auth-error {
+            background: #fee2e2;
+            color: #991b1b;
         }
 
         .auth-success {
             background: #d1fae5;
             color: #065f46;
-            padding: 10px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            font-size: 14px;
         }
 
-        /* ===== Sidebar ===== */
+        /* Sidebar */
         .sidebar {
             width: 260px;
             height: 100vh;
@@ -177,15 +170,10 @@
             transition: all 0.3s;
         }
 
-        .nav-link:hover {
+        .nav-link:hover, .nav-link.active {
             background: var(--primary);
             color: white;
             transform: translateX(-5px);
-        }
-
-        .nav-link.active {
-            background: var(--primary);
-            color: white;
         }
 
         .nav-link i {
@@ -199,11 +187,6 @@
             margin-top: auto;
         }
 
-        .user-profile-sidebar small {
-            color: var(--text-muted);
-        }
-
-        /* ===== Main Content ===== */
         .main-content {
             margin-right: 260px;
             padding: 30px;
@@ -220,17 +203,10 @@
         }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ===== Cards ===== */
         .glass-card {
             background: white;
             border: none;
@@ -246,7 +222,7 @@
         }
 
         .balance-card {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
         }
 
@@ -264,19 +240,13 @@
             color: var(--primary);
         }
 
-        .stat-label {
-            color: var(--text-muted);
-            font-size: 14px;
-            margin-top: 5px;
-        }
-
-        /* ===== Service Cards ===== */
         .service-card {
             border-radius: 15px;
             overflow: hidden;
             background: white;
             transition: all 0.3s;
             border: 1px solid #e2e8f0;
+            cursor: pointer;
         }
 
         .service-card:hover {
@@ -294,35 +264,10 @@
             border-bottom: 1px solid #e2e8f0;
         }
 
-        .service-card-body {
-            padding: 20px;
-        }
-
-        .service-rating {
-            color: #f59e0b;
-            font-size: 14px;
-            margin: 10px 0;
-        }
-
-        /* ===== Modal ===== */
-        .modal-content {
-            border: none;
-            border-radius: 15px;
-        }
-
-        .modal-header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
-            border: none;
-        }
-
-        /* ===== Buttons ===== */
         .btn {
             border-radius: 10px;
             padding: 10px 20px;
-            border: none;
             font-weight: 600;
-            transition: all 0.3s;
             cursor: pointer;
         }
 
@@ -333,36 +278,8 @@
 
         .btn-primary:hover {
             background: #5558e3;
-            color: white;
-            transform: translateY(-2px);
         }
 
-        .btn-success {
-            background: var(--success);
-            color: white;
-        }
-
-        .btn-success:hover {
-            background: #059669;
-            color: white;
-        }
-
-        .btn-danger {
-            background: var(--danger);
-            color: white;
-        }
-
-        .btn-danger:hover {
-            background: #dc2626;
-            color: white;
-        }
-
-        .btn-warning {
-            background: var(--warning);
-            color: white;
-        }
-
-        /* ===== Notifications ===== */
         .notification {
             position: fixed;
             top: 20px;
@@ -380,665 +297,171 @@
             display: block;
         }
 
-        .notification.success {
-            background: var(--success);
-        }
-
-        .notification.error {
-            background: var(--danger);
-        }
-
-        .notification.info {
-            background: var(--info);
-        }
-
-        .notification.warning {
-            background: var(--warning);
-        }
+        .notification.success { background: var(--success); }
+        .notification.error { background: var(--danger); }
+        .notification.info { background: var(--info); }
 
         @keyframes slideIn {
-            from {
-                transform: translateX(-100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
 
-        /* ===== Tables ===== */
-        .table {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .table thead {
-            background: #f1f5f9;
-        }
-
-        .table th {
-            border: none;
-            font-weight: 600;
-            color: var(--dark-bg);
-        }
-
-        .table td {
-            border: none;
-            padding: 15px;
-            vertical-align: middle;
-        }
-
-        /* ===== Admin Panel ===== */
-        .admin-panel {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 20px;
-        }
-
-        .admin-section-title {
-            color: var(--warning);
-            font-weight: 700;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--warning);
-        }
-
-        /* ===== Responsive ===== */
         @media (max-width: 768px) {
-            .sidebar {
-                transform: translateX(100%);
-            }
-
-            .main-content {
-                margin-right: 0;
-            }
-
-            .auth-box {
-                margin: 20px;
-            }
-        }
-
-        /* ===== Utilities ===== */
-        .text-muted {
-            color: var(--text-muted);
-        }
-
-        .badge-success {
-            background: #d1fae5;
-            color: #065f46;
-        }
-
-        .badge-danger {
-            background: #fee2e2;
-            color: #7f1d1d;
-        }
-
-        .badge-warning {
-            background: #fef3c7;
-            color: #92400e;
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 40px;
-            color: var(--text-muted);
-        }
-
-        .empty-state i {
-            font-size: 48px;
-            margin-bottom: 15px;
-            opacity: 0.5;
-        }
-
-        .loading {
-            opacity: 0.6;
-            pointer-events: none;
-        }
-
-        .back-link {
-            color: var(--primary);
-            cursor: pointer;
-            font-weight: 600;
-            margin-bottom: 20px;
-            display: inline-block;
-        }
-
-        .back-link:hover {
-            text-decoration: underline;
+            .sidebar { transform: translateX(100%); }
+            .main-content { margin-right: 0; }
         }
     </style>
 </head>
 <body>
 
-<!-- ===== تسجيل ��لدخول والتسجيل ===== -->
+<!-- شاشة تسجيل الدخول -->
 <div class="auth-container" id="authContainer">
     <div class="auth-box">
         <h2 id="authTitle">تسجيل الدخول</h2>
-        <div id="authError" class="auth-error" style="display: none;"></div>
-        <div id="authSuccess" class="auth-success" style="display: none;"></div>
+        <div id="authError" class="auth-error"></div>
+        <div id="authSuccess" class="auth-success"></div>
 
-        <!-- نموذج تسجيل الدخول -->
         <div id="loginForm">
             <input type="email" class="form-control" id="loginEmail" placeholder="البريد الإلكتروني">
             <input type="password" class="form-control" id="loginPassword" placeholder="كلمة المرور">
             <button class="btn btn-auth btn-primary-auth" onclick="handleLogin()">دخول</button>
-            <div class="auth-toggle">
-                <a onclick="switchToForgot()">نسيت كلمة المرور؟</a>
-            </div>
-            <div class="auth-toggle" style="margin-top: 20px;">
-                ليس لديك حساب؟ <a onclick="switchAuthForm()">إنشاء حساب جديد</a>
-            </div>
+            <div class="auth-toggle"><a onclick="switchToForgot()">نسيت كلمة المرور؟</a></div>
+            <div class="auth-toggle">ليس لديك حساب؟ <a onclick="switchAuthForm()">إنشاء حساب جديد</a></div>
         </div>
 
-        <!-- نموذج إنشاء حساب -->
         <div id="registerForm" style="display: none;">
             <input type="text" class="form-control" id="registerName" placeholder="الاسم الكامل">
             <input type="email" class="form-control" id="registerEmail" placeholder="البريد الإلكتروني">
             <input type="password" class="form-control" id="registerPassword" placeholder="كلمة المرور">
             <input type="password" class="form-control" id="registerConfirm" placeholder="تأكيد كلمة المرور">
             <button class="btn btn-auth btn-primary-auth" onclick="handleRegister()">إنشاء حساب</button>
-            <div class="auth-toggle" style="margin-top: 20px;">
-                هل لديك حساب بالفعل؟ <a onclick="switchAuthForm()">تسجيل الدخول</a>
-            </div>
+            <div class="auth-toggle">لديك حساب؟ <a onclick="switchAuthForm()">تسجيل الدخول</a></div>
         </div>
 
-        <!-- نموذج استرجاع كلمة المرور -->
         <div id="forgotForm" style="display: none;">
-            <p class="text-muted small mb-3">أدخل بريدك الإلكتروني وسنرسل لك رابط لإعادة تعيين كلمة المرور</p>
+            <p class="text-muted small">أدخل بريدك الإلكتروني لإرسال رابط إعادة التعيين</p>
             <input type="email" class="form-control" id="forgotEmail" placeholder="البريد الإلكتروني">
-            <button class="btn btn-auth btn-primary-auth" onclick="handleForgotPassword()">إرسال رابط التحديث</button>
-            <div class="auth-toggle" style="margin-top: 20px;">
-                <a onclick="switchToLogin()">العودة للدخول</a>
-            </div>
-        </div>
-
-        <!-- نموذج تعيين كلمة مرور جديدة -->
-        <div id="resetForm" style="display: none;">
-            <p class="text-muted small mb-3">أدخل كلمة المرور الجديدة</p>
-            <input type="password" class="form-control" id="newPassword" placeholder="كلمة المرور الجديدة">
-            <input type="password" class="form-control" id="confirmNewPassword" placeholder="تأكيد كلمة المرور">
-            <button class="btn btn-auth btn-primary-auth" onclick="handleResetPassword()">تحديث كلمة المرور</button>
-            <div class="auth-toggle" style="margin-top: 20px;">
-                <a onclick="switchToLogin()">العودة للدخول</a>
-            </div>
+            <button class="btn btn-auth btn-primary-auth" onclick="handleForgotPassword()">إرسال الرابط</button>
+            <div class="auth-toggle"><a onclick="switchToLogin()">العودة للدخول</a></div>
         </div>
     </div>
 </div>
 
-<!-- ===== Sidebar ===== -->
-<div class="sidebar shadow" id="sidebar" style="display: none;">
+<!-- Sidebar والتطبيق الرئيسي -->
+<div class="sidebar" id="sidebar" style="display: none;">
     <div class="sidebar-header">
         <h3>المنصورية<span class="text-primary">.</span></h3>
         <small class="text-muted">نظام الخدمات الذكي</small>
     </div>
-
     <nav class="nav flex-column">
-        <div class="nav-link active" onclick="navigateTo('dashboard')">
-            <i class="bi bi-grid-1x2-fill"></i> الرئيسة
-        </div>
-        <div class="nav-link" onclick="navigateTo('wallet')">
-            <i class="bi bi-wallet2"></i> المحفظة والشحن
-        </div>
-        <div class="nav-link" onclick="navigateTo('services')">
-            <i class="bi bi-cpu"></i> متجر الخدمات
-        </div>
-        <div class="nav-link" onclick="navigateTo('purchases')">
-            <i class="bi bi-bag-check"></i> المشتريات
-        </div>
-        <div class="nav-link" onclick="navigateTo('profile')">
-            <i class="bi bi-person-circle"></i> الملف الشخصي
-        </div>
+        <div class="nav-link active" onclick="navigateTo('dashboard', this)"><i class="bi bi-grid-1x2-fill"></i> الرئيسية</div>
+        <div class="nav-link" onclick="navigateTo('wallet', this)"><i class="bi bi-wallet2"></i> المحفظة والشحن</div>
+        <div class="nav-link" onclick="navigateTo('services', this)"><i class="bi bi-cpu"></i> متجر الخدمات</div>
+        <div class="nav-link" onclick="navigateTo('purchases', this)"><i class="bi bi-bag-check"></i> المشتريات</div>
+        <div class="nav-link" onclick="navigateTo('profile', this)"><i class="bi bi-person-circle"></i> الملف الشخصي</div>
         <hr style="border-color: #1e293b; margin: 20px 0;">
-        <div class="nav-link text-warning" onclick="navigateTo('admin')">
-            <i class="bi bi-shield-lock"></i> لوحة الإدارة
-        </div>
+        <div class="nav-link text-warning" onclick="navigateTo('admin', this)"><i class="bi bi-shield-lock"></i> لوحة الإدارة</div>
     </nav>
-
     <div class="user-profile-sidebar">
-        <small>تسجيل دخول باسم:</small>
-        <div style="font-weight: 600; margin-top: 5px;" id="sidebarUsername">المستخدم</div>
-        <button class="btn btn-sm btn-outline-danger mt-3" style="width: 100%; border: 1px solid #ef4444; color: #ef4444;" onclick="handleLogout()">
-            تسجيل الخروج
-        </button>
+        <small>مرحباً،</small>
+        <div style="font-weight: 600;" id="sidebarUsername">المستخدم</div>
+        <button class="btn btn-sm btn-outline-danger mt-3 w-100" onclick="handleLogout()">تسجيل الخروج</button>
     </div>
 </div>
 
-<!-- ===== Main Content ===== -->
 <div class="main-content" id="mainContent" style="display: none;">
-
-    <!-- ===== Dashboard ===== -->
+    <!-- Dashboard -->
     <div id="dashboard" class="page-section active">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2 class="fw-bold">نظرة عامة</h2>
-            <div id="userBadge" class="badge bg-light text-dark p-2 rounded-pill shadow-sm">
-                <i class="bi bi-person-circle me-1"></i> <span id="badgeUsername">مستخدم</span>
-            </div>
+            <div class="badge bg-light text-dark p-2"><i class="bi bi-person-circle me-1"></i> <span id="badgeUsername">مستخدم</span></div>
         </div>
-
         <div class="row g-4 mb-4">
             <div class="col-md-4">
                 <div class="glass-card balance-card">
-                    <h6>إجمالي الرصيد المتوفر</h6>
-                    <h1 class="fw-bold my-3" id="mainBalance">0 <small style="font-size: 20px;">د.ع</small></h1>
-                    <button class="btn btn-white btn-sm" style="background: white; color: var(--primary); font-weight: 600;" onclick="navigateTo('wallet')">اشحن الآن</button>
+                    <h6>إجمالي الرصيد</h6>
+                    <h1 class="fw-bold my-3" id="mainBalance">0 <small>د.ع</small></h1>
+                    <button class="btn btn-light btn-sm" onclick="navigateTo('wallet')">اشحن الآن</button>
                 </div>
             </div>
             <div class="col-md-8">
                 <div class="row g-3">
-                    <div class="col-md-4">
-                        <div class="stat-card">
-                            <div class="stat-number" id="totalServices">0</div>
-                            <div class="stat-label">الخدمات المتاحة</div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="stat-card" style="border-left-color: var(--success);">
-                            <div class="stat-number" style="color: var(--success);" id="totalPurchases">0</div>
-                            <div class="stat-label">المشتريات</div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="stat-card" style="border-left-color: var(--warning);">
-                            <div class="stat-number" style="color: var(--warning);" id="avgRating">0</div>
-                            <div class="stat-label">متوسط التقييم</div>
-                        </div>
-                    </div>
+                    <div class="col-md-4"><div class="stat-card"><div class="stat-number" id="totalServices">0</div><div class="stat-label">الخدمات</div></div></div>
+                    <div class="col-md-4"><div class="stat-card" style="border-left-color:var(--success)"><div class="stat-number" style="color:var(--success)" id="totalPurchases">0</div><div class="stat-label">المشتريات</div></div></div>
+                    <div class="col-md-4"><div class="stat-card" style="border-left-color:var(--warning)"><div class="stat-number" style="color:var(--warning)" id="avgRating">0</div><div class="stat-label">التقييم</div></div></div>
                 </div>
             </div>
         </div>
-
         <div class="row g-4">
-            <div class="col-md-6">
-                <div class="glass-card">
-                    <h5 class="fw-bold mb-3">إحصائيات المشتريات</h5>
-                    <canvas id="purchasesChart"></canvas>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="glass-card">
-                    <h5 class="fw-bold mb-3">توزيع الإنفاق</h5>
-                    <canvas id="spendingChart"></canvas>
-                </div>
-            </div>
+            <div class="col-md-6"><div class="glass-card"><h5>إحصائيات المشتريات</h5><canvas id="purchasesChart"></canvas></div></div>
+            <div class="col-md-6"><div class="glass-card"><h5>توزيع الإنفاق</h5><canvas id="spendingChart"></canvas></div></div>
         </div>
     </div>
 
-    <!-- ===== المحفظة والشحن ===== -->
+    <!-- Wallet -->
     <div id="wallet" class="page-section">
         <h2 class="fw-bold mb-4">المحفظة الرقمية</h2>
-
         <div class="row g-4 mb-4">
-            <div class="col-md-6">
-                <div class="glass-card balance-card">
-                    <h6>رصيدك الحالي</h6>
-                    <h1 class="fw-bold my-3" id="walletBalance">0 <small style="font-size: 20px;">د.ع</small></h1>
-                    <p class="text-white-50 small">آخر تحديث: <span id="lastUpdateTime">الآن</span></p>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="glass-card">
-                    <h6 class="fw-bold mb-3">إحصائيات المحفظة</h6>
-                    <div style="margin: 15px 0;">
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                            <span>إجمالي الشحن:</span>
-                            <span class="fw-bold" id="totalRecharge">0 د.ع</span>
-                        </div>
-                        <div style="display: flex; justify-content: space-between;">
-                            <span>إجمالي الإنفاق:</span>
-                            <span class="fw-bold" id="totalSpent">0 د.ع</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div class="col-md-6"><div class="glass-card balance-card"><h6>رصيدك الحالي</h6><h1 class="fw-bold my-3" id="walletBalance">0 <small>د.ع</small></h1></div></div>
+            <div class="col-md-6"><div class="glass-card"><h6>الإحصائيات</h6><div class="d-flex justify-content-between mt-3"><span>إجمالي الشحن:</span><span class="fw-bold" id="totalRecharge">0 د.ع</span></div><div class="d-flex justify-content-between mt-2"><span>إجمالي الإنفاق:</span><span class="fw-bold" id="totalSpent">0 د.ع</span></div></div></div>
         </div>
-
-        <div class="row g-4">
-            <div class="col-md-6">
-                <div class="glass-card">
-                    <h5 class="fw-bold mb-3">
-                        <i class="bi bi-upc-scan me-2 text-primary"></i> تعبئة رصيد عبر الكود
-                    </h5>
-                    <p class="text-muted small mb-3">أدخل كود المنصورية المكون من 10 رموز</p>
-                    <div class="mb-3">
-                        <input type="text" id="vCode" class="form-control" placeholder="MS-XXXX-XXXX">
-                    </div>
-                    <button class="btn btn-primary w-100" onclick="handleRecharge()">تأكيد الشحن</button>
-                    <div id="rechargeAlert" style="margin-top: 15px;"></div>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="glass-card">
-                    <h5 class="fw-bold mb-3">
-                        <i class="bi bi-clock-history me-2 text-primary"></i> سجل الشحن والعمليات
-                    </h5>
-                    <div id="historyLogs" style="max-height: 400px; overflow-y: auto;">
-                        <div class="empty-state" style="padding: 20px;">
-                            <i class="bi bi-inbox"></i>
-                            <p class="small">لا يوجد عمليات حالياً</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="row">
+            <div class="col-md-6"><div class="glass-card"><h5>تعبئة رصيد عبر الكود</h5><input type="text" id="vCode" class="form-control mb-3" placeholder="MS-XXXX-XXXX"><button class="btn btn-primary w-100" onclick="handleRecharge()">تأكيد الشحن</button><div id="rechargeAlert" class="mt-3"></div></div></div>
+            <div class="col-md-6"><div class="glass-card"><h5>سجل العمليات</h5><div id="historyLogs" style="max-height:300px; overflow-y:auto;"><div class="text-muted text-center py-3">لا توجد عمليات</div></div></div></div>
         </div>
     </div>
 
-    <!-- ===== متجر الخدمات ===== -->
-    <div id="services" class="page-section">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="fw-bold">متجر الخدمات الرقمية</h2>
-            <div>
-                <input type="text" class="form-control" id="serviceSearch" placeholder="ابحث عن خدمة..." style="width: 250px; display: inline-block; margin-left: 10px;">
-            </div>
-        </div>
+    <!-- Services -->
+    <div id="services" class="page-section"><h2 class="fw-bold mb-4">متجر الخدمات</h2><div class="row g-4" id="servicesGrid"></div></div>
 
-        <div class="row g-4" id="servicesGrid">
-            <!-- الخدمات سيتم تحميلها ديناميكياً -->
-        </div>
-    </div>
-
-    <!-- ===== المشتريات ===== -->
+    <!-- Purchases -->
     <div id="purchases" class="page-section">
-        <h2 class="fw-bold mb-4">المشتريات والطلبات</h2>
-
+        <h2 class="fw-bold mb-4">المشتريات</h2>
         <div class="row g-4 mb-4">
-            <div class="col-md-3">
-                <div class="stat-card">
-                    <div class="stat-number" id="purchaseCount">0</div>
-                    <div class="stat-label">إجمالي المشتريات</div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="stat-card" style="border-left-color: var(--success);">
-                    <div class="stat-number" style="color: var(--success);" id="completedCount">0</div>
-                    <div class="stat-label">المكتملة</div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="stat-card" style="border-left-color: var(--warning);">
-                    <div class="stat-number" style="color: var(--warning);" id="pendingCount">0</div>
-                    <div class="stat-label">قيد الانتظار</div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="stat-card" style="border-left-color: var(--danger);">
-                    <div class="stat-number" style="color: var(--danger);" id="cancelledCount">0</div>
-                    <div class="stat-label">الملغاة</div>
-                </div>
-            </div>
+            <div class="col-md-3"><div class="stat-card"><div class="stat-number" id="purchaseCount">0</div><div class="stat-label">الإجمالي</div></div></div>
+            <div class="col-md-3"><div class="stat-card"><div class="stat-number" id="completedCount">0</div><div class="stat-label">مكتملة</div></div></div>
+            <div class="col-md-3"><div class="stat-card"><div class="stat-number" id="pendingCount">0</div><div class="stat-label">قيد الانتظار</div></div></div>
+            <div class="col-md-3"><div class="stat-card"><div class="stat-number" id="cancelledCount">0</div><div class="stat-label">ملغاة</div></div></div>
         </div>
-
-        <div class="glass-card">
-            <h5 class="fw-bold mb-3">سجل المشتريات</h5>
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>الخدمة</th>
-                            <th>السعر</th>
-                            <th>التاريخ</th>
-                            <th>الحالة</th>
-                            <th>الإجراءات</th>
-                        </tr>
-                    </thead>
-                    <tbody id="purchasesTable">
-                        <tr>
-                            <td colspan="5" class="text-center text-muted">لا توجد مشتريات حالياً</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        <div class="glass-card"><div class="table-responsive"><table class="table"><thead><tr><th>الخدمة</th><th>السعر</th><th>التاريخ</th><th>الحالة</th></tr></thead><tbody id="purchasesTable"></tbody></table></div></div>
     </div>
 
-    <!-- ===== الملف الشخصي ===== -->
+    <!-- Profile -->
     <div id="profile" class="page-section">
         <h2 class="fw-bold mb-4">الملف الشخصي</h2>
-
-        <div class="row g-4">
-            <div class="col-md-4">
-                <div class="glass-card text-center">
-                    <i class="bi bi-person-circle" style="font-size: 80px; color: var(--primary);"></i>
-                    <h4 class="fw-bold mt-3" id="profileName">اسم المستخدم</h4>
-                    <p class="text-muted" id="profileEmail">user@example.com</p>
-                    <button class="btn btn-primary w-100 mt-3" onclick="showModal('editProfileModal')">تعديل الملف</button>
-                </div>
-            </div>
-
-            <div class="col-md-8">
-                <div class="glass-card mb-4">
-                    <h5 class="fw-bold mb-3">معلومات الحساب</h5>
-                    <div style="padding: 15px 0; border-bottom: 1px solid #e2e8f0;">
-                        <span class="text-muted">البريد الإلكتروني:</span>
-                        <div class="fw-bold mt-1" id="infoEmail">example@email.com</div>
-                    </div>
-                    <div style="padding: 15px 0; border-bottom: 1px solid #e2e8f0;">
-                        <span class="text-muted">تاريخ التسجيل:</span>
-                        <div class="fw-bold mt-1" id="joinDate">-</div>
-                    </div>
-                    <div style="padding: 15px 0;">
-                        <span class="text-muted">حالة الحساب:</span>
-                        <div class="fw-bold mt-1"><span class="badge badge-success">نشط</span></div>
-                    </div>
-                </div>
-
-                <div class="glass-card">
-                    <h5 class="fw-bold mb-3">خيارات الأمان</h5>
-                    <div style="padding: 15px 0; border-bottom: 1px solid #e2e8f0;">
-                        <button class="btn btn-primary btn-sm" onclick="showModal('changePasswordModal')">
-                            <i class="bi bi-shield-lock me-2"></i> تغيير كلمة المرور
-                        </button>
-                    </div>
-                </div>
-            </div>
+        <div class="row">
+            <div class="col-md-4"><div class="glass-card text-center"><i class="bi bi-person-circle" style="font-size:80px;color:var(--primary)"></i><h4 class="mt-3" id="profileName">الاسم</h4><p class="text-muted" id="profileEmail">email</p><button class="btn btn-primary w-100" onclick="showEditProfileModal()">تعديل الملف</button></div></div>
+            <div class="col-md-8"><div class="glass-card mb-4"><h5>معلومات الحساب</h5><div class="mt-3"><span class="text-muted">البريد:</span><div class="fw-bold" id="infoEmail"></div></div><div class="mt-2"><span class="text-muted">تاريخ التسجيل:</span><div class="fw-bold" id="joinDate"></div></div></div><div class="glass-card"><h5>الأمان</h5><button class="btn btn-primary btn-sm" onclick="showChangePasswordModal()">تغيير كلمة المرور</button></div></div>
         </div>
     </div>
 
-    <!-- ===== لوحة الإدارة ===== -->
+    <!-- Admin -->
     <div id="admin" class="page-section">
-        <h2 class="fw-bold mb-4 text-warning">
-            <i class="bi bi-shield-lock me-2"></i> لوحة الإدارة
-        </h2>
-
-        <div class="admin-panel border-warning border">
-            <h5 class="admin-section-title">
-                <i class="bi bi-key-fill me-2"></i> توليد قسائم شحن جديدة
-            </h5>
-            <div class="row g-3 mb-3">
-                <div class="col-md-5">
-                    <input type="number" id="genVal" class="form-control" placeholder="قيمة الكود (دينار)">
-                </div>
-                <div class="col-md-3">
-                    <input type="number" id="genNum" class="form-control" value="1" min="1" max="100">
-                </div>
-                <div class="col-md-4">
-                    <button class="btn btn-warning w-100" onclick="adminGenerate()">
-                        <i class="bi bi-plus-circle me-2"></i> توليد الكودات
-                    </button>
-                </div>
-            </div>
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>الكود</th>
-                            <th>القيمة (د.ع)</th>
-                            <th>الحالة</th>
-                            <th>التاريخ</th>
-                            <th>الإجراءات</th>
-                        </tr>
-                    </thead>
-                    <tbody id="adminTableBody">
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="admin-panel border-warning border mt-4">
-            <h5 class="admin-section-title">
-                <i class="bi bi-cpu-fill me-2"></i> إدارة الخدمات
-            </h5>
-            <div class="row g-3 mb-3">
-                <div class="col-md-12">
-                    <button class="btn btn-warning" onclick="showModal('addServiceModal')">
-                        <i class="bi bi-plus-circle me-2"></i> إضافة خدمة جديدة
-                    </button>
-                </div>
-            </div>
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>اسم الخدمة</th>
-                            <th>السعر (د.ع)</th>
-                            <th>الوصف</th>
-                            <th>عدد المشتريات</th>
-                            <th>التقييم</th>
-                            <th>الإجراءات</th>
-                        </tr>
-                    </thead>
-                    <tbody id="servicesTable">
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="admin-panel border-warning border mt-4">
-            <h5 class="admin-section-title">
-                <i class="bi bi-bar-chart me-2"></i> إحصائيات النظام
-            </h5>
-            <div class="row g-4">
-                <div class="col-md-3">
-                    <div class="stat-card">
-                        <div class="stat-number" id="adminUserCount">0</div>
-                        <div class="stat-label">إجمالي المستخدمين</div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="stat-card" style="border-left-color: var(--success);">
-                        <div class="stat-number" style="color: var(--success);" id="adminServiceCount">0</div>
-                        <div class="stat-label">الخدمات المتاحة</div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="stat-card" style="border-left-color: #3b82f6;">
-                        <div class="stat-number" style="color: #3b82f6;" id="adminRevenueCount">0</div>
-                        <div class="stat-label">إجمالي الإيرادات</div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="stat-card" style="border-left-color: var(--warning);">
-                        <div class="stat-number" style="color: var(--warning);" id="adminVoucherCount">0</div>
-                        <div class="stat-label">الكودات المتاحة</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</div>
-
-<!-- ===== Modals ===== -->
-
-<!-- Modal: إضافة خدمة -->
-<div class="modal fade" id="addServiceModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">إضافة خدمة جديدة</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <input type="text" class="form-control mb-3" id="newServiceName" placeholder="اسم الخدمة">
-                <input type="number" class="form-control mb-3" id="newServicePrice" placeholder="السعر (د.ع)">
-                <textarea class="form-control mb-3" id="newServiceDesc" placeholder="وصف الخدمة" rows="3"></textarea>
-                <input type="text" class="form-control mb-3" id="newServiceEmoji" placeholder="رمز تعبيري (emoji)">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
-                <button type="button" class="btn btn-primary" onclick="addNewService()">حفظ الخدمة</button>
-            </div>
-        </div>
+        <h2 class="fw-bold mb-4 text-warning">لوحة الإدارة</h2>
+        <div class="admin-panel glass-card border-warning mb-4"><h5 class="text-warning">توليد قسائم شحن</h5><div class="row"><div class="col-md-5"><input type="number" id="genVal" class="form-control" placeholder="القيمة"></div><div class="col-md-3"><input type="number" id="genNum" class="form-control" value="1"></div><div class="col-md-4"><button class="btn btn-warning w-100" onclick="adminGenerate()">توليد</button></div></div><div class="table-responsive mt-3"><table class="table"><thead><tr><th>الكود</th><th>القيمة</th><th>الحالة</th><th></th></tr></thead><tbody id="adminTableBody"></tbody></table></div></div>
+        <div class="glass-card border-warning mb-4"><h5 class="text-warning">إدارة الخدمات</h5><button class="btn btn-warning mb-3" onclick="showAddServiceModal()">+ إضافة خدمة</button><div class="table-responsive"><table class="table"><thead><tr><th>الاسم</th><th>السعر</th><th>الإجراءات</th></tr></thead><tbody id="servicesTable"></tbody></table></div></div>
+        <div class="glass-card border-warning"><h5 class="text-warning">إحصائيات عامة</h5><div class="row"><div class="col-md-4"><div class="stat-number" id="adminUserCount">0</div><div>المستخدمين</div></div><div class="col-md-4"><div class="stat-number" id="adminServiceCount">0</div><div>الخدمات</div></div><div class="col-md-4"><div class="stat-number" id="adminRevenueCount">0</div><div>الإيرادات</div></div></div></div>
     </div>
 </div>
 
-<!-- Modal: تعديل الملف الشخصي -->
-<div class="modal fade" id="editProfileModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">تعديل الملف الشخصي</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <input type="text" class="form-control mb-3" id="editName" placeholder="الاسم الكامل">
-                <input type="email" class="form-control mb-3" id="editEmail" placeholder="البريد الإلكتروني">
-                <input type="tel" class="form-control mb-3" id="editPhone" placeholder="رقم الهاتف">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
-                <button type="button" class="btn btn-primary" onclick="saveProfileChanges()">حفظ التغييرات</button>
-            </div>
-        </div>
-    </div>
-</div>
+<!-- Modal Edit Profile -->
+<div class="modal fade" id="editProfileModal" tabindex="-1"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5>تعديل الملف</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><input type="text" id="editName" class="form-control mb-2" placeholder="الاسم"><input type="tel" id="editPhone" class="form-control" placeholder="الهاتف"></div><div class="modal-footer"><button class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button><button class="btn btn-primary" onclick="saveProfileChanges()">حفظ</button></div></div></div></div>
 
-<!-- Modal: تغيير كلمة المرور -->
-<div class="modal fade" id="changePasswordModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">تغيير كلمة المرور</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <input type="password" class="form-control mb-3" id="oldPassword" placeholder="كلمة المرور الحالية">
-                <input type="password" class="form-control mb-3" id="newPwd" placeholder="كلمة المرور الجديدة">
-                <input type="password" class="form-control mb-3" id="confirmPwd" placeholder="تأكيد كلمة المرور">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
-                <button type="button" class="btn btn-primary" onclick="handleChangePassword()">تحديث كلمة المرور</button>
-            </div>
-        </div>
-    </div>
-</div>
+<!-- Modal Change Password -->
+<div class="modal fade" id="changePasswordModal" tabindex="-1"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5>تغيير كلمة المرور</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><input type="password" id="oldPassword" class="form-control mb-2" placeholder="كلمة المرور الحالية"><input type="password" id="newPwd" class="form-control mb-2" placeholder="كلمة المرور الجديدة"><input type="password" id="confirmPwd" class="form-control" placeholder="تأكيد كلمة المرور"></div><div class="modal-footer"><button class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button><button class="btn btn-primary" onclick="handleChangePassword()">تحديث</button></div></div></div></div>
 
-<!-- Notification -->
+<!-- Modal Add Service -->
+<div class="modal fade" id="addServiceModal" tabindex="-1"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5>إضافة خدمة</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><input type="text" id="newServiceName" class="form-control mb-2" placeholder="اسم الخدمة"><input type="number" id="newServicePrice" class="form-control mb-2" placeholder="السعر"><textarea id="newServiceDesc" class="form-control mb-2" placeholder="الوصف"></textarea><input type="text" id="newServiceEmoji" class="form-control" placeholder="رمز تعبيري"></div><div class="modal-footer"><button class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button><button class="btn btn-primary" onclick="addNewService()">حفظ</button></div></div></div></div>
+
 <div class="notification" id="notification"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { 
-        getFirestore, 
-        collection, 
-        addDoc, 
-        getDocs, 
-        updateDoc, 
-        deleteDoc,
-        query, 
-        where, 
-        doc, 
-        onSnapshot,
-        orderBy,
-        limit
-    } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-    import {
-        getAuth,
-        createUserWithEmailAndPassword,
-        signInWithEmailAndPassword,
-        signOut,
-        onAuthStateChanged,
-        sendPasswordResetEmail,
-        updatePassword,
-        reauthenticateWithCredential,
-        EmailAuthProvider
-    } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { getFirestore, collection, addDoc, getDocs, updateDoc, deleteDoc, query, where, doc, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, sendPasswordResetEmail, updatePassword, reauthenticateWithCredential, EmailAuthProvider } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-    // Firebase Config
     const firebaseConfig = {
         apiKey: "AIzaSyAaE_9lHxQkApNESYh9quBNZcj9PkNk-jI",
         authDomain: "mansouriya2024.firebaseapp.com",
@@ -1052,15 +475,32 @@
     const db = getFirestore(app);
     const auth = getAuth(app);
 
-    // ===== متغيرات عامة =====
     let currentUser = null;
     let myBalance = 0;
     let allServices = [];
     let myPurchases = [];
-    let purchasesChart = null;
-    let spendingChart = null;
+    let purchasesChart, spendingChart;
 
-    // ===== التحقق من حالة المستخدم =====
+    // إعداد البيانات الافتراضية (مرة واحدة)
+    async function seedDefaultData() {
+        const servicesSnap = await getDocs(collection(db, "services"));
+        if (servicesSnap.empty) {
+            const defaultServices = [
+                { name: "استضافة مواقع", price: 25000, description: "استضافة سحابية لمدة عام", emoji: "🌐", rating: 5, reviews: 12, purchases: 0 },
+                { name: "تصميم تطبيق", price: 150000, description: "تصميم تطبيق جوال احترافي", emoji: "📱", rating: 5, reviews: 8, purchases: 0 },
+                { name: "حماية واختبار اختراق", price: 75000, description: "فحص أمني شامل", emoji: "🔒", rating: 4.9, reviews: 5, purchases: 0 },
+                { name: "تسويق رقمي", price: 50000, description: "حملات إعلانية مستهدفة", emoji: "📢", rating: 4.8, reviews: 20, purchases: 0 }
+            ];
+            for (const svc of defaultServices) {
+                await addDoc(collection(db, "services"), svc);
+            }
+        }
+        const voucherSnap = await getDocs(query(collection(db, "vouchers"), where("code", "==", "DEMO-1234")));
+        if (voucherSnap.empty) {
+            await addDoc(collection(db, "vouchers"), { code: "DEMO-1234", value: 50000, isUsed: false, createdAt: new Date() });
+        }
+    }
+
     onAuthStateChanged(auth, async (user) => {
         if (user) {
             currentUser = user;
@@ -1068,869 +508,265 @@
             document.getElementById('sidebar').style.display = 'block';
             document.getElementById('mainContent').style.display = 'block';
             await loadUserData();
-            loadDashboardData();
+            await loadDashboardData();
+            await seedDefaultData();
         } else {
-    currentUser = { uid: "ADMIN_USER" }; // إضافة مستخدم افتراضي لتجنب الأخطاء
-    document.getElementById('sidebar').style.display = 'block'; // غيرها من none إلى block
-    document.getElementById('mainContent').style.display = 'block'; // غيرها من none إلى block
-    loadDashboardData(); // استدعاء البيانات مباشرة
-}
-
+            document.getElementById('authContainer').classList.remove('hidden');
+            document.getElementById('sidebar').style.display = 'none';
+            document.getElementById('mainContent').style.display = 'none';
+            currentUser = null;
+        }
     });
 
-    // ===== دوال التحويل بين النماذج =====
-    window.switchAuthForm = () => {
-        const loginForm = document.getElementById('loginForm');
-        const registerForm = document.getElementById('registerForm');
-        const authTitle = document.getElementById('authTitle');
-        const authError = document.getElementById('authError');
-        const authSuccess = document.getElementById('authSuccess');
-
-        authError.style.display = 'none';
-        authSuccess.style.display = 'none';
-
-        if (loginForm.style.display === 'none') {
-            loginForm.style.display = 'block';
-            registerForm.style.display = 'none';
-            authTitle.textContent = 'تسجيل الدخول';
-        } else {
-            loginForm.style.display = 'none';
-            registerForm.style.display = 'block';
-            authTitle.textContent = 'إنشاء حساب جديد';
-        }
-    };
-
-    window.switchToForgot = () => {
-        const loginForm = document.getElementById('loginForm');
-        const forgotForm = document.getElementById('forgotForm');
-        const authTitle = document.getElementById('authTitle');
-        const authError = document.getElementById('authError');
-        const authSuccess = document.getElementById('authSuccess');
-
-        authError.style.display = 'none';
-        authSuccess.style.display = 'none';
-
-        loginForm.style.display = 'none';
-        forgotForm.style.display = 'block';
-        authTitle.textContent = 'استرجاع كلمة المرور';
-    };
-
-    window.switchToLogin = () => {
-        const loginForm = document.getElementById('loginForm');
-        const forgotForm = document.getElementById('forgotForm');
-        const resetForm = document.getElementById('resetForm');
-        const authTitle = document.getElementById('authTitle');
-        const authError = document.getElementById('authError');
-        const authSuccess = document.getElementById('authSuccess');
-
-        authError.style.display = 'none';
-        authSuccess.style.display = 'none';
-
-        loginForm.style.display = 'block';
-        forgotForm.style.display = 'none';
-        resetForm.style.display = 'none';
-        authTitle.textContent = 'تسجيل الدخول';
-    };
-
-    // ===== تسجيل الدخول =====
-    window.handleLogin = async () => {
-        const email = document.getElementById('loginEmail').value.trim();
-        const password = document.getElementById('loginPassword').value;
-        const authError = document.getElementById('authError');
-
-        if (!email || !password) {
-            showAuthError('يرجى إدخال البريد الإلكتروني وكلمة المرور', authError);
-            return;
-        }
-
-        try {
-            await signInWithEmailAndPassword(auth, email, password);
-        } catch (error) {
-            const errorMsg = getAuthErrorMessage(error.code);
-            showAuthError(errorMsg, authError);
-        }
-    };
-
-    // ===== إنشاء حساب جديد =====
-    window.handleRegister = async () => {
-        const name = document.getElementById('registerName').value.trim();
-        const email = document.getElementById('registerEmail').value.trim();
-        const password = document.getElementById('registerPassword').value;
-        const confirm = document.getElementById('registerConfirm').value;
-        const authError = document.getElementById('authError');
-
-        if (!name || !email || !password || !confirm) {
-            showAuthError('يرجى ملء جميع الحقول', authError);
-            return;
-        }
-
-        if (password !== confirm) {
-            showAuthError('كلمات المرور غير متطابقة', authError);
-            return;
-        }
-
-        if (password.length < 6) {
-            showAuthError('كلمة المرور يجب أن تكون 6 أحرف على الأقل', authError);
-            return;
-        }
-
-        try {
-            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-            
-            // إضافة بيانات المستخدم في Firestore
-            await addDoc(collection(db, "users"), {
-                uid: userCredential.user.uid,
-                name: name,
-                email: email,
-                balance: 0,
-                joinDate: new Date(),
-                phone: ""
-            });
-
-            showAuthSuccess('تم إنشاء الحساب بنجاح! جاري تسجيل الدخول...', document.getElementById('authSuccess'));
-            
-            setTimeout(() => {
-                document.getElementById('registerForm').style.display = 'none';
-                document.getElementById('loginForm').style.display = 'block';
-                document.getElementById('registerEmail').value = '';
-                document.getElementById('registerPassword').value = '';
-                document.getElementById('registerConfirm').value = '';
-                document.getElementById('registerName').value = '';
-            }, 1500);
-        } catch (error) {
-            const errorMsg = getAuthErrorMessage(error.code);
-            showAuthError(errorMsg, authError);
-        }
-    };
-
-    // ===== استرجاع كلمة المرور =====
-    window.handleForgotPassword = async () => {
-        const email = document.getElementById('forgotEmail').value.trim();
-        const authError = document.getElementById('authError');
-        const authSuccess = document.getElementById('authSuccess');
-
-        if (!email) {
-            showAuthError('يرجى إدخال بريدك الإلكتروني', authError);
-            return;
-        }
-
-        try {
-            await sendPasswordResetEmail(auth, email);
-            showAuthSuccess('تم إرسال رابط تعيين كلمة المرور إلى بريدك الإلكتروني! تحقق من بريدك', authSuccess);
-            document.getElementById('forgotEmail').value = '';
-            
-            setTimeout(() => {
-                switchToLogin();
-            }, 3000);
-        } catch (error) {
-            const errorMsg = getAuthErrorMessage(error.code);
-            showAuthError(errorMsg, authError);
-        }
-    };
-
-    // ===== تغيير كلمة المرور من الملف الشخصي =====
-    window.handleChangePassword = async () => {
-        const oldPassword = document.getElementById('oldPassword').value;
-        const newPassword = document.getElementById('newPwd').value;
-        const confirmPassword = document.getElementById('confirmPwd').value;
-
-        if (!oldPassword || !newPassword || !confirmPassword) {
-            showNotification('يرجى ملء جميع الحقول', 'error');
-            return;
-        }
-
-        if (newPassword !== confirmPassword) {
-            showNotification('كلمات المرور الجديدة غير متطابقة', 'error');
-            return;
-        }
-
-        if (newPassword.length < 6) {
-            showNotification('كلمة المرور يجب أن تكون 6 أحرف على الأقل', 'error');
-            return;
-        }
-
-        try {
-            // إعادة التحقق من هويته
-            const credential = EmailAuthProvider.credential(currentUser.email, oldPassword);
-            await reauthenticateWithCredential(currentUser, credential);
-
-            // تحديث كلمة المرور
-            await updatePassword(currentUser, newPassword);
-
-            showNotification('تم تحديث كلمة المرور بنجاح ✅', 'success');
-            
-            document.getElementById('oldPassword').value = '';
-            document.getElementById('newPwd').value = '';
-            document.getElementById('confirmPwd').value = '';
-
-            const modal = bootstrap.Modal.getInstance(document.getElementById('changePasswordModal'));
-            modal?.hide();
-        } catch (error) {
-            if (error.code === 'auth/wrong-password') {
-                showNotification('كلمة المرور الحالية غير صحيحة', 'error');
-            } else {
-                showNotification('حدث خطأ في تحديث كلمة المرور', 'error');
-            }
-        }
-    };
-
-    // ===== تسجيل الخروج =====
-    window.handleLogout = async () => {
-        try {
-            await signOut(auth);
-            showNotification('تم تسجيل الخروج بنجاح', 'info');
-        } catch (error) {
-            showNotification('خطأ في تسجيل الخروج', 'error');
-        }
-    };
-
-    // ===== دالة مساعدة لرسائل الأخطاء =====
-    function getAuthErrorMessage(code) {
-        const errors = {
-            'auth/user-not-found': 'لم يتم العثور على هذا الحساب',
-            'auth/wrong-password': 'كلمة المرور غير صحيحة',
-            'auth/email-already-in-use': 'هذا البريد الإلكتروني مسجل بالفعل',
-            'auth/weak-password': 'كلمة المرور ضعيفة جداً',
-            'auth/invalid-email': 'البريد الإلكتروني غير صحيح',
-            'auth/operation-not-allowed': 'هذه العملية غير مسموحة',
-            'auth/too-many-requests': 'عدد محاولات كثيرة، حاول لاحقاً'
-        };
-        return errors[code] || 'حدث خطأ ما، حاول مجدداً';
-    }
-
-    function showAuthError(message, element) {
-        element.textContent = message;
-        element.style.display = 'block';
-        element.className = 'auth-error';
-    }
-
-    function showAuthSuccess(message, element) {
-        element.textContent = message;
-        element.style.display = 'block';
-        element.className = 'auth-success';
-    }
-
-    // ===== تحميل بيانات المستخدم =====
     async function loadUserData() {
-        try {
-            const q = query(collection(db, "users"), where("uid", "==", currentUser.uid));
-            const snap = await getDocs(q);
-            
-            if (!snap.empty) {
-                const userData = snap.docs[0].data();
-                myBalance = userData.balance || 0;
-                
-                document.getElementById('sidebarUsername').textContent = userData.name;
-                document.getElementById('badgeUsername').textContent = userData.name;
-                document.getElementById('profileName').textContent = userData.name;
-                document.getElementById('profileEmail').textContent = userData.email;
-                document.getElementById('infoEmail').textContent = userData.email;
-                document.getElementById('walletBalance').innerHTML = myBalance.toLocaleString() + ' <small style="font-size: 20px;">د.ع</small>';
-                document.getElementById('mainBalance').innerHTML = myBalance.toLocaleString() + ' <small style="font-size: 20px;">د.ع</small>';
-                
-                const joinDate = userData.joinDate?.toDate?.() || new Date();
-                document.getElementById('joinDate').textContent = joinDate.toLocaleDateString('ar-IQ');
-                
-                document.getElementById('editName').value = userData.name;
-                document.getElementById('editEmail').value = userData.email;
-                document.getElementById('editPhone').value = userData.phone || '';
-            }
-        } catch (error) {
-            console.error("خطأ في تحميل بيانات المستخدم:", error);
+        const q = query(collection(db, "users"), where("uid", "==", currentUser.uid));
+        const snap = await getDocs(q);
+        if (!snap.empty) {
+            const data = snap.docs[0].data();
+            myBalance = data.balance || 0;
+            document.getElementById('sidebarUsername').innerText = data.name;
+            document.getElementById('badgeUsername').innerText = data.name;
+            document.getElementById('profileName').innerText = data.name;
+            document.getElementById('profileEmail').innerText = data.email;
+            document.getElementById('infoEmail').innerText = data.email;
+            document.getElementById('mainBalance').innerHTML = myBalance.toLocaleString() + ' <small>د.ع</small>';
+            document.getElementById('walletBalance').innerHTML = myBalance.toLocaleString() + ' <small>د.ع</small>';
+            document.getElementById('joinDate').innerText = data.joinDate?.toDate?.()?.toLocaleDateString('ar-IQ') || new Date().toLocaleDateString('ar-IQ');
+            document.getElementById('editName').value = data.name;
+            document.getElementById('editPhone').value = data.phone || '';
+        } else {
+            // إنشاء وثيقة user إذا لم توجد
+            await addDoc(collection(db, "users"), { uid: currentUser.uid, name: currentUser.email.split('@')[0], email: currentUser.email, balance: 0, joinDate: new Date(), phone: "" });
+            await loadUserData();
         }
     }
 
-    // ===== تحميل بيانات لوحة التحكم =====
     async function loadDashboardData() {
-        try {
-            const servicesSnap = await getDocs(collection(db, "services"));
-            allServices = [];
-            servicesSnap.forEach(doc => {
-                allServices.push({ id: doc.id, ...doc.data() });
-            });
-            document.getElementById('totalServices').textContent = allServices.length;
-            renderServices();
+        const servicesSnap = await getDocs(collection(db, "services"));
+        allServices = servicesSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+        document.getElementById('totalServices').innerText = allServices.length;
+        renderServices();
 
-            const purchasesSnap = await getDocs(
-                query(collection(db, "purchases"), where("userId", "==", currentUser.uid))
-            );
-            myPurchases = [];
-            let totalSpent = 0;
-            let totalRecharge = 0;
-            
-            purchasesSnap.forEach(doc => {
-                const purchase = { id: doc.id, ...doc.data() };
-                myPurchases.push(purchase);
-                totalSpent += purchase.price || 0;
-            });
+        const purchasesSnap = await getDocs(query(collection(db, "purchases"), where("userId", "==", currentUser.uid)));
+        myPurchases = purchasesSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+        document.getElementById('totalPurchases').innerText = myPurchases.length;
 
-            const rechargesSnap = await getDocs(
-                query(collection(db, "recharges"), where("userId", "==", currentUser.uid))
-            );
-            rechargesSnap.forEach(doc => {
-                totalRecharge += doc.data().amount || 0;
-            });
-
-            document.getElementById('totalPurchases').textContent = myPurchases.length;
-            document.getElementById('totalSpent').textContent = totalSpent.toLocaleString() + ' د.ع';
-            document.getElementById('totalRecharge').textContent = totalRecharge.toLocaleString() + ' د.ع';
-            document.getElementById('totalSpendProfile').textContent = totalSpent.toLocaleString() + ' د.ع';
-            document.getElementById('servicesCount').textContent = myPurchases.length;
-            
-            updatePurchasesStats();
-            renderPurchasesTable();
-            initCharts();
-        } catch (error) {
-            console.error("خطأ في تحميل بيانات لوحة التحكم:", error);
-        }
+        let totalSpent = 0, totalRecharge = 0;
+        myPurchases.forEach(p => totalSpent += p.price || 0);
+        const rechargeSnap = await getDocs(query(collection(db, "recharges"), where("userId", "==", currentUser.uid)));
+        rechargeSnap.forEach(r => totalRecharge += r.data().amount || 0);
+        document.getElementById('totalSpent').innerText = totalSpent.toLocaleString() + ' د.ع';
+        document.getElementById('totalRecharge').innerText = totalRecharge.toLocaleString() + ' د.ع';
+        
+        updatePurchasesStats();
+        renderPurchasesTable();
+        initCharts();
+        loadAdminStats();
     }
 
-    // ===== دالة الشحن =====
-    window.handleRecharge = async () => {
-        const code = document.getElementById('vCode').value.trim();
-        const alertBox = document.getElementById('rechargeAlert');
-
-        if (!code) {
-            showAlert(alertBox, 'يرجى إدخال الكود', 'danger');
-            return;
-        }
-
-        try {
-            const q = query(collection(db, "vouchers"), where("code", "==", code));
-            const snap = await getDocs(q);
-
-            if (snap.empty) {
-                showAlert(alertBox, 'الكود غير صالح!', 'danger');
-                return;
-            }
-
-            const voucherDoc = snap.docs[0];
-            const voucherData = voucherDoc.data();
-
-            if (voucherData.isUsed) {
-                showAlert(alertBox, 'الكود مستخدم مسبقاً!', 'warning');
-                return;
-            }
-
-            await updateDoc(doc(db, "vouchers", voucherDoc.id), { 
-                isUsed: true,
-                usedBy: currentUser.uid,
-                usedAt: new Date()
-            });
-
-            myBalance += parseInt(voucherData.value);
-            const userQ = query(collection(db, "users"), where("uid", "==", currentUser.uid));
-            const userSnap = await getDocs(userQ);
-            if (!userSnap.empty) {
-                await updateDoc(doc(db, "users", userSnap.docs[0].id), { balance: myBalance });
-            }
-
-            await addDoc(collection(db, "recharges"), {
-                userId: currentUser.uid,
-                amount: parseInt(voucherData.value),
-                code: code,
-                date: new Date()
-            });
-
-            showAlert(alertBox, `تم شحن ${voucherData.value} د.ع بنجاح ✅`, 'success');
-            document.getElementById('vCode').value = '';
-            document.getElementById('walletBalance').innerHTML = myBalance.toLocaleString() + ' <small style="font-size: 20px;">د.ع</small>';
-            document.getElementById('mainBalance').innerHTML = myBalance.toLocaleString() + ' <small style="font-size: 20px;">د.ع</small>';
-            
-            loadDashboardData();
-        } catch (error) {
-            console.error(error);
-            showAlert(alertBox, 'حدث خطأ في العملية', 'danger');
-        }
-    };
-
-    function showAlert(element, message, type) {
-        element.innerHTML = `<div class="alert alert-${type}">${message}</div>`;
-    }
-
-    // ===== عرض الخدمات =====
     function renderServices() {
         const grid = document.getElementById('servicesGrid');
+        if (!allServices.length) { grid.innerHTML = '<div class="col-12 text-muted text-center">لا توجد خدمات</div>'; return; }
         grid.innerHTML = '';
-
-        if (allServices.length === 0) {
-            grid.innerHTML = '<div class="col-12 empty-state"><i class="bi bi-inbox"></i><p>لا توجد خدمات متاحة حالياً</p></div>';
-            return;
-        }
-
-        allServices.forEach(service => {
-            const card = document.createElement('div');
-            card.className = 'col-md-6 col-lg-4 service-item';
-            card.innerHTML = `
+        allServices.forEach(s => {
+            const col = document.createElement('div');
+            col.className = 'col-md-6 col-lg-4';
+            col.innerHTML = `
                 <div class="service-card">
-                    <div class="service-card-header" style="background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%)); color: white;">
-                        ${service.emoji || '💼'}
-                    </div>
-                    <div class="service-card-body">
-                        <h5>${service.name}</h5>
-                        <p class="text-muted small">${service.description}</p>
-                        <div class="service-rating">
-                            ${'⭐'.repeat(Math.round(service.rating || 5))}
-                            <small>(${service.reviews || 0} تقييم)</small>
-                        </div>
-                        <div style="margin: 15px 0; display: flex; justify-content: space-between; align-items: center;">
-                            <h4 style="color: var(--primary); margin: 0;">${service.price.toLocaleString()} د.ع</h4>
-                        </div>
-                        <button class="btn btn-primary w-100" onclick="buyService('${service.id}')">
-                            اشتري الآن
-                        </button>
-                    </div>
-                </div>
-            `;
-            grid.appendChild(card);
+                    <div class="service-card-header" style="background:linear-gradient(135deg,var(--primary),var(--secondary));color:white">${s.emoji || '💼'}</div>
+                    <div class="p-3"><h5>${s.name}</h5><p class="small text-muted">${s.description}</p><div class="d-flex justify-content-between align-items-center"><h4 class="text-primary">${s.price.toLocaleString()} د.ع</h4><button class="btn btn-primary" onclick="buyService('${s.id}')" style="font-size:14px">شراء</button></div></div>
+                </div>`;
+            grid.appendChild(col);
         });
-
-        const searchInput = document.getElementById('serviceSearch');
-        if (searchInput) {
-            searchInput.addEventListener('input', (e) => {
-                const searchTerm = e.target.value.toLowerCase();
-                const items = grid.querySelectorAll('.service-item');
-                items.forEach(item => {
-                    const serviceName = item.querySelector('h5').textContent.toLowerCase();
-                    item.style.display = serviceName.includes(searchTerm) ? '' : 'none';
-                });
-            });
-        }
     }
 
-    // ===== شراء الخدمة =====
     window.buyService = async (serviceId) => {
         const service = allServices.find(s => s.id === serviceId);
         if (!service) return;
-
-        if (myBalance < service.price) {
-            showNotification('رصيدك غير كافٍ! يرجى الشحن أولاً', 'error');
-            navigateTo('wallet');
-            return;
-        }
-
-        try {
-            myBalance -= service.price;
-            
-            const userQ = query(collection(db, "users"), where("uid", "==", currentUser.uid));
-            const userSnap = await getDocs(userQ);
-            if (!userSnap.empty) {
-                await updateDoc(doc(db, "users", userSnap.docs[0].id), { balance: myBalance });
-            }
-
-            await addDoc(collection(db, "purchases"), {
-                userId: currentUser.uid,
-                serviceId: serviceId,
-                serviceName: service.name,
-                price: service.price,
-                date: new Date(),
-                status: 'pending'
-            });
-
-            document.getElementById('walletBalance').innerHTML = myBalance.toLocaleString() + ' <small style="font-size: 20px;">د.ع</small>';
-            document.getElementById('mainBalance').innerHTML = myBalance.toLocaleString() + ' <small style="font-size: 20px;">د.ع</small>';
-            
-            showNotification(`تم شراء ${service.name} بنجاح! سيتم التواصل معك قريباً`, 'success');
-            
-            loadDashboardData();
-        } catch (error) {
-            console.error(error);
-            showNotification('خطأ في عملية الشراء', 'error');
-        }
+        if (myBalance < service.price) { showNotification('رصيد غير كافٍ', 'error'); navigateTo('wallet'); return; }
+        myBalance -= service.price;
+        const userQ = query(collection(db, "users"), where("uid", "==", currentUser.uid));
+        const userSnap = await getDocs(userQ);
+        if (!userSnap.empty) await updateDoc(doc(db, "users", userSnap.docs[0].id), { balance: myBalance });
+        await addDoc(collection(db, "purchases"), { userId: currentUser.uid, serviceId, serviceName: service.name, price: service.price, date: new Date(), status: 'pending' });
+        document.getElementById('mainBalance').innerHTML = myBalance.toLocaleString() + ' <small>د.ع</small>';
+        document.getElementById('walletBalance').innerHTML = myBalance.toLocaleString() + ' <small>د.ع</small>';
+        showNotification(`تم شراء ${service.name} بنجاح`, 'success');
+        await loadDashboardData();
     };
 
-    // ===== إحصائيات المشتريات =====
     function updatePurchasesStats() {
         let completed = 0, pending = 0, cancelled = 0;
-        
-        myPurchases.forEach(purchase => {
-            if (purchase.status === 'completed') completed++;
-            else if (purchase.status === 'pending') pending++;
-            else if (purchase.status === 'cancelled') cancelled++;
-        });
-
-        document.getElementById('purchaseCount').textContent = myPurchases.length;
-        document.getElementById('completedCount').textContent = completed;
-        document.getElementById('pendingCount').textContent = pending;
-        document.getElementById('cancelledCount').textContent = cancelled;
+        myPurchases.forEach(p => { if (p.status === 'completed') completed++; else if (p.status === 'pending') pending++; else if (p.status === 'cancelled') cancelled++; });
+        document.getElementById('purchaseCount').innerText = myPurchases.length;
+        document.getElementById('completedCount').innerText = completed;
+        document.getElementById('pendingCount').innerText = pending;
+        document.getElementById('cancelledCount').innerText = cancelled;
     }
 
-    // ===== جدول المشتريات =====
     function renderPurchasesTable() {
         const tbody = document.getElementById('purchasesTable');
-        
-        if (myPurchases.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="5" class="text-center text-muted">لا توجد مشتريات حالياً</td></tr>';
-            return;
-        }
-
+        if (!myPurchases.length) { tbody.innerHTML = '<tr><td colspan="4" class="text-muted text-center">لا توجد مشتريات</td></tr>'; return; }
         tbody.innerHTML = '';
-        myPurchases.forEach(purchase => {
-            const date = purchase.date?.toDate?.() || new Date(purchase.date);
-            const statusBadge = {
-                'pending': '<span class="badge" style="background: #fef3c7; color: #92400e;">قيد الانتظار</span>',
-                'completed': '<span class="badge badge-success">مكتملة</span>',
-                'cancelled': '<span class="badge" style="background: #fee2e2; color: #7f1d1d;">ملغاة</span>'
-            };
-
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td>${purchase.serviceName}</td>
-                <td>${purchase.price.toLocaleString()} د.ع</td>
-                <td>${date.toLocaleDateString('ar-IQ')}</td>
-                <td>${statusBadge[purchase.status] || '<span class="badge">غير معروفة</span>'}</td>
-                <td>
-                    <button class="btn btn-sm btn-outline-primary" style="border-color: var(--primary); color: var(--primary);" onclick="alert('جاري المعالجة')">
-                        تحديث
-                    </button>
-                </td>
-            `;
-            tbody.appendChild(tr);
+        myPurchases.forEach(p => {
+            const date = p.date?.toDate?.() || new Date(p.date);
+            const badge = p.status === 'completed' ? '<span class="badge bg-success">مكتملة</span>' : (p.status === 'cancelled' ? '<span class="badge bg-danger">ملغاة</span>' : '<span class="badge bg-warning">قيد الانتظار</span>');
+            tbody.innerHTML += `<tr><td>${p.serviceName}</td><td>${p.price.toLocaleString()} د.ع</td><td>${date.toLocaleDateString('ar-IQ')}</td><td>${badge}</td></tr>`;
         });
     }
 
-    // ===== Admin Functions =====
-    window.adminGenerate = async () => {
-        const value = parseInt(document.getElementById('genVal').value);
-        const quantity = parseInt(document.getElementById('genNum').value);
-
-        if (!value || value <= 0 || !quantity || quantity <= 0) {
-            showNotification('يرجى إدخال قيمة وعدد صحيح', 'error');
-            return;
-        }
-
-        try {
-            for (let i = 0; i < quantity; i++) {
-                const code = "MS-" + Math.random().toString(36).substring(2, 6).toUpperCase() + "-" + Math.floor(1000 + Math.random() * 9000);
-                await addDoc(collection(db, "vouchers"), {
-                    code: code,
-                    value: value,
-                    isUsed: false,
-                    createdAt: new Date(),
-                    createdBy: currentUser.uid
-                });
-            }
-
-            showNotification(`تم توليد ${quantity} كود بنجاح ✅`, 'success');
-            document.getElementById('genVal').value = '';
-            loadAdminVouchers();
-        } catch (error) {
-            console.error(error);
-            showNotification('خطأ في توليد الكودات', 'error');
-        }
-    };
-
-    // ===== تحميل الكودات في لوحة الإدارة =====
-    async function loadAdminVouchers() {
-        try {
-            const vouchersSnap = await getDocs(
-                query(collection(db, "vouchers"), orderBy("createdAt", "desc"), limit(100))
-            );
-
-            const tbody = document.getElementById('adminTableBody');
-            tbody.innerHTML = '';
-
-            let unusedCount = 0;
-            vouchersSnap.forEach(doc => {
-                const voucher = doc.data();
-                if (!voucher.isUsed) unusedCount++;
-
-                const createdDate = voucher.createdAt?.toDate?.() || new Date(voucher.createdAt);
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td><code>${voucher.code}</code></td>
-                    <td>${voucher.value}</td>
-                    <td>${voucher.isUsed ? '<span class="badge" style="background: #fee2e2; color: #7f1d1d;">مستخدم</span>' : '<span class="badge badge-success">متاح</span>'}</td>
-                    <td>${createdDate.toLocaleDateString('ar-IQ')}</td>
-                    <td>
-                        <button class="btn btn-sm btn-danger" onclick="deleteVoucher('${doc.id}')">
-                            حذف
-                        </button>
-                    </td>
-                `;
-                tbody.appendChild(tr);
-            });
-
-            document.getElementById('adminVoucherCount').textContent = unusedCount.toLocaleString();
-        } catch (error) {
-            console.error("خطأ في تحميل الكودات:", error);
-        }
-    }
-
-    // ===== حذف كود =====
-    window.deleteVoucher = async (voucherId) => {
-        if (!confirm('هل أنت متأكد من حذف هذا الكود؟')) return;
-
-        try {
-            await deleteDoc(doc(db, "vouchers", voucherId));
-            showNotification('تم حذف الكود بنجاح', 'success');
-            loadAdminVouchers();
-        } catch (error) {
-            showNotification('خطأ في حذف الكود', 'error');
-        }
-    };
-
-    // ===== إضافة خدمة جديدة =====
-    window.addNewService = async () => {
-        const name = document.getElementById('newServiceName').value.trim();
-        const price = parseInt(document.getElementById('newServicePrice').value);
-        const description = document.getElementById('newServiceDesc').value.trim();
-        const emoji = document.getElementById('newServiceEmoji').value.trim();
-
-        if (!name || !price || !description) {
-            showNotification('يرجى ملء جميع الحقول', 'error');
-            return;
-        }
-
-        try {
-            await addDoc(collection(db, "services"), {
-                name: name,
-                price: price,
-                description: description,
-                emoji: emoji || '💼',
-                rating: 5,
-                reviews: 0,
-                purchases: 0,
-                createdAt: new Date(),
-                createdBy: currentUser.uid
-            });
-
-            showNotification('تم إضافة الخدمة بنجاح ✅', 'success');
-            
-            document.getElementById('newServiceName').value = '';
-            document.getElementById('newServicePrice').value = '';
-            document.getElementById('newServiceDesc').value = '';
-            document.getElementById('newServiceEmoji').value = '';
-
-            const modal = bootstrap.Modal.getInstance(document.getElementById('addServiceModal'));
-            modal?.hide();
-
-            loadDashboardData();
-            loadAdminServices();
-        } catch (error) {
-            console.error(error);
-            showNotification('خطأ في إضافة الخدمة', 'error');
-        }
-    };
-
-    // ===== تحميل الخدمات في لوحة الإدارة =====
-    async function loadAdminServices() {
-        try {
-            const servicesSnap = await getDocs(collection(db, "services"));
-            const tbody = document.getElementById('servicesTable');
-            tbody.innerHTML = '';
-
-            servicesSnap.forEach(doc => {
-                const service = doc.data();
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td>${service.emoji || '💼'} ${service.name}</td>
-                    <td>${service.price.toLocaleString()}</td>
-                    <td>${service.description.substring(0, 30)}...</td>
-                    <td>${service.purchases || 0}</td>
-                    <td>${'⭐'.repeat(Math.round(service.rating || 5))}</td>
-                    <td>
-                        <button class="btn btn-sm btn-danger" onclick="deleteService('${doc.id}')">حذف</button>
-                    </td>
-                `;
-                tbody.appendChild(tr);
-            });
-
-            document.getElementById('adminServiceCount').textContent = servicesSnap.size;
-        } catch (error) {
-            console.error("خطأ في تحميل الخدمات:", error);
-        }
-    }
-
-    // ===== حذف خدمة =====
-    window.deleteService = async (serviceId) => {
-        if (!confirm('هل أنت متأكد من حذف هذه الخدمة؟')) return;
-
-        try {
-            await deleteDoc(doc(db, "services", serviceId));
-            showNotification('تم حذف الخدمة بنجاح', 'success');
-            loadAdminServices();
-            loadDashboardData();
-        } catch (error) {
-            showNotification('خطأ في حذف الخدمة', 'error');
-        }
-    };
-
-    // ===== التنقل بين الصفحات =====
-    window.navigateTo = (pageId) => {
-        document.querySelectorAll('.page-section').forEach(p => p.classList.remove('active'));
-        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-        document.getElementById(pageId).classList.add('active');
-        event.currentTarget.classList.add('active');
-
-        if (pageId === 'admin') {
-            setTimeout(() => {
-                loadAdminVouchers();
-                loadAdminServices();
-                loadAdminStats();
-            }, 100);
-        }
-
-        if (pageId === 'dashboard') {
-            setTimeout(() => {
-                if (purchasesChart && spendingChart) {
-                    purchasesChart.resize();
-                    spendingChart.resize();
-                }
-            }, 100);
-        }
-    };
-
-    // ===== حفظ تغييرات الملف الشخصي =====
-    window.saveProfileChanges = async () => {
-        const name = document.getElementById('editName').value.trim();
-        const phone = document.getElementById('editPhone').value.trim();
-
-        if (!name) {
-            showNotification('يرجى إدخال الاسم', 'error');
-            return;
-        }
-
-        try {
-            const userQ = query(collection(db, "users"), where("uid", "==", currentUser.uid));
-            const userSnap = await getDocs(userQ);
-            
-            if (!userSnap.empty) {
-                await updateDoc(doc(db, "users", userSnap.docs[0].id), {
-                    name: name,
-                    phone: phone
-                });
-
-                document.getElementById('profileName').textContent = name;
-                document.getElementById('sidebarUsername').textContent = name;
-                document.getElementById('badgeUsername').textContent = name;
-
-                showNotification('تم حفظ التغييرات بنجاح ✅', 'success');
-                const modal = bootstrap.Modal.getInstance(document.getElementById('editProfileModal'));
-                modal?.hide();
-            }
-        } catch (error) {
-            console.error(error);
-            showNotification('خطأ في حفظ التغييرات', 'error');
-        }
-    };
-
-    // ===== رسوم بيانية =====
     function initCharts() {
         setTimeout(() => {
             const ctx1 = document.getElementById('purchasesChart')?.getContext('2d');
             if (ctx1) {
                 if (purchasesChart) purchasesChart.destroy();
-
-                const monthlyData = new Array(12).fill(0);
-                myPurchases.forEach(p => {
-                    const date = p.date?.toDate?.() || new Date(p.date);
-                    const month = date.getMonth();
-                    monthlyData[month]++;
-                });
-
-                purchasesChart = new Chart(ctx1, {
-                    type: 'line',
-                    data: {
-                        labels: ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'],
-                        datasets: [{
-                            label: 'المشتريات',
-                            data: monthlyData,
-                            borderColor: '#6366f1',
-                            backgroundColor: 'rgba(99, 102, 241, 0.1)',
-                            borderWidth: 2,
-                            tension: 0.3,
-                            fill: true
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: true,
-                        plugins: {
-                            legend: {
-                                labels: { font: { family: "'Segoe UI'" } }
-                            }
-                        },
-                        scales: {
-                            y: { beginAtZero: true }
-                        }
-                    }
-                });
+                const monthly = new Array(12).fill(0);
+                myPurchases.forEach(p => { const m = (p.date?.toDate?.() || new Date(p.date)).getMonth(); monthly[m]++; });
+                purchasesChart = new Chart(ctx1, { type: 'line', data: { labels: ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'], datasets: [{ label: 'المشتريات', data: monthly, borderColor: '#6366f1', tension: 0.3, fill: true }] } });
             }
-
             const ctx2 = document.getElementById('spendingChart')?.getContext('2d');
             if (ctx2) {
                 if (spendingChart) spendingChart.destroy();
-
-                const serviceSpending = {};
-                myPurchases.forEach(p => {
-                    serviceSpending[p.serviceName] = (serviceSpending[p.serviceName] || 0) + p.price;
-                });
-
-                const labels = Object.keys(serviceSpending).slice(0, 5);
-                const data = Object.values(serviceSpending).slice(0, 5);
-
-                spendingChart = new Chart(ctx2, {
-                    type: 'doughnut',
-                    data: {
-                        labels: labels,
-                        datasets: [{
-                            data: data,
-                            backgroundColor: [
-                                '#6366f1',
-                                '#a855f7',
-                                '#ec4899',
-                                '#f43f5e',
-                                '#f59e0b'
-                            ]
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: true,
-                        plugins: {
-                            legend: {
-                                labels: { font: { family: "'Segoe UI'" } }
-                            }
-                        }
-                    }
-                });
+                const spendMap = {};
+                myPurchases.forEach(p => spendMap[p.serviceName] = (spendMap[p.serviceName] || 0) + p.price);
+                const labels = Object.keys(spendMap).slice(0,5);
+                const data = Object.values(spendMap).slice(0,5);
+                spendingChart = new Chart(ctx2, { type: 'doughnut', data: { labels, datasets: [{ data, backgroundColor: ['#6366f1','#a855f7','#ec4899','#f43f5e','#f59e0b'] }] } });
             }
         }, 100);
     }
 
-    // ===== إحصائيات لوحة الإدارة =====
-    async function loadAdminStats() {
-        try {
-            const usersSnap = await getDocs(collection(db, "users"));
-            document.getElementById('adminUserCount').textContent = usersSnap.size;
+    window.handleRecharge = async () => {
+        const code = document.getElementById('vCode').value.trim();
+        const alertBox = document.getElementById('rechargeAlert');
+        if (!code) { alertBox.innerHTML = '<div class="alert alert-danger">أدخل الكود</div>'; return; }
+        const q = query(collection(db, "vouchers"), where("code", "==", code));
+        const snap = await getDocs(q);
+        if (snap.empty) { alertBox.innerHTML = '<div class="alert alert-danger">كود غير صالح</div>'; return; }
+        const voucher = snap.docs[0];
+        if (voucher.data().isUsed) { alertBox.innerHTML = '<div class="alert alert-warning">الكود مستخدم مسبقاً</div>'; return; }
+        await updateDoc(doc(db, "vouchers", voucher.id), { isUsed: true, usedBy: currentUser.uid, usedAt: new Date() });
+        myBalance += voucher.data().value;
+        const userQ = query(collection(db, "users"), where("uid", "==", currentUser.uid));
+        const userSnap = await getDocs(userQ);
+        if (!userSnap.empty) await updateDoc(doc(db, "users", userSnap.docs[0].id), { balance: myBalance });
+        await addDoc(collection(db, "recharges"), { userId: currentUser.uid, amount: voucher.data().value, code, date: new Date() });
+        document.getElementById('walletBalance').innerHTML = myBalance.toLocaleString() + ' <small>د.ع</small>';
+        document.getElementById('mainBalance').innerHTML = myBalance.toLocaleString() + ' <small>د.ع</small>';
+        alertBox.innerHTML = `<div class="alert alert-success">تم شحن ${voucher.data().value} د.ع</div>`;
+        document.getElementById('vCode').value = '';
+        await loadDashboardData();
+    };
 
-            const purchasesSnap = await getDocs(collection(db, "purchases"));
-            let totalRevenue = 0;
-            purchasesSnap.forEach(doc => {
-                totalRevenue += doc.data().price || 0;
-            });
-            document.getElementById('adminRevenueCount').textContent = totalRevenue.toLocaleString() + ' د.ع';
-        } catch (error) {
-            console.error("خطأ في تحميل إحصائيات الإدارة:", error);
+    // Admin functions
+    window.adminGenerate = async () => {
+        const val = parseInt(document.getElementById('genVal').value);
+        const num = parseInt(document.getElementById('genNum').value);
+        if (!val || val<=0 || !num) { showNotification('أدخل قيمة وعدد صحيح', 'error'); return; }
+        for (let i=0; i<num; i++) {
+            const code = "MS-" + Math.random().toString(36).substring(2,6).toUpperCase() + "-" + Math.floor(1000+Math.random()*9000);
+            await addDoc(collection(db, "vouchers"), { code, value: val, isUsed: false, createdAt: new Date(), createdBy: currentUser.uid });
         }
+        showNotification(`تم توليد ${num} كود`, 'success');
+        loadAdminVouchers();
+    };
+    async function loadAdminVouchers() {
+        const snap = await getDocs(query(collection(db, "vouchers"), orderBy("createdAt","desc"), limit(100)));
+        const tbody = document.getElementById('adminTableBody');
+        tbody.innerHTML = '';
+        snap.forEach(doc => {
+            const v = doc.data();
+            tbody.innerHTML += `<tr><td><code>${v.code}</code></td><td>${v.value}</td><td>${v.isUsed ? '<span class="badge bg-danger">مستخدم</span>' : '<span class="badge bg-success">متاح</span>'}</td><td><button class="btn btn-sm btn-danger" onclick="deleteVoucher('${doc.id}')">حذف</button></td></tr>`;
+        });
+    }
+    window.deleteVoucher = async (id) => { if(confirm('حذف الكود؟')){ await deleteDoc(doc(db,"vouchers",id)); loadAdminVouchers(); }};
+    window.showAddServiceModal = () => new bootstrap.Modal(document.getElementById('addServiceModal')).show();
+    window.addNewService = async () => {
+        const name = document.getElementById('newServiceName').value.trim();
+        const price = parseInt(document.getElementById('newServicePrice').value);
+        const desc = document.getElementById('newServiceDesc').value.trim();
+        if(!name || !price) { showNotification('املأ البيانات','error'); return; }
+        await addDoc(collection(db,"services"), { name, price, description: desc, emoji: document.getElementById('newServiceEmoji').value.trim() || '💼', rating:5, reviews:0, purchases:0, createdAt: new Date() });
+        showNotification('تمت إضافة الخدمة','success');
+        bootstrap.Modal.getInstance(document.getElementById('addServiceModal')).hide();
+        await loadDashboardData();
+        loadAdminServices();
+    };
+    async function loadAdminServices() {
+        const snap = await getDocs(collection(db,"services"));
+        const tbody = document.getElementById('servicesTable');
+        tbody.innerHTML = '';
+        snap.forEach(doc => {
+            const s = doc.data();
+            tbody.innerHTML += `<tr><td>${s.name}</td><td>${s.price.toLocaleString()}</td><td><button class="btn btn-sm btn-danger" onclick="deleteService('${doc.id}')">حذف</button></td></tr>`;
+        });
+        document.getElementById('adminServiceCount').innerText = snap.size;
+    }
+    window.deleteService = async (id) => { if(confirm('حذف الخدمة؟')){ await deleteDoc(doc(db,"services",id)); await loadDashboardData(); loadAdminServices(); }};
+    async function loadAdminStats() {
+        const usersSnap = await getDocs(collection(db,"users"));
+        document.getElementById('adminUserCount').innerText = usersSnap.size;
+        const purchasesSnap = await getDocs(collection(db,"purchases"));
+        let rev = 0; purchasesSnap.forEach(p => rev += p.data().price || 0);
+        document.getElementById('adminRevenueCount').innerText = rev.toLocaleString() + ' د.ع';
     }
 
-    // ===== إظهار Modal =====
-    window.showModal = (modalId) => {
-        const modal = new bootstrap.Modal(document.getElementById(modalId));
-        modal.show();
+    window.navigateTo = (pageId, el) => {
+        document.querySelectorAll('.page-section').forEach(p => p.classList.remove('active'));
+        document.getElementById(pageId).classList.add('active');
+        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+        if(el) el.classList.add('active');
+        if(pageId === 'admin') { loadAdminVouchers(); loadAdminServices(); loadAdminStats(); }
+        if(pageId === 'dashboard') setTimeout(() => { if(purchasesChart) purchasesChart.resize(); if(spendingChart) spendingChart.resize(); },100);
     };
+    window.showEditProfileModal = () => new bootstrap.Modal(document.getElementById('editProfileModal')).show();
+    window.showChangePasswordModal = () => new bootstrap.Modal(document.getElementById('changePasswordModal')).show();
+    window.saveProfileChanges = async () => {
+        const name = document.getElementById('editName').value.trim();
+        if(!name) { showNotification('أدخل الاسم','error'); return; }
+        const userQ = query(collection(db,"users"), where("uid","==",currentUser.uid));
+        const snap = await getDocs(userQ);
+        if(!snap.empty) await updateDoc(doc(db,"users",snap.docs[0].id), { name, phone: document.getElementById('editPhone').value });
+        await loadUserData();
+        showNotification('تم التحديث','success');
+        bootstrap.Modal.getInstance(document.getElementById('editProfileModal')).hide();
+    };
+    window.handleChangePassword = async () => {
+        const old = document.getElementById('oldPassword').value;
+        const newP = document.getElementById('newPwd').value;
+        const confirm = document.getElementById('confirmPwd').value;
+        if(!old || !newP || newP !== confirm) { showNotification('تأكد من كلمة المرور','error'); return; }
+        const credential = EmailAuthProvider.credential(currentUser.email, old);
+        await reauthenticateWithCredential(currentUser, credential);
+        await updatePassword(currentUser, newP);
+        showNotification('تم تغيير كلمة المرور','success');
+        bootstrap.Modal.getInstance(document.getElementById('changePasswordModal')).hide();
+    };
+    window.handleLogout = async () => { await signOut(auth); showNotification('تم تسجيل الخروج','info'); };
 
-    // ===== إشعارات =====
-    window.showNotification = (message, type = 'info') => {
-        const notification = document.getElementById('notification');
-        notification.textContent = message;
-        notification.className = `notification ${type} show`;
-        setTimeout(() => notification.classList.remove('show'), 4000);
+    // Auth
+    window.handleLogin = async () => {
+        const email = document.getElementById('loginEmail').value, pwd = document.getElementById('loginPassword').value;
+        try { await signInWithEmailAndPassword(auth, email, pwd); } catch(e) { document.getElementById('authError').innerText = e.message; document.getElementById('authError').style.display='block'; }
     };
+    window.handleRegister = async () => {
+        const name = document.getElementById('registerName').value, email = document.getElementById('registerEmail').value, pwd = document.getElementById('registerPassword').value, confirm = document.getElementById('registerConfirm').value;
+        if(pwd !== confirm) { document.getElementById('authError').innerText = 'كلمتا المرور غير متطابقتين'; document.getElementById('authError').style.display='block'; return; }
+        try {
+            const cred = await createUserWithEmailAndPassword(auth, email, pwd);
+            await addDoc(collection(db,"users"), { uid: cred.user.uid, name, email, balance: 0, joinDate: new Date(), phone: "" });
+            showNotification('تم إنشاء الحساب', 'success');
+        } catch(e) { document.getElementById('authError').innerText = e.message; document.getElementById('authError').style.display='block'; }
+    };
+    window.handleForgotPassword = async () => {
+        const email = document.getElementById('forgotEmail').value;
+        try { await sendPasswordResetEmail(auth, email); document.getElementById('authSuccess').innerText = 'تم إرسال الرابط'; document.getElementById('authSuccess').style.display='block'; } catch(e) { document.getElementById('authError').innerText = e.message; document.getElementById('authError').style.display='block'; }
+    };
+    window.switchAuthForm = () => { const l=document.getElementById('loginForm'), r=document.getElementById('registerForm'); l.style.display = l.style.display==='none'?'block':'none'; r.style.display = r.style.display==='none'?'block':'none'; document.getElementById('authTitle').innerText = l.style.display==='none'?'إنشاء حساب':'تسجيل الدخول'; };
+    window.switchToForgot = () => { document.getElementById('loginForm').style.display='none'; document.getElementById('forgotForm').style.display='block'; document.getElementById('authTitle').innerText='استرجاع كلمة المرور'; };
+    window.switchToLogin = () => { document.getElementById('forgotForm').style.display='none'; document.getElementById('loginForm').style.display='block'; document.getElementById('authTitle').innerText='تسجيل الدخول'; };
+    function showNotification(msg, type) { const n=document.getElementById('notification'); n.innerText=msg; n.className=`notification ${type} show`; setTimeout(()=>n.classList.remove('show'),4000); }
+    window.showNotification = showNotification;
 </script>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
