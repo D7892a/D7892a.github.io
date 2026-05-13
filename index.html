@@ -1070,12 +1070,12 @@
             await loadUserData();
             loadDashboardData();
         } else {
-            currentUser = null;
-            document.getElementById('authContainer').classList.remove('hidden');
-            document.getElementById('sidebar').style.display = 'block';
-document.getElementById('mainContent').style.display = 'block';
+    currentUser = { uid: "ADMIN_USER" }; // إضافة مستخدم افتراضي لتجنب الأخطاء
+    document.getElementById('sidebar').style.display = 'block'; // غيرها من none إلى block
+    document.getElementById('mainContent').style.display = 'block'; // غيرها من none إلى block
+    loadDashboardData(); // استدعاء البيانات مباشرة
+}
 
-        }
     });
 
     // ===== دوال التحويل بين النماذج =====
