@@ -566,7 +566,7 @@
         // ==================== المتغيرات العامة ====================
         let currentUser = null;
         let userPlan = 'free';
-        let activeTournamentId = null; // البطولة المختارة حالياً للفرق والمباريات
+        let activeTournamentId = null;
 
         // ==================== دوال مساعدة ====================
         function showMsg(elementId, text, type) {
@@ -594,24 +594,20 @@
             document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
             const targetContent = document.getElementById(tabId);
             if (targetContent) targetContent.classList.add('active');
-            // تفعيل الزر المناسب
             const btn = document.querySelector(`.tab-btn[data-tab="${tabId}"]`);
             if (btn) btn.classList.add('active');
 
-            // تحميل البيانات عند التبديل
             if (tabId === 'tab-teams') refreshTeamTourSelect();
             if (tabId === 'tab-matches') refreshMatchTourSelect();
             if (tabId === 'tab-tournaments') loadTournaments();
         }
 
-        // ربط أزرار التبويبات
         document.getElementById('tabs-container').addEventListener('click', function(e) {
             const btn = e.target.closest('.tab-btn');
             if (!btn) return;
             const tabId = btn.getAttribute('data-tab');
             if (tabId) switchTab(tabId);
         });
-        // تعريضها globally للتوافق
         window.switchTab = switchTab;
 
         // ==================== المصادقة ====================
@@ -622,7 +618,6 @@
                 document.getElementById('app-screen').style.display = 'block';
                 document.getElementById('user-email-display').textContent = user.email;
 
-                // جلب/إنشاء بيانات المستخدم
                 const userRef = doc(db, "users", user.uid);
                 const userSnap = await getDoc(userRef);
                 if (userSnap.exists()) {
@@ -653,7 +648,6 @@
             }
         }
 
-        // أزرار المصادقة
         document.getElementById('btnLogin').addEventListener('click', async () => {
             const email = document.getElementById('email').value.trim();
             const pass = document.getElementById('password').value;
@@ -691,7 +685,7 @@
             return map[code] || 'حدث خطأ، حاول مرة أخرى';
         }
 
-        // ==================== البطولات ====================
+        // ==================== البطولات (بدون فهارس مركبة) ====================
         async function loadTournaments() {
             if (!currentUser) return;
             const listEl = document.getElementById('tournaments-list');
@@ -699,16 +693,22 @@
             listEl.innerHTML = '<p style="color:var(--text-muted);">⏳ جاري التحميل...</p>';
 
             try {
-                const q = query(collection(db, "tournaments"), where("ownerId", "==", currentUser.uid), orderBy(
-                    "createdAt", "desc"));
+                // استعلام بسيط بدون orderBy لتجنب الحاجة للفهرس
+                const q = query(collection(db, "tournaments"), where("ownerId", "==", currentUser.uid));
                 const snapshot = await getDocs(q);
-                const tournaments = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+                let tournaments = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+                
+                // ترتيب يدوي تنازلياً حسب createdAt (إذا وجد)
+                tournaments.sort((a, b) => {
+                    const timeA = a.createdAt?.toMillis ? a.createdAt.toMillis() : 0;
+                    const timeB = b.createdAt?.toMillis ? b.createdAt.toMillis() : 0;
+                    return timeB - timeA;
+                });
 
                 countEl.textContent = tournaments.length;
 
                 if (tournaments.length === 0) {
-                    listEl.innerHTML =
-                        '<div class="empty-state"><div class="icon">🏟️</div><p>لا توجد بطولات بعد. أنشئ أول بطولة!</p></div>';
+                    listEl.innerHTML = '<div class="empty-state"><div class="icon">🏟️</div><p>لا توجد بطولات بعد.</p></div>';
                 } else {
                     listEl.innerHTML = tournaments.map(t => `
                 <div class="list-item">
@@ -725,7 +725,6 @@
                 </div>
               `).join('');
 
-                    // ربط الأحداث
                     listEl.querySelectorAll('[data-action="select-tour"]').forEach(btn => {
                         btn.addEventListener('click', () => {
                             activeTournamentId = btn.dataset.id;
@@ -737,7 +736,7 @@
                     });
                     listEl.querySelectorAll('[data-action="delete-tour"]').forEach(btn => {
                         btn.addEventListener('click', async () => {
-                            if (confirm('هل أنت متأكد من حذف هذه البطولة؟ سيتم حذف كل الفرق والمباريات المرتبطة بها.')) {
+                            if (confirm('هل أنت متأكد من حذف هذه البطولة؟')) {
                                 await deleteDoc(doc(db, "tournaments", btn.dataset.id));
                                 if (activeTournamentId === btn.dataset.id) activeTournamentId = null;
                                 loadTournaments();
@@ -785,13 +784,18 @@
             const currentVal = select.value;
             select.innerHTML = '<option value="">-- اختر بطولة --</option>';
             try {
-                const q = query(collection(db, "tournaments"), where("ownerId", "==", currentUser.uid), orderBy(
-                "createdAt", "desc"));
+                const q = query(collection(db, "tournaments"), where("ownerId", "==", currentUser.uid));
                 const snapshot = await getDocs(q);
-                snapshot.docs.forEach(d => {
+                let tours = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+                tours.sort((a, b) => {
+                    const ta = a.createdAt?.toMillis ? a.createdAt.toMillis() : 0;
+                    const tb = b.createdAt?.toMillis ? b.createdAt.toMillis() : 0;
+                    return tb - ta;
+                });
+                tours.forEach(t => {
                     const opt = document.createElement('option');
-                    opt.value = d.id;
-                    opt.textContent = d.data().name || 'بطولة بدون اسم';
+                    opt.value = t.id;
+                    opt.textContent = t.name || 'بطولة بدون اسم';
                     select.appendChild(opt);
                 });
                 if (currentVal && [...select.options].some(o => o.value === currentVal)) {
@@ -827,8 +831,9 @@
             const listEl = document.getElementById('teams-list');
             listEl.innerHTML = '<p style="color:var(--text-muted);">⏳ جاري التحميل...</p>';
             try {
-                const q = query(collection(db, "teams"), where("tournamentId", "==", activeTournamentId), where("ownerId",
-                    "==", currentUser.uid));
+                const q = query(collection(db, "teams"), 
+                    where("tournamentId", "==", activeTournamentId),
+                    where("ownerId", "==", currentUser.uid));
                 const snapshot = await getDocs(q);
                 const teams = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
                 if (teams.length === 0) {
@@ -845,14 +850,11 @@
               `).join('');
                     listEl.querySelectorAll('[data-action="delete-team"]').forEach(btn => {
                         btn.addEventListener('click', async () => {
-                            if (confirm('حذف هذا الفريق؟ سيتم حذف جميع لاعبيه أيضاً.')) {
+                            if (confirm('حذف هذا الفريق؟')) {
                                 await deleteDoc(doc(db, "teams", btn.dataset.id));
-                                // حذف اللاعبين المرتبطين
-                                const pq = query(collection(db, "players"), where("teamId", "==", btn
-                                    .dataset.id));
+                                const pq = query(collection(db, "players"), where("teamId", "==", btn.dataset.id));
                                 const psnap = await getDocs(pq);
-                                await Promise.all(psnap.docs.map(d => deleteDoc(doc(db, "players", d
-                                .id))));
+                                await Promise.all(psnap.docs.map(d => deleteDoc(doc(db, "players", d.id))));
                                 loadTeams();
                                 loadPlayers();
                                 refreshPlayerTeamSelect();
@@ -893,8 +895,9 @@
             const select = document.getElementById('p-team-select');
             select.innerHTML = '<option value="">اختر الفريق</option>';
             try {
-                const q = query(collection(db, "teams"), where("tournamentId", "==", activeTournamentId), where("ownerId",
-                    "==", currentUser.uid));
+                const q = query(collection(db, "teams"), 
+                    where("tournamentId", "==", activeTournamentId),
+                    where("ownerId", "==", currentUser.uid));
                 const snapshot = await getDocs(q);
                 snapshot.docs.forEach(d => {
                     const opt = document.createElement('option');
@@ -910,8 +913,9 @@
             const listEl = document.getElementById('players-list');
             listEl.innerHTML = '<p style="color:var(--text-muted);">⏳ جاري التحميل...</p>';
             try {
-                const q = query(collection(db, "players"), where("tournamentId", "==", activeTournamentId), where("ownerId",
-                    "==", currentUser.uid));
+                const q = query(collection(db, "players"), 
+                    where("tournamentId", "==", activeTournamentId),
+                    where("ownerId", "==", currentUser.uid));
                 const snapshot = await getDocs(q);
                 const players = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
                 if (players.length === 0) {
@@ -977,13 +981,18 @@
             const currentVal = select.value;
             select.innerHTML = '<option value="">-- اختر بطولة --</option>';
             try {
-                const q = query(collection(db, "tournaments"), where("ownerId", "==", currentUser.uid), orderBy(
-                "createdAt", "desc"));
+                const q = query(collection(db, "tournaments"), where("ownerId", "==", currentUser.uid));
                 const snapshot = await getDocs(q);
-                snapshot.docs.forEach(d => {
+                let tours = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+                tours.sort((a, b) => {
+                    const ta = a.createdAt?.toMillis ? a.createdAt.toMillis() : 0;
+                    const tb = b.createdAt?.toMillis ? b.createdAt.toMillis() : 0;
+                    return tb - ta;
+                });
+                tours.forEach(t => {
                     const opt = document.createElement('option');
-                    opt.value = d.id;
-                    opt.textContent = d.data().name || 'بطولة بدون اسم';
+                    opt.value = t.id;
+                    opt.textContent = t.name || 'بطولة بدون اسم';
                     select.appendChild(opt);
                 });
                 if (currentVal && [...select.options].some(o => o.value === currentVal)) select.value = currentVal;
@@ -1015,13 +1024,19 @@
             sel1.innerHTML = '<option value="">الفريق الأول</option>';
             sel2.innerHTML = '<option value="">الفريق الثاني</option>';
             try {
-                const q = query(collection(db, "teams"), where("tournamentId", "==", activeTournamentId), where("ownerId",
-                    "==", currentUser.uid));
+                const q = query(collection(db, "teams"), 
+                    where("tournamentId", "==", activeTournamentId),
+                    where("ownerId", "==", currentUser.uid));
                 const snapshot = await getDocs(q);
-                const teams = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
-                teams.forEach(t => {
-                    sel1.innerHTML += `<option value="${t.id}">${t.name}</option>`;
-                    sel2.innerHTML += `<option value="${t.id}">${t.name}</option>`;
+                snapshot.docs.forEach(d => {
+                    const opt1 = document.createElement('option');
+                    opt1.value = d.id;
+                    opt1.textContent = d.data().name;
+                    sel1.appendChild(opt1);
+                    const opt2 = document.createElement('option');
+                    opt2.value = d.id;
+                    opt2.textContent = d.data().name;
+                    sel2.appendChild(opt2);
                 });
             } catch (e) { console.error(e); }
         }
@@ -1031,19 +1046,25 @@
             const listEl = document.getElementById('matches-list');
             listEl.innerHTML = '<p style="color:var(--text-muted);">⏳ جاري التحميل...</p>';
             try {
-                const q = query(collection(db, "matches"), where("tournamentId", "==", activeTournamentId), where("ownerId",
-                    "==", currentUser.uid), orderBy("matchDate", "asc"));
+                const q = query(collection(db, "matches"), 
+                    where("tournamentId", "==", activeTournamentId),
+                    where("ownerId", "==", currentUser.uid));
                 const snapshot = await getDocs(q);
-                const matches = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+                let matches = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+                
+                // ترتيب يدوي حسب التاريخ
+                matches.sort((a, b) => {
+                    if (!a.matchDate) return 1;
+                    if (!b.matchDate) return -1;
+                    return a.matchDate.localeCompare(b.matchDate);
+                });
 
                 if (matches.length === 0) {
                     listEl.innerHTML = '<div class="empty-state"><p>لا توجد مباريات مجدولة</p></div>';
                 } else {
                     listEl.innerHTML = matches.map(m => {
-                        const statusClass = m.status === 'live' ? 'live' : m.status === 'done' ?
-                            'done' : 'upcoming';
-                        const statusText = m.status === 'live' ? '🔴 مباشر' : m.status === 'done' ?
-                            '✅ منتهية' : '📅 قادمة';
+                        const statusClass = m.status === 'live' ? 'live' : m.status === 'done' ? 'done' : 'upcoming';
+                        const statusText = m.status === 'live' ? '🔴 مباشر' : m.status === 'done' ? '✅ منتهية' : '📅 قادمة';
                         return `
                   <div class="list-item">
                     <div style="flex:1;">
@@ -1074,8 +1095,7 @@
                             const matchId = btn.dataset.id;
                             const s1 = prompt('نتيجة الفريق الأول:');
                             const s2 = prompt('نتيجة الفريق الثاني:');
-                            if (s1 !== null && s2 !== null && !isNaN(parseInt(s1)) && !isNaN(parseInt(
-                                    s2))) {
+                            if (s1 !== null && s2 !== null && !isNaN(parseInt(s1)) && !isNaN(parseInt(s2))) {
                                 await updateDoc(doc(db, "matches", matchId), {
                                     score1: parseInt(s1),
                                     score2: parseInt(s2),
@@ -1159,18 +1179,16 @@
                 const cardDoc = snapshot.docs[0];
                 const planType = cardDoc.data().plan || 'pro';
 
-                // تحديث الكارت
                 await updateDoc(doc(db, "cards", cardDoc.id), {
                     isUsed: true,
                     usedBy: currentUser.uid,
                     usedAt: serverTimestamp(),
                 });
-                // ترقية المستخدم
                 await updateDoc(doc(db, "users", currentUser.uid), { plan: planType });
                 userPlan = planType;
                 updatePlanUI();
 
-                msgEl.textContent = '✅ تم تفعيل اشتراك ' + planType.toUpperCase() + ' بنجاح! جاري التحديث...';
+                msgEl.textContent = '✅ تم تفعيل اشتراك ' + planType.toUpperCase() + ' بنجاح!';
                 msgEl.className = 'msg success';
                 document.getElementById('card-code').value = '';
                 setTimeout(() => { msgEl.textContent = '';
@@ -1182,12 +1200,7 @@
             }
         });
 
-        // ==================== تحميل أولي ====================
-        console.log('⚽ ملعبي — جاهز للعمل');
-        console.log('📌 تأكد من:');
-        console.log('  1. تفعيل Email/Password في Firebase Auth');
-        console.log('  2. إنشاء Firestore Database');
-        console.log('  3. إضافة كروت اشتراك في مجموعة "cards" (مثال: code=MAL-XXXX-YYYY, plan=pro, isUsed=false)');
+        console.log('⚽ ملعبي — جاهز للعمل بدون فهارس مركبة');
     </script>
 </body>
 </html>
