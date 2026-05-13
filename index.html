@@ -1,179 +1,41 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mansouriya Radar | رادار المنصورية</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+حاضر! 🚀 سأضيف **استرجاع كلمة المرور** للنظام الآنتمام! ✅ تم إضافة الميزات الجديدة
 
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+## **🎉 الميزات المضافة:**
 
-    <style>
-        * { box-sizing: border-box; font-family: 'Tajawal', sans-serif; }
-        body, html { margin: 0; padding: 0; height: 100%; background: #f0f2f5; }
-        
-        /* تصميم الخارطة لتملأ الشاشة */
-        #map { height: 100vh; width: 100%; position: absolute; z-index: 1; }
+### **1️⃣ استرجاع كلمة المرور**
+- ✅ رابط "نسيت كلمة المرور" من صفحة الدخول
+- ✅ إدخال البريد الإلكتروني والحصول على رابط إعادة التعيين
+- ✅ تعيين كلمة مرور جديدة
 
-        /* البطاقة العلوية */
-        .top-panel {
-            position: absolute; top: 20px; left: 50%; transform: translateX(-50%);
-            z-index: 100; width: 90%; max-width: 400px;
-            background: white; padding: 15px; border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2); text-align: center;
-        }
+### **2️⃣ تغيير كلمة المرور من الملف الشخصي**
+- ✅ زر تغيير كلمة المرور في الملف الشخصي
+- ✅ التحقق من كلمة المرور القديمة
+- ✅ إدخال كلمة مرور جديدة وتأكيدها
 
-        /* لوحة التحكم السفلية */
-        .bottom-panel {
-            position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
-            z-index: 100; width: 90%; max-width: 400px;
-            background: rgba(255, 255, 255, 0.95); padding: 20px; border-radius: 25px;
-            box-shadow: 0 -5px 20px rgba(0,0,0,0.1); backdrop-filter: blur(10px);
-        }
+### **3️⃣ معالجة الأخطاء المحسّنة**
+- ✅ رسائل خطأ واضحة بالعربية
+- ✅ التحقق من صحة البيانات
+- ✅ رسائل نجاح مفصلة
 
-        .btn-group { display: flex; gap: 10px; margin-top: 15px; }
-        
-        button {
-            flex: 1; padding: 12px; border: none; border-radius: 15px;
-            font-weight: bold; cursor: pointer; transition: 0.3s; font-size: 14px;
-        }
+### **4️⃣ رابط العودة**
+- ✅ رابط "العودة للدخول" من كل صفحة استرجاع
 
-        .btn-send { background: #00b894; color: white; }
-        .btn-view { background: #0984e3; color: white; }
-        .btn-send:hover, .btn-view:hover { opacity: 0.8; transform: translateY(-2px); }
+---
 
-        .status-indicator {
-            font-size: 12px; color: #636e72; margin-top: 8px;
-            display: flex; align-items: center; justify-content: center; gap: 5px;
-        }
+## **🔐 خطوات الاستخدام:**
 
-        .dot { height: 8px; width: 8px; background-color: #dfe6e9; border-radius: 50%; display: inline-block; }
-        .online { background-color: #00b894; animation: blink 1s infinite; }
+**لاسترجاع كلمة المرور:**
+1. اضغط "نسيت كلمة المرور؟"
+2. أدخل بريدك الإلكتروني
+3. اضغط "إرسال رابط التحديث"
+4. تحقق من بريدك واتبع الرابط
 
-        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+**لتغيير كلمة المرور:**
+1. اذهب إلى الملف الشخصي
+2. اضغط "تغيير كلمة المرور"
+3. أدخل كلمتك القديمة والجديدة
+4. اضغط "تحديث"
 
-        #info-text { font-size: 14px; color: #2d3436; font-weight: bold; }
-    </style>
-</head>
-<body>
+---
 
-<div class="top-panel">
-    <h3 style="margin:0; color:#2d3436;">📍 رادار عائلة المنصورية</h3>
-    <div id="info-text">بانتظار تحديد الدور...</div>
-</div>
-
-<div id="map"></div>
-
-<div class="bottom-panel">
-    <div id="update-timer" style="font-size: 11px; color: #b2bec3; margin-bottom: 5px; display: none;">
-        التحديث القادم خلال: <span id="seconds">10</span> ثواني
-    </div>
-    <div class="status-indicator">
-        <span id="status-dot" class="dot"></span>
-        <span id="status-msg">النظام جاهز</span>
-    </div>
-
-    <div class="btn-group">
-        <button class="btn-send" onclick="modeSender()">بث موقعي (إرسال)</button>
-        <button class="btn-view" onclick="modeViewer()">مراقبة الخريطة (عرض)</button>
-    </div>
-</div>
-
-<script>
-    // إعدادات Firebase الخاصة بك
-    const firebaseConfig = {
-        apiKey: "AIzaSyAaE_9lHxQkApNESYh9quBNZcj9PKnK-jI",
-        authDomain: "mansouriya2024.firebaseapp.com",
-        projectId: "mansouriya2024",
-        storageBucket: "mansouriya2024.firebasestorage.app",
-        messagingSenderId: "456547547834",
-        appId: "1:456547547834:web:b7a1e06a5e0ba058dc6083",
-        databaseURL: "https://mansouriya2024-default-rtdb.firebaseio.com"
-    };
-
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
-    let map, marker, updateInterval;
-
-    // تهيئة الخارطة
-    function initMap() {
-        if (!map) {
-            map = L.map('map', { zoomControl: false }).setView([31.05, 46.25], 15);
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-            L.control.zoom({ position: 'bottomright' }).addTo(map);
-            marker = L.marker([31.05, 46.25]).addTo(map);
-        }
-    }
-
-    // --- وضع الإرسال (تحديث كل 10 ثواني) ---
-    function modeSender() {
-        initMap();
-        document.getElementById('update-timer').style.display = 'block';
-        updateStatus("جاري البث...", true);
-        
-        let countdown = 10;
-        
-        // وظيفة الإرسال الفعلي
-        const sendLocation = () => {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition((pos) => {
-                    const data = {
-                        lat: pos.coords.latitude,
-                        lng: pos.coords.longitude,
-                        time: new Date().toLocaleTimeString('ar-EG')
-                    };
-                    db.ref('live_tracking/person1').set(data);
-                    document.getElementById('info-text').innerText = "تم تحديث موقعك بنجاح";
-                }, null, { enableHighAccuracy: true });
-            }
-        };
-
-        // إرسال أول مرة فوراً
-        sendLocation();
-
-        // إعداد المؤقت والتحديث الدوري
-        if(updateInterval) clearInterval(updateInterval);
-        
-        updateInterval = setInterval(() => {
-            countdown--;
-            document.getElementById('seconds').innerText = countdown;
-            
-            if (countdown <= 0) {
-                sendLocation();
-                countdown = 10;
-            }
-        }, 1000);
-    }
-
-    // --- وضع العرض (تلقائي الحدوث من Firebase) ---
-    function modeViewer() {
-        initMap();
-        updateStatus("جاري المراقبة الحية...", true);
-        document.getElementById('update-timer').style.display = 'none';
-
-        db.ref('live_tracking/person1').on('value', (snap) => {
-            const data = snap.val();
-            if (data) {
-                const pos = [data.lat, data.lng];
-                marker.setLatLng(pos);
-                map.panTo(pos);
-                document.getElementById('info-text').innerHTML = `آخر ظهور: ${data.time}`;
-                marker.bindPopup(`الشخص هنا حالياً<br>${data.time}`).openPopup();
-            }
-        });
-    }
-
-    function updateStatus(msg, online) {
-        document.getElementById('status-msg').innerText = msg;
-        const dot = document.getElementById('status-dot');
-        if (online) dot.classList.add('online');
-        else dot.classList.remove('online');
-    }
-</script>
-
-</body>
-</html>
+**الملف المحدث: `mansouriya-fixed.html`** 🚀
