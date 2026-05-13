@@ -6,156 +6,141 @@
 <title>ملعبي — Mal3abi | الإدارة الشاملة</title>
 <style>
   :root {
-    --bg-main: #0f172a; --bg-card: #1e293b;
+    --bg-main: #0a0f1a; --bg-card: #1e293b;
     --primary: #6366f1; --primary-hover: #4f46e5;
     --gold: #fbbf24; --gold-hover: #f59e0b;
-    --text-main: #e2e8f0; --text-muted: #94a3b8;
+    --text-main: #f8fafc; --text-muted: #94a3b8;
     --success: #10b981; --danger: #ef4444; --border: #334155;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
-  body { background: var(--bg-main); color: var(--text-main); min-height: 100vh; }
+  body { background: var(--bg-main); color: var(--text-main); min-height: 100vh; padding-bottom: 50px; }
   
   /* الشاشات */
   #auth-screen { display: flex; align-items: center; justify-content: center; height: 100vh; padding: 20px; }
   #app-screen { display: none; }
   
   /* البطاقات والعناصر */
-  .card { background: var(--bg-card); padding: 25px; border-radius: 16px; margin-bottom: 20px; border: 1px solid var(--border); }
-  .card h3 { margin-bottom: 15px; border-bottom: 1px solid var(--border); padding-bottom: 10px; display: flex; justify-content: space-between; }
+  .card { background: var(--bg-card); padding: 20px; border-radius: 16px; margin: 15px; border: 1px solid var(--border); box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+  .card h3 { margin-bottom: 15px; border-bottom: 1px solid var(--border); padding-bottom: 10px; font-size: 18px; color: var(--primary); }
   
   input, select {
-    width: 100%; background: #0a0f1a; border: 1px solid var(--border); border-radius: 8px;
-    padding: 12px; color: var(--text-main); margin-bottom: 15px; outline: none;
+    width: 100%; background: var(--bg-main); border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px; color: var(--text-main); margin-bottom: 15px; outline: none; font-size: 15px;
   }
   input:focus, select:focus { border-color: var(--primary); }
   
   button {
     width: 100%; background: var(--primary); color: white; border: none; border-radius: 8px;
-    padding: 12px; font-weight: bold; cursor: pointer; transition: 0.2s;
+    padding: 12px; font-weight: bold; font-size: 15px; cursor: pointer; transition: 0.2s; margin-bottom: 10px;
   }
   button:hover { background: var(--primary-hover); }
   button.gold { background: var(--gold); color: #000; }
   button.gold:hover { background: var(--gold-hover); }
+  button.outline { background: transparent; border: 1px solid var(--border); color: var(--text-main); }
   
-  /* شريط التبويبات (المنيو) */
-  .tabs { display: flex; gap: 10px; background: var(--bg-card); padding: 15px 20px; border-bottom: 1px solid var(--border); overflow-x: auto; }
-  .tab-btn { background: transparent; border: 1px solid var(--border); width: auto; padding: 8px 20px; color: var(--text-muted); }
+  /* شريط التبويبات (Mobile Friendly) */
+  .tabs { display: flex; background: var(--bg-card); padding: 10px; border-bottom: 1px solid var(--border); overflow-x: auto; white-space: nowrap; gap: 8px; }
+  .tab-btn { background: transparent; border: 1px solid var(--border); width: auto; padding: 8px 15px; color: var(--text-muted); border-radius: 20px; font-size: 13px; margin: 0; }
   .tab-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
   
-  .tab-content { display: none; padding: 20px; max-width: 1000px; margin: 0 auto; }
-  .tab-content.active { display: block; }
+  .tab-content { display: none; max-width: 800px; margin: 0 auto; }
+  .tab-content.active { display: block; animation: fadeIn 0.3s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-  /* تصميم حساب البرو (الذهبي) */
+  /* تصميم البرو */
   body.pro-user .navbar h2 { color: var(--gold); }
   body.pro-user .navbar { border-bottom: 2px solid var(--gold); }
+  body.pro-user .card h3 { color: var(--gold); }
+  body.pro-user .tab-btn.active { background: var(--gold); color: #000; border-color: var(--gold); }
   
-  .navbar { display: flex; justify-content: space-between; padding: 15px 20px; background: #0a0f1a; }
-  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+  .navbar { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: var(--bg-card); position: sticky; top: 0; z-index: 100; }
   
-  /* جداول اللاعبين والمباريات */
-  .list-item { background: #0a0f1a; padding: 12px; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
-  .player-badge { background: #334155; padding: 4px 8px; border-radius: 4px; font-size: 12px; margin-right: 5px; }
-  
+  /* القوائم */
+  .list-item { background: var(--bg-main); padding: 15px; border-radius: 10px; border: 1px solid var(--border); margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+  .badge { background: #334155; padding: 4px 8px; border-radius: 6px; font-size: 12px; }
+  .badge.pro-feature { background: rgba(251, 191, 36, 0.2); color: var(--gold); border: 1px solid var(--gold); }
+
+  .empty-state { text-align: center; color: var(--text-muted); padding: 20px; font-size: 14px; }
 </style>
 </head>
 <body>
 
   <!-- تسجيل الدخول -->
   <div id="auth-screen">
-    <div class="card" style="width: 400px; text-align: center;">
+    <div class="card" style="width: 100%; max-width: 400px; text-align: center;">
       <h1 style="color: var(--primary); margin-bottom: 5px;">⚽ ملعبي</h1>
-      <p style="color: var(--text-muted); margin-bottom: 20px;">سجل دخول للبدء</p>
+      <p style="color: var(--text-muted); margin-bottom: 20px;">المنصة الأقوى لإدارة البطولات</p>
       <input type="email" id="email" placeholder="البريد الإلكتروني">
       <input type="password" id="password" placeholder="كلمة المرور">
-      <button id="btnLogin" style="margin-bottom: 10px;">تسجيل الدخول</button>
-      <button id="btnRegister" style="background: transparent; border: 1px solid var(--primary); color: var(--primary);">إنشاء حساب جديد</button>
-      <div id="auth-msg" style="color: var(--danger); margin-top: 10px;"></div>
+      <button id="btnLogin">تسجيل الدخول</button>
+      <button id="btnRegister" class="outline">إنشاء حساب جديد</button>
+      <div id="auth-msg" style="color: var(--danger); margin-top: 10px; font-size: 14px;"></div>
     </div>
   </div>
 
   <!-- لوحة التحكم -->
   <div id="app-screen">
     <nav class="navbar">
-      <h2>ملعبي <span id="plan-badge" style="font-size: 12px; background: #334155; padding: 3px 8px; border-radius: 10px; color: white;">مجاني</span></h2>
-      <button id="btnLogout" style="width: auto; background: var(--danger); padding: 5px 15px;">خروج</button>
+      <h2 style="font-size: 18px; margin: 0;">ملعبي <span id="plan-badge" class="badge">جاري التحميل...</span></h2>
+      <button id="btnLogout" style="width: auto; background: var(--danger); padding: 6px 12px; margin: 0; font-size: 13px;">خروج</button>
     </nav>
 
     <div class="tabs">
       <button class="tab-btn active" onclick="switchTab('tab-tournaments')">🏆 البطولات</button>
-      <button class="tab-btn" onclick="switchTab('tab-teams')">👕 الفرق واللاعبين</button>
-      <button class="tab-btn" onclick="switchTab('tab-matches')">📅 المباريات</button>
-      <button class="tab-btn" onclick="switchTab('tab-subscribe')">💎 تفعيل اشتراك</button>
+      <button class="tab-btn" onclick="switchTab('tab-teams')">👕 تشكيلتي</button>
+      <button class="tab-btn" onclick="switchTab('tab-subscribe')">💎 اشتراك البرو</button>
     </div>
 
     <!-- تبويب البطولات -->
     <div id="tab-tournaments" class="tab-content active">
       <div class="card">
-        <h3>إنشاء بطولة</h3>
-        <div class="grid-2">
-          <input type="text" id="t-name" placeholder="اسم البطولة">
-          <button id="btnCreateTour">إنشاء ➕</button>
-        </div>
+        <h3>إنشاء بطولة جديدة</h3>
+        <input type="text" id="t-name" placeholder="اسم البطولة (مثال: تحدي المنصورية)">
+        <button id="btnCreateTour">إنشاء البطولة ➕</button>
+        <div id="tour-msg" style="font-size: 13px; margin-top: 5px;"></div>
       </div>
       <div class="card">
-        <h3>بطولاتي</h3>
-        <div id="tournaments-list"></div>
+        <h3>البطولات الحالية</h3>
+        <div id="tournaments-list"><div class="empty-state">جاري التحميل...</div></div>
       </div>
     </div>
 
-    <!-- تبويب الفرق واللاعبين (لوحة المدرب/المنظم) -->
+    <!-- تبويب الفريق واللاعبين -->
     <div id="tab-teams" class="tab-content">
       <div class="card">
-        <h3>إضافة لاعب لفريق</h3>
-        <div class="grid-2">
-          <input type="text" id="p-name" placeholder="اسم اللاعب (مثال: حيدر)">
-          <input type="number" id="p-number" placeholder="رقم القميص (مثال: 10)">
-        </div>
-        <div class="grid-2">
-          <select id="p-position">
-            <option value="حارس مرمى">🧤 حارس مرمى</option>
+        <h3>إضافة لاعب للتشكيلة</h3>
+        <input type="text" id="p-name" placeholder="اسم اللاعب (مثال: عباس)">
+        <div style="display: flex; gap: 10px;">
+          <input type="number" id="p-number" placeholder="رقم القميص" style="width: 40%;">
+          <select id="p-position" style="width: 60%;">
+            <option value="حارس">🧤 حارس مرمى</option>
             <option value="دفاع">🛡️ دفاع</option>
-            <option value="وسط">⚙️ خط وسط</option>
+            <option value="وسط">⚙️ وسط</option>
             <option value="مهاجم">⚽ مهاجم</option>
           </select>
-          <button id="btnAddPlayer" class="gold">إضافة اللاعب ✔️</button>
         </div>
+        <button id="btnAddPlayer" class="gold">إضافة للقائمة ✔️</button>
+        <div id="player-msg" style="font-size: 13px; margin-top: 5px;"></div>
       </div>
+
       <div class="card">
-        <h3>قائمة اللاعبين</h3>
-        <div id="players-list">
-          <!-- مثال ثابت ليوضح الفكرة للمدرب -->
-          <div class="list-item">
-            <div><strong>عباس</strong> <span class="player-badge">⚽ مهاجم</span></div>
-            <div>رقم <span class="player-badge">9</span></div>
-          </div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid var(--border); padding-bottom: 10px;">
+          <h3 style="border: none; margin: 0; padding: 0;">قائمة اللاعبين</h3>
+          <!-- ميزة البرو حصرياً -->
+          <button id="btnExportPDF" class="outline badge pro-feature" style="width: auto; margin: 0; cursor: pointer;">📄 تصدير للطباعة (Pro)</button>
         </div>
+        <div id="players-list"><div class="empty-state">لا يوجد لاعبين مضافين بعد.</div></div>
       </div>
     </div>
 
-    <!-- تبويب المباريات -->
-    <div id="tab-matches" class="tab-content">
-      <div class="card">
-        <h3>جدولة مباراة</h3>
-        <div class="grid-2">
-          <input type="text" placeholder="الفريق الأول (المضيف)">
-          <input type="text" placeholder="الفريق الثاني (الضيف)">
-        </div>
-        <div class="grid-2">
-          <input type="date">
-          <input type="time">
-        </div>
-        <button>حفظ المباراة 📅</button>
-      </div>
-    </div>
-
-    <!-- تبويب الاشتراك (نظام الكارتات) -->
+    <!-- تبويب الاشتراك -->
     <div id="tab-subscribe" class="tab-content">
-      <div class="card" style="text-align: center; max-width: 500px; margin: 0 auto;">
-        <h3 style="justify-content: center; color: var(--gold);">ترقية الحساب (تفعيل كارت)</h3>
-        <p style="color: var(--text-muted); margin-bottom: 20px; font-size: 14px;">أدخل كود الاشتراك الذي اشتريته من الإدارة للحصول على مميزات (البرو) أو (النادي) وفتح عدد فرق غير محدود وتقييم اللاعبين.</p>
-        <input type="text" id="card-code" placeholder="أدخل الكود هنا (مثال: MAL-XXXX-YYYY)" style="text-align: center; font-size: 18px; letter-spacing: 2px;">
-        <button id="btnRedeemCard" class="gold">تفعيل الاشتراك 💎</button>
-        <div id="card-msg" style="margin-top: 15px; font-size: 14px;"></div>
+      <div class="card" style="text-align: center;">
+        <h3 style="justify-content: center; border: none;">ترقية الحساب 💎</h3>
+        <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 15px;">أدخل كود التفعيل لفتح عدد غير محدود من اللاعبين وتفعيل ميزة تصدير القوائم.</p>
+        <input type="text" id="card-code" placeholder="أدخل الكود هنا" style="text-align: center; font-size: 18px; letter-spacing: 2px;">
+        <button id="btnRedeemCard" class="gold">تفعيل الكارت ✔️</button>
+        <div id="card-msg" style="margin-top: 10px; font-size: 14px;"></div>
       </div>
     </div>
 
@@ -163,7 +148,7 @@
 
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-  import { getFirestore, collection, addDoc, getDocs, query, where, doc, getDoc, updateDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+  import { getFirestore, collection, addDoc, getDocs, query, where, doc, getDoc, updateDoc, setDoc, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
   import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
   const firebaseConfig = {
@@ -175,9 +160,11 @@
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
   const auth = getAuth(app);
+  
   let currentUser = null;
+  let userPlan = 'free';
 
-  // دوال التنقل بين التبويبات
+  // تبديل الشاشات
   window.switchTab = function(tabId) {
     document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
     document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
@@ -185,69 +172,149 @@
     event.currentTarget.classList.add('active');
   }
 
-  // المصادقة
+  // المصادقة وجلب البيانات
   onAuthStateChanged(auth, async (user) => {
     if (user) {
       currentUser = user;
       document.getElementById('auth-screen').style.display = 'none';
       document.getElementById('app-screen').style.display = 'block';
       
-      // جلب بيانات المستخدم لمعرفة اشتراكه
       const userRef = doc(db, "users", user.uid);
       const userSnap = await getDoc(userRef);
+      
       if(userSnap.exists()) {
-        const plan = userSnap.data().plan || 'free';
-        document.getElementById('plan-badge').textContent = plan === 'pro' ? 'برو 💎' : 'مجاني';
-        if(plan === 'pro') document.body.classList.add('pro-user');
+        userPlan = userSnap.data().plan || 'free';
       } else {
-        // إنشاء ملف للمستخدم الجديد
         await setDoc(userRef, { email: user.email, plan: 'free' });
+        userPlan = 'free';
       }
+
+      document.getElementById('plan-badge').textContent = userPlan === 'pro' ? 'برو 💎' : 'مجاني';
+      if(userPlan === 'pro') document.body.classList.add('pro-user');
+
+      // تحميل البيانات من الداتا بيس
+      loadTournaments();
+      loadPlayers();
     } else {
       document.getElementById('auth-screen').style.display = 'flex';
       document.getElementById('app-screen').style.display = 'none';
     }
   });
 
-  document.getElementById('btnLogin').onclick = () => signInWithEmailAndPassword(auth, document.getElementById('email').value, document.getElementById('password').value);
-  document.getElementById('btnRegister').onclick = () => createUserWithEmailAndPassword(auth, document.getElementById('email').value, document.getElementById('password').value);
+  // دوال تسجيل الدخول والخروج
+  document.getElementById('btnLogin').onclick = () => {
+    const e = document.getElementById('email').value, p = document.getElementById('password').value;
+    signInWithEmailAndPassword(auth, e, p).catch(err => document.getElementById('auth-msg').textContent = "خطأ في تسجيل الدخول");
+  };
+  document.getElementById('btnRegister').onclick = () => {
+    const e = document.getElementById('email').value, p = document.getElementById('password').value;
+    createUserWithEmailAndPassword(auth, e, p).catch(err => document.getElementById('auth-msg').textContent = "خطأ في إنشاء الحساب");
+  };
   document.getElementById('btnLogout').onclick = () => signOut(auth);
 
-  // نظام الكارتات (Redeem Code)
-  document.getElementById('btnRedeemCard').onclick = async () => {
-    const codeInput = document.getElementById('card-code').value;
-    const msg = document.getElementById('card-msg');
-    msg.textContent = "جاري التحقق...";
+  // === 1. إنشاء بطولة ===
+  document.getElementById('btnCreateTour').onclick = async () => {
+    const nameInput = document.getElementById('t-name');
+    const msg = document.getElementById('tour-msg');
+    if(!nameInput.value) return;
+    
+    msg.textContent = "جاري الإنشاء...";
     msg.style.color = "var(--text-muted)";
-
     try {
-      // نبحث عن الكارت في قاعدة البيانات
-      const q = query(collection(db, "cards"), where("code", "==", codeInput), where("isUsed", "==", false));
-      const querySnapshot = await getDocs(q);
-      
-      if(querySnapshot.empty) {
-        msg.textContent = "❌ الكود غير صحيح أو تم استخدامه مسبقاً.";
-        msg.style.color = "var(--danger)";
-        return;
-      }
-
-      // إذا الكارت صحيح، نحدث حالة الكارت إلى (مستخدم) ونرقي حساب المستخدم
-      const cardDoc = querySnapshot.docs[0];
-      const planType = cardDoc.data().plan; // مثلاً 'pro' أو 'club'
-      
-      await updateDoc(doc(db, "cards", cardDoc.id), { isUsed: true, usedBy: currentUser.uid });
-      await updateDoc(doc(db, "users", currentUser.uid), { plan: planType });
-
-      msg.textContent = "✅ تم تفعيل الاشتراك بنجاح! جاري تحديث الحساب...";
+      await addDoc(collection(db, "tournaments"), { ownerId: currentUser.uid, name: nameInput.value, timestamp: new Date() });
+      nameInput.value = '';
+      msg.textContent = "✅ تم إنشاء البطولة!";
       msg.style.color = "var(--success)";
-      setTimeout(() => location.reload(), 2000); // تحديث الصفحة لتطبيق الألوان والمميزات
-
-    } catch (e) {
-      msg.textContent = "حدث خطأ: " + e.message;
+      loadTournaments();
+    } catch (error) {
+      msg.textContent = "❌ خطأ في الاتصال";
       msg.style.color = "var(--danger)";
     }
   };
 
+  async function loadTournaments() {
+    const list = document.getElementById('tournaments-list');
+    const q = query(collection(db, "tournaments"), where("ownerId", "==", currentUser.uid));
+    const snap = await getDocs(q);
+    if(snap.empty) { list.innerHTML = '<div class="empty-state">لا توجد بطولات. أنشئ بطولتك الأولى!</div>'; return; }
+    
+    list.innerHTML = '';
+    snap.forEach(doc => {
+      list.innerHTML += `<div class="list-item"><strong>${doc.data().name}</strong> <span class="badge">إدارة ⚙️</span></div>`;
+    });
+  }
+
+  // === 2. إضافة لاعب (تشكيلة الفريق) ===
+  document.getElementById('btnAddPlayer').onclick = async () => {
+    const name = document.getElementById('p-name').value;
+    const number = document.getElementById('p-number').value;
+    const position = document.getElementById('p-position').value;
+    const msg = document.getElementById('player-msg');
+    
+    if(!name || !number) { msg.textContent = "يرجى كتابة الاسم والرقم!"; msg.style.color = "var(--danger)"; return; }
+
+    msg.textContent = "جاري الإضافة...";
+    try {
+      await addDoc(collection(db, "players"), { ownerId: currentUser.uid, name, number, position, timestamp: new Date() });
+      document.getElementById('p-name').value = ''; document.getElementById('p-number').value = '';
+      msg.textContent = "✅ تمت إضافة اللاعب!";
+      msg.style.color = "var(--success)";
+      loadPlayers();
+    } catch (error) {
+      msg.textContent = "❌ خطأ في الإضافة";
+      msg.style.color = "var(--danger)";
+    }
+  };
+
+  async function loadPlayers() {
+    const list = document.getElementById('players-list');
+    const q = query(collection(db, "players"), where("ownerId", "==", currentUser.uid));
+    const snap = await getDocs(q);
+    if(snap.empty) { list.innerHTML = '<div class="empty-state">تشكيلتك فارغة حالياً.</div>'; return; }
+    
+    list.innerHTML = '';
+    snap.forEach(doc => {
+      const p = doc.data();
+      list.innerHTML += `
+        <div class="list-item">
+          <div><strong>${p.name}</strong> <span class="badge">${p.position}</span></div>
+          <div><span class="badge" style="background: var(--primary); color: white;">${p.number}</span></div>
+        </div>`;
+    });
+  }
+
+  // === 3. ميزة البرو: تصدير PDF ===
+  document.getElementById('btnExportPDF').onclick = () => {
+    if(userPlan !== 'pro' && userPlan !== 'club') {
+      alert("عذراً! 🔒 ميزة طباعة وتصدير تشكيلة الفريق متاحة فقط لمشتركي باقة البرو. يرجى تفعيل كارت الاشتراك.");
+      return;
+    }
+    // كود وهمي حالياً لتمثيل الطباعة
+    window.print(); 
+  };
+
+  // === 4. تفعيل كارت الاشتراك ===
+  document.getElementById('btnRedeemCard').onclick = async () => {
+    const code = document.getElementById('card-code').value;
+    const msg = document.getElementById('card-msg');
+    msg.textContent = "جاري التحقق...";
+    try {
+      const q = query(collection(db, "cards"), where("code", "==", code), where("isUsed", "==", false));
+      const snap = await getDocs(q);
+      
+      if(snap.empty) { msg.textContent = "❌ الكود غير صحيح أو مستخدم"; msg.style.color = "var(--danger)"; return; }
+
+      const card = snap.docs[0];
+      await updateDoc(doc(db, "cards", card.id), { isUsed: true, usedBy: currentUser.uid });
+      await updateDoc(doc(db, "users", currentUser.uid), { plan: card.data().plan });
+
+      msg.textContent = "✅ تم تفعيل حساب البرو! جاري التحديث...";
+      msg.style.color = "var(--success)";
+      setTimeout(() => location.reload(), 1500);
+    } catch (e) {
+      msg.textContent = "❌ حدث خطأ"; msg.style.color = "var(--danger)";
+    }
+  };
 </script>
 </body>
 </html>
