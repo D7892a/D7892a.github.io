@@ -1,311 +1,507 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>اختبار Firebase</title>
-<style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-  font-family: 'Segoe UI', sans-serif;
-  background: #0f172a;
-  color: #e2e8f0;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-.card {
-  background: #1e293b;
-  border-radius: 20px;
-  padding: 40px;
-  width: 100%;
-  max-width: 480px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-}
-h1 { font-size: 22px; margin-bottom: 8px; color: #6366f1; }
-p { font-size: 13px; color: #94a3b8; margin-bottom: 28px; }
-.step {
-  background: #0f172a;
-  border-radius: 12px;
-  padding: 16px;
-  margin-bottom: 12px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  border: 1px solid #1e293b;
-  transition: border-color 0.3s;
-}
-.step.success { border-color: #10b981; }
-.step.error { border-color: #ef4444; }
-.step.loading { border-color: #6366f1; }
-.step-icon {
-  width: 36px; height: 36px;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 18px;
-  background: #1e293b;
-  flex-shrink: 0;
-}
-.step.success .step-icon { background: rgba(16,185,129,0.15); }
-.step.error .step-icon { background: rgba(239,68,68,0.15); }
-.step.loading .step-icon { background: rgba(99,102,241,0.15); }
-.step-info { flex: 1; }
-.step-title { font-size: 14px; font-weight: 600; }
-.step-desc { font-size: 12px; color: #64748b; margin-top: 3px; }
-.step.success .step-title { color: #10b981; }
-.step.error .step-title { color: #ef4444; }
-.step.loading .step-title { color: #6366f1; }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Firebase Advanced Tester</title>
 
-input {
-  width: 100%;
-  background: #0f172a;
-  border: 1px solid #334155;
-  border-radius: 10px;
-  padding: 12px 16px;
-  color: #e2e8f0;
-  font-size: 14px;
-  margin-bottom: 10px;
-  outline: none;
-  transition: border-color 0.2s;
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
-input:focus { border-color: #6366f1; }
-button {
-  width: 100%;
-  background: #6366f1;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  padding: 13px;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-  margin-bottom: 10px;
+
+body{
+  font-family:Segoe UI,sans-serif;
+  background:#020617;
+  color:#e2e8f0;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
 }
-button:hover { background: #5558e3; transform: translateY(-1px); }
-button:disabled { background: #334155; cursor: not-allowed; transform: none; }
-.btn-outline {
-  background: transparent;
-  border: 1px solid #6366f1;
-  color: #6366f1;
+
+.card{
+  width:100%;
+  max-width:550px;
+  background:#0f172a;
+  border:1px solid #1e293b;
+  border-radius:24px;
+  padding:28px;
+  box-shadow:0 20px 80px rgba(0,0,0,.5);
 }
-.btn-outline:hover { background: rgba(99,102,241,0.1); }
-.divider { border: none; border-top: 1px solid #1e293b; margin: 20px 0; }
-.log-box {
-  background: #0a0f1a;
-  border-radius: 10px;
-  padding: 14px;
-  font-size: 12px;
-  color: #64748b;
-  max-height: 150px;
-  overflow-y: auto;
-  font-family: monospace;
-  line-height: 1.8;
+
+h1{
+  color:#818cf8;
+  margin-bottom:10px;
+  font-size:26px;
 }
-.log-box .ok { color: #10b981; }
-.log-box .err { color: #ef4444; }
-.log-box .info { color: #6366f1; }
-.spinner {
-  display: inline-block;
-  width: 14px; height: 14px;
-  border: 2px solid #6366f1;
-  border-top-color: transparent;
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
+
+.desc{
+  color:#94a3b8;
+  margin-bottom:25px;
+  font-size:14px;
 }
-@keyframes spin { to { transform: rotate(360deg); } }
+
+.status{
+  padding:14px;
+  border-radius:14px;
+  margin-bottom:12px;
+  border:1px solid #1e293b;
+  background:#020617;
+}
+
+.status.ok{
+  border-color:#10b981;
+}
+
+.status.err{
+  border-color:#ef4444;
+}
+
+.status.load{
+  border-color:#6366f1;
+}
+
+.status-title{
+  font-weight:700;
+  margin-bottom:4px;
+}
+
+.status-desc{
+  font-size:13px;
+  color:#94a3b8;
+}
+
+input{
+  width:100%;
+  background:#020617;
+  border:1px solid #334155;
+  color:white;
+  padding:14px;
+  border-radius:12px;
+  margin-bottom:10px;
+  outline:none;
+  transition:.2s;
+}
+
+input:focus{
+  border-color:#6366f1;
+}
+
+button{
+  width:100%;
+  border:none;
+  padding:14px;
+  border-radius:12px;
+  background:#6366f1;
+  color:white;
+  font-weight:700;
+  cursor:pointer;
+  margin-top:10px;
+  transition:.2s;
+}
+
+button:hover{
+  transform:translateY(-2px);
+  background:#5558e8;
+}
+
+button:disabled{
+  opacity:.5;
+  cursor:not-allowed;
+}
+
+.outline{
+  background:transparent;
+  border:1px solid #6366f1;
+}
+
+hr{
+  border:none;
+  border-top:1px solid #1e293b;
+  margin:25px 0;
+}
+
+.logs{
+  background:#020617;
+  border-radius:14px;
+  padding:15px;
+  height:220px;
+  overflow:auto;
+  font-family:monospace;
+  font-size:12px;
+  line-height:1.8;
+  border:1px solid #1e293b;
+}
+
+.okText{
+  color:#10b981;
+}
+
+.errText{
+  color:#ef4444;
+}
+
+.infoText{
+  color:#60a5fa;
+}
+
+.warnText{
+  color:#f59e0b;
+}
+
+.top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:15px;
+}
+
+.badge{
+  background:#312e81;
+  color:#c7d2fe;
+  padding:6px 12px;
+  border-radius:999px;
+  font-size:12px;
+}
+
+.user-box{
+  margin-top:15px;
+  padding:15px;
+  background:#020617;
+  border-radius:14px;
+  border:1px solid #1e293b;
+  display:none;
+}
+
+.user-box img{
+  width:55px;
+  height:55px;
+  border-radius:50%;
+  margin-bottom:10px;
+}
+
+.small{
+  font-size:12px;
+  color:#94a3b8;
+}
 </style>
 </head>
+
 <body>
+
 <div class="card">
-  <h1>🔥 اختبار Firebase</h1>
-  <p>تحقق من اتصال مشروعك بـ Firebase خطوة بخطوة</p>
 
-  <!-- خطوات الاختبار -->
-  <div class="step" id="step1">
-    <div class="step-icon">1️⃣</div>
-    <div class="step-info">
-      <div class="step-title">تحميل Firebase SDK</div>
-      <div class="step-desc">في الانتظار...</div>
-    </div>
-  </div>
-  <div class="step" id="step2">
-    <div class="step-icon">2️⃣</div>
-    <div class="step-info">
-      <div class="step-title">الاتصال بالمشروع</div>
-      <div class="step-desc">في الانتظار...</div>
-    </div>
-  </div>
-  <div class="step" id="step3">
-    <div class="step-icon">3️⃣</div>
-    <div class="step-info">
-      <div class="step-title">Firestore Database</div>
-      <div class="step-desc">في الانتظار...</div>
-    </div>
-  </div>
-  <div class="step" id="step4">
-    <div class="step-icon">4️⃣</div>
-    <div class="step-info">
-      <div class="step-title">Authentication</div>
-      <div class="step-desc">في الانتظار...</div>
-    </div>
-  </div>
+<div class="top">
+  <h1>🔥 Firebase Tester</h1>
+  <div class="badge" id="projectName">غير متصل</div>
+</div>
 
-  <hr class="divider">
+<div class="desc">
+فحص كامل لـ Firebase + كشف الأخطاء بالتفصيل
+</div>
 
-  <!-- تسجيل الدخول التجريبي -->
-  <div id="authSection">
-    <input type="email" id="testEmail" placeholder="البريد الإلكتروني" value="admin@gmail.com">
-    <input type="password" id="testPass" placeholder="كلمة المرور" value="">
-    <button onclick="testLogin()" id="loginBtn">🔐 اختبار تسجيل الدخول</button>
-    <button class="btn-outline" onclick="testRegister()" id="regBtn">➕ اختبار إنشاء حساب جديد</button>
-  </div>
+<div id="sdk" class="status">
+  <div class="status-title">Firebase SDK</div>
+  <div class="status-desc">في الانتظار...</div>
+</div>
 
-  <hr class="divider">
+<div id="db" class="status">
+  <div class="status-title">Firestore Database</div>
+  <div class="status-desc">في الانتظار...</div>
+</div>
 
-  <!-- سجل العمليات -->
-  <div class="log-box" id="logBox">
-    <span class="info">► جاهز للاختبار...</span>
-  </div>
+<div id="auth" class="status">
+  <div class="status-title">Authentication</div>
+  <div class="status-desc">في الانتظار...</div>
+</div>
+
+<hr>
+
+<input type="email" id="email" placeholder="البريد الإلكتروني">
+<input type="password" id="password" placeholder="كلمة المرور">
+
+<button onclick="login()" id="loginBtn">
+تسجيل دخول
+</button>
+
+<button class="outline" onclick="register()" id="registerBtn">
+إنشاء حساب
+</button>
+
+<button class="outline" onclick="logout()" id="logoutBtn">
+تسجيل خروج
+</button>
+
+<hr>
+
+<div class="user-box" id="userBox">
+  <div id="userInfo"></div>
+</div>
+
+<div class="logs" id="logs"></div>
+
 </div>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, collection, getDocs, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-// ====== إعدادات Firebase ======
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  addDoc
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
 const firebaseConfig = {
-  apiKey: "AIzaSyAaE_9lHxQkApNESYh9quBNZcj9PKnK-jI",
-  authDomain: "mansouriya2024.firebaseapp.com",
-  projectId: "mansouriya2024",
-  storageBucket: "mansouriya2024.appspot.com",
-  messagingSenderId: "456547547834",
-  appId: "1:456547547834:web:b7a1e06a5e0ba058dc6083"
+
+  apiKey: "ضع_apiKey",
+
+  authDomain: "ضع_authDomain",
+
+  projectId: "ضع_projectId",
+
+  storageBucket: "ضع_storageBucket",
+
+  messagingSenderId: "ضع_senderId",
+
+  appId: "ضع_appId"
+
 };
 
-let app, db, auth;
+let app;
+let db;
+let auth;
 
-function log(msg, type = 'info') {
-  const box = document.getElementById('logBox');
-  const line = document.createElement('div');
-  line.className = type;
-  line.textContent = '► ' + msg;
-  box.appendChild(line);
-  box.scrollTop = box.scrollHeight;
+const logs = document.getElementById("logs");
+
+function log(text,type="info"){
+
+  const div = document.createElement("div");
+
+  if(type==="ok") div.className="okText";
+  if(type==="err") div.className="errText";
+  if(type==="warn") div.className="warnText";
+  if(type==="info") div.className="infoText";
+
+  div.innerHTML = "► " + text;
+
+  logs.appendChild(div);
+
+  logs.scrollTop = logs.scrollHeight;
 }
 
-function setStep(id, status, desc) {
+function status(id,type,text){
+
   const el = document.getElementById(id);
-  el.className = 'step ' + status;
-  el.querySelector('.step-desc').textContent = desc;
-  if (status === 'loading') el.querySelector('.step-icon').innerHTML = '<div class="spinner"></div>';
-  else if (status === 'success') el.querySelector('.step-icon').textContent = '✅';
-  else if (status === 'error') el.querySelector('.step-icon').textContent = '❌';
+
+  el.className = "status " + type;
+
+  el.querySelector(".status-desc").textContent = text;
 }
 
-// الخطوة 1: تحميل SDK
-async function runTests() {
-  setStep('step1', 'loading', 'جاري التحميل...');
-  log('تحميل Firebase SDK...', 'info');
+function firebaseError(error){
 
-  try {
+  switch(error.code){
+
+    case "auth/user-not-found":
+      return "المستخدم غير موجود";
+
+    case "auth/wrong-password":
+      return "كلمة المرور غير صحيحة";
+
+    case "auth/email-already-in-use":
+      return "البريد مستخدم مسبقاً";
+
+    case "auth/invalid-email":
+      return "البريد الإلكتروني غير صالح";
+
+    case "auth/weak-password":
+      return "كلمة المرور ضعيفة";
+
+    case "permission-denied":
+      return "تم رفض الوصول بواسطة قواعد الأمان";
+
+    case "auth/network-request-failed":
+      return "لا يوجد اتصال بالإنترنت";
+
+    default:
+      return error.message;
+  }
+}
+
+async function start(){
+
+  try{
+
+    status("sdk","load","جاري تحميل Firebase");
+
     app = initializeApp(firebaseConfig);
-    setStep('step1', 'success', 'تم تحميل SDK بنجاح');
-    log('Firebase SDK محمّل ✓', 'ok');
-  } catch(e) {
-    setStep('step1', 'error', e.message);
-    log('خطأ في SDK: ' + e.message, 'err');
-    return;
-  }
 
-  // الخطوة 2: الاتصال بالمشروع
-  setStep('step2', 'loading', 'جاري الاتصال...');
-  log('الاتصال بمشروع mansouriya2024...', 'info');
-
-  try {
     db = getFirestore(app);
+
     auth = getAuth(app);
-    setStep('step2', 'success', 'متصل بالمشروع ✓');
-    log('الاتصال بالمشروع نجح ✓', 'ok');
-  } catch(e) {
-    setStep('step2', 'error', e.message);
-    log('خطأ في الاتصال: ' + e.message, 'err');
+
+    document.getElementById("projectName").textContent =
+      firebaseConfig.projectId;
+
+    status("sdk","ok","تم تحميل Firebase بنجاح");
+
+    log("Firebase SDK Loaded","ok");
+
+  }catch(error){
+
+    status("sdk","err",firebaseError(error));
+
+    log(firebaseError(error),"err");
+
     return;
   }
 
-  // الخطوة 3: Firestore
-  setStep('step3', 'loading', 'جاري الاختبار...');
-  log('اختبار Firestore...', 'info');
+  try{
 
-  try {
-    const snap = await getDocs(collection(db, 'test_connection'));
-    setStep('step3', 'success', 'Firestore يعمل ✓');
-    log('Firestore متصل ✓', 'ok');
-  } catch(e) {
-    if (e.code === 'permission-denied') {
-      setStep('step3', 'success', 'Firestore متصل (قواعد الأمان نشطة)');
-      log('Firestore متصل — قواعد الأمان تعمل ✓', 'ok');
-    } else {
-      setStep('step3', 'error', e.message);
-      log('خطأ Firestore: ' + e.message, 'err');
-    }
+    status("db","load","جاري فحص Firestore");
+
+    await getDocs(collection(db,"test"));
+
+    status("db","ok","Firestore يعمل");
+
+    log("Firestore Connected","ok");
+
+  }catch(error){
+
+    status("db","err",firebaseError(error));
+
+    log(firebaseError(error),"err");
   }
 
-  // الخطوة 4: Auth
-  setStep('step4', 'loading', 'جاري الاختبار...');
-  log('اختبار Authentication...', 'info');
+  onAuthStateChanged(auth,(user)=>{
 
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      setStep('step4', 'success', 'مسجل دخول: ' + user.email);
-      log('مستخدم مسجل: ' + user.email, 'ok');
-    } else {
-      setStep('step4', 'success', 'Authentication يعمل ✓ (لا يوجد مستخدم حالي)');
-      log('Authentication جاهز ✓', 'ok');
+    if(user){
+
+      status("auth","ok","تم تسجيل الدخول");
+
+      log("User Logged: " + user.email,"ok");
+
+      document.getElementById("userBox").style.display="block";
+
+      document.getElementById("userInfo").innerHTML = `
+        <b>${user.email}</b>
+        <div class="small">UID: ${user.uid}</div>
+      `;
+
+    }else{
+
+      status("auth","ok","Auth جاهز");
+
+      log("No User Logged","warn");
+
+      document.getElementById("userBox").style.display="none";
     }
-  }, (e) => {
-    setStep('step4', 'error', e.message);
-    log('خطأ Auth: ' + e.message, 'err');
+
   });
 }
 
-window.testLogin = async () => {
-  const email = document.getElementById('testEmail').value;
-  const pass = document.getElementById('testPass').value;
-  if (!email || !pass) { log('أدخل البريد وكلمة السر', 'err'); return; }
-  log('محاولة تسجيل الدخول بـ ' + email + '...', 'info');
-  document.getElementById('loginBtn').disabled = true;
-  try {
-    const cred = await signInWithEmailAndPassword(auth, email, pass);
-    log('✅ تسجيل الدخول نجح! UID: ' + cred.user.uid, 'ok');
-    setStep('step4', 'success', 'مسجل دخول: ' + email);
-  } catch(e) {
-    log('❌ فشل تسجيل الدخول: ' + e.message, 'err');
+window.login = async ()=>{
+
+  const email =
+    document.getElementById("email").value.trim();
+
+  const password =
+    document.getElementById("password").value.trim();
+
+  if(!email || !password){
+
+    log("املأ جميع الحقول","err");
+
+    return;
   }
-  document.getElementById('loginBtn').disabled = false;
+
+  try{
+
+    document.getElementById("loginBtn").disabled = true;
+
+    log("جاري تسجيل الدخول...","info");
+
+    const user =
+      await signInWithEmailAndPassword(auth,email,password);
+
+    log("تم تسجيل الدخول: " + user.user.email,"ok");
+
+  }catch(error){
+
+    log(firebaseError(error),"err");
+
+  }
+
+  document.getElementById("loginBtn").disabled = false;
 };
 
-window.testRegister = async () => {
-  const email = document.getElementById('testEmail').value;
-  const pass = document.getElementById('testPass').value;
-  if (!email || !pass) { log('أدخل البريد وكلمة السر', 'err'); return; }
-  log('إنشاء حساب جديد بـ ' + email + '...', 'info');
-  document.getElementById('regBtn').disabled = true;
-  try {
-    const cred = await createUserWithEmailAndPassword(auth, email, pass);
-    log('✅ الحساب أنشئ بنجاح! UID: ' + cred.user.uid, 'ok');
-    setStep('step4', 'success', 'حساب جديد: ' + email);
-  } catch(e) {
-    log('❌ فشل إنشاء الحساب: ' + e.message, 'err');
+window.register = async ()=>{
+
+  const email =
+    document.getElementById("email").value.trim();
+
+  const password =
+    document.getElementById("password").value.trim();
+
+  if(password.length < 6){
+
+    log("كلمة المرور لازم 6 أحرف أو أكثر","err");
+
+    return;
   }
-  document.getElementById('regBtn').disabled = false;
+
+  try{
+
+    document.getElementById("registerBtn").disabled = true;
+
+    log("جاري إنشاء الحساب...","info");
+
+    const user =
+      await createUserWithEmailAndPassword(auth,email,password);
+
+    log("تم إنشاء الحساب: " + user.user.email,"ok");
+
+  }catch(error){
+
+    log(firebaseError(error),"err");
+  }
+
+  document.getElementById("registerBtn").disabled = false;
 };
 
-// ابدأ الاختبار تلقائياً
-runTests();
+window.logout = async ()=>{
+
+  try{
+
+    await signOut(auth);
+
+    log("تم تسجيل الخروج","warn");
+
+  }catch(error){
+
+    log(firebaseError(error),"err");
+  }
+};
+
+start();
+
 </script>
+
 </body>
 </html>
