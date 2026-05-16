@@ -1,507 +1,346 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Firebase Advanced Tester</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="الأرنب الضاحك">
+    <meta name="theme-color" content="#1a1a2e">
+    <title>🐰 مأكولات الأرنب الضاحك | الكاشير الذهبي</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-<style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
-
-body{
-  font-family:Segoe UI,sans-serif;
-  background:#020617;
-  color:#e2e8f0;
-  min-height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  padding:20px;
-}
-
-.card{
-  width:100%;
-  max-width:550px;
-  background:#0f172a;
-  border:1px solid #1e293b;
-  border-radius:24px;
-  padding:28px;
-  box-shadow:0 20px 80px rgba(0,0,0,.5);
-}
-
-h1{
-  color:#818cf8;
-  margin-bottom:10px;
-  font-size:26px;
-}
-
-.desc{
-  color:#94a3b8;
-  margin-bottom:25px;
-  font-size:14px;
-}
-
-.status{
-  padding:14px;
-  border-radius:14px;
-  margin-bottom:12px;
-  border:1px solid #1e293b;
-  background:#020617;
-}
-
-.status.ok{
-  border-color:#10b981;
-}
-
-.status.err{
-  border-color:#ef4444;
-}
-
-.status.load{
-  border-color:#6366f1;
-}
-
-.status-title{
-  font-weight:700;
-  margin-bottom:4px;
-}
-
-.status-desc{
-  font-size:13px;
-  color:#94a3b8;
-}
-
-input{
-  width:100%;
-  background:#020617;
-  border:1px solid #334155;
-  color:white;
-  padding:14px;
-  border-radius:12px;
-  margin-bottom:10px;
-  outline:none;
-  transition:.2s;
-}
-
-input:focus{
-  border-color:#6366f1;
-}
-
-button{
-  width:100%;
-  border:none;
-  padding:14px;
-  border-radius:12px;
-  background:#6366f1;
-  color:white;
-  font-weight:700;
-  cursor:pointer;
-  margin-top:10px;
-  transition:.2s;
-}
-
-button:hover{
-  transform:translateY(-2px);
-  background:#5558e8;
-}
-
-button:disabled{
-  opacity:.5;
-  cursor:not-allowed;
-}
-
-.outline{
-  background:transparent;
-  border:1px solid #6366f1;
-}
-
-hr{
-  border:none;
-  border-top:1px solid #1e293b;
-  margin:25px 0;
-}
-
-.logs{
-  background:#020617;
-  border-radius:14px;
-  padding:15px;
-  height:220px;
-  overflow:auto;
-  font-family:monospace;
-  font-size:12px;
-  line-height:1.8;
-  border:1px solid #1e293b;
-}
-
-.okText{
-  color:#10b981;
-}
-
-.errText{
-  color:#ef4444;
-}
-
-.infoText{
-  color:#60a5fa;
-}
-
-.warnText{
-  color:#f59e0b;
-}
-
-.top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:15px;
-}
-
-.badge{
-  background:#312e81;
-  color:#c7d2fe;
-  padding:6px 12px;
-  border-radius:999px;
-  font-size:12px;
-}
-
-.user-box{
-  margin-top:15px;
-  padding:15px;
-  background:#020617;
-  border-radius:14px;
-  border:1px solid #1e293b;
-  display:none;
-}
-
-.user-box img{
-  width:55px;
-  height:55px;
-  border-radius:50%;
-  margin-bottom:10px;
-}
-
-.small{
-  font-size:12px;
-  color:#94a3b8;
-}
-</style>
+    <style>
+        * { font-family: 'Cairo', sans-serif; }
+        body { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); background-attachment: fixed; }
+        .glass-card { background: rgba(255,255,255,0.1); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.18); box-shadow: 0 8px 32px rgba(31,38,135,0.37); }
+        .glass-card-light { background: rgba(255,255,255,0.85); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.5); }
+        .cat-card:active, .product-card:active, .combo-card:active { transform: scale(0.96); }
+        .product-card, .combo-card { transition: all 0.2s; border-radius: 24px; cursor: pointer; }
+        .product-card:hover, .combo-card:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.3); }
+        ::-webkit-scrollbar { width: 4px; height: 4px; }
+        ::-webkit-scrollbar-track { background: rgba(255,255,255,0.1); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: #fbbf24; border-radius: 10px; }
+        .gold-gradient { background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%); }
+        .gold-text { background: linear-gradient(135deg, #fbbf24, #f59e0b); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .tab-active { background: linear-gradient(135deg, #fbbf24, #d97706) !important; color: #1a1a2e !important; font-weight: 900; }
+        .status-badge { padding: 2px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+        .status-pending { background: #fef3c7; color: #92400e; }
+        .status-new { background: #dbeafe; color: #1e40af; }
+        .status-ready { background: #d1fae5; color: #065f46; }
+        .status-done { background: #e0e7ff; color: #3730a3; }
+        .status-rejected { background: #fee2e2; color: #991b1b; }
+        .status-calling { background: #e0e7ff; color: #1e40af; }
+        .login-container { background: rgba(255,255,255,0.05); backdrop-filter: blur(20px); border: 1px solid rgba(255,215,0,0.3); }
+        .kitchen-screen { background: #1a1a2e; min-height: 100vh; }
+        .kitchen-order-card { background: linear-gradient(135deg, #2d2d4e, #1e1e3a); border-left: 5px solid #fbbf24; }
+        .install-prompt { position: fixed; bottom: 20px; left: 20px; right: 20px; background: linear-gradient(135deg, #1a1a2e, #16213e); border: 2px solid #fbbf24; border-radius: 20px; padding: 15px; display: none; z-index: 9999; box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
+    </style>
 </head>
-
-<body>
-
-<div class="card">
-
-<div class="top">
-  <h1>🔥 Firebase Tester</h1>
-  <div class="badge" id="projectName">غير متصل</div>
-</div>
-
-<div class="desc">
-فحص كامل لـ Firebase + كشف الأخطاء بالتفصيل
-</div>
-
-<div id="sdk" class="status">
-  <div class="status-title">Firebase SDK</div>
-  <div class="status-desc">في الانتظار...</div>
-</div>
-
-<div id="db" class="status">
-  <div class="status-title">Firestore Database</div>
-  <div class="status-desc">في الانتظار...</div>
-</div>
-
-<div id="auth" class="status">
-  <div class="status-title">Authentication</div>
-  <div class="status-desc">في الانتظار...</div>
-</div>
-
-<hr>
-
-<input type="email" id="email" placeholder="البريد الإلكتروني">
-<input type="password" id="password" placeholder="كلمة المرور">
-
-<button onclick="login()" id="loginBtn">
-تسجيل دخول
-</button>
-
-<button class="outline" onclick="register()" id="registerBtn">
-إنشاء حساب
-</button>
-
-<button class="outline" onclick="logout()" id="logoutBtn">
-تسجيل خروج
-</button>
-
-<hr>
-
-<div class="user-box" id="userBox">
-  <div id="userInfo"></div>
-</div>
-
-<div class="logs" id="logs"></div>
-
-</div>
-
-<script type="module">
-
-import {
-  initializeApp
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-
-import {
-  getFirestore,
-  collection,
-  getDocs,
-  addDoc
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-import {
-  getAuth,
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-  signOut,
-  onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-
-const firebaseConfig = {
-
-  apiKey: "ضع_apiKey",
-
-  authDomain: "ضع_authDomain",
-
-  projectId: "ضع_projectId",
-
-  storageBucket: "ضع_storageBucket",
-
-  messagingSenderId: "ضع_senderId",
-
-  appId: "ضع_appId"
-
-};
-
-let app;
-let db;
-let auth;
-
-const logs = document.getElementById("logs");
-
-function log(text,type="info"){
-
-  const div = document.createElement("div");
-
-  if(type==="ok") div.className="okText";
-  if(type==="err") div.className="errText";
-  if(type==="warn") div.className="warnText";
-  if(type==="info") div.className="infoText";
-
-  div.innerHTML = "► " + text;
-
-  logs.appendChild(div);
-
-  logs.scrollTop = logs.scrollHeight;
-}
-
-function status(id,type,text){
-
-  const el = document.getElementById(id);
-
-  el.className = "status " + type;
-
-  el.querySelector(".status-desc").textContent = text;
-}
-
-function firebaseError(error){
-
-  switch(error.code){
-
-    case "auth/user-not-found":
-      return "المستخدم غير موجود";
-
-    case "auth/wrong-password":
-      return "كلمة المرور غير صحيحة";
-
-    case "auth/email-already-in-use":
-      return "البريد مستخدم مسبقاً";
-
-    case "auth/invalid-email":
-      return "البريد الإلكتروني غير صالح";
-
-    case "auth/weak-password":
-      return "كلمة المرور ضعيفة";
-
-    case "permission-denied":
-      return "تم رفض الوصول بواسطة قواعد الأمان";
-
-    case "auth/network-request-failed":
-      return "لا يوجد اتصال بالإنترنت";
-
-    default:
-      return error.message;
-  }
-}
-
-async function start(){
-
-  try{
-
-    status("sdk","load","جاري تحميل Firebase");
-
-    app = initializeApp(firebaseConfig);
-
-    db = getFirestore(app);
-
-    auth = getAuth(app);
-
-    document.getElementById("projectName").textContent =
-      firebaseConfig.projectId;
-
-    status("sdk","ok","تم تحميل Firebase بنجاح");
-
-    log("Firebase SDK Loaded","ok");
-
-  }catch(error){
-
-    status("sdk","err",firebaseError(error));
-
-    log(firebaseError(error),"err");
-
-    return;
-  }
-
-  try{
-
-    status("db","load","جاري فحص Firestore");
-
-    await getDocs(collection(db,"test"));
-
-    status("db","ok","Firestore يعمل");
-
-    log("Firestore Connected","ok");
-
-  }catch(error){
-
-    status("db","err",firebaseError(error));
-
-    log(firebaseError(error),"err");
-  }
-
-  onAuthStateChanged(auth,(user)=>{
-
-    if(user){
-
-      status("auth","ok","تم تسجيل الدخول");
-
-      log("User Logged: " + user.email,"ok");
-
-      document.getElementById("userBox").style.display="block";
-
-      document.getElementById("userInfo").innerHTML = `
-        <b>${user.email}</b>
-        <div class="small">UID: ${user.uid}</div>
-      `;
-
-    }else{
-
-      status("auth","ok","Auth جاهز");
-
-      log("No User Logged","warn");
-
-      document.getElementById("userBox").style.display="none";
-    }
-
-  });
-}
-
-window.login = async ()=>{
-
-  const email =
-    document.getElementById("email").value.trim();
-
-  const password =
-    document.getElementById("password").value.trim();
-
-  if(!email || !password){
-
-    log("املأ جميع الحقول","err");
-
-    return;
-  }
-
-  try{
-
-    document.getElementById("loginBtn").disabled = true;
-
-    log("جاري تسجيل الدخول...","info");
-
-    const user =
-      await signInWithEmailAndPassword(auth,email,password);
-
-    log("تم تسجيل الدخول: " + user.user.email,"ok");
-
-  }catch(error){
-
-    log(firebaseError(error),"err");
-
-  }
-
-  document.getElementById("loginBtn").disabled = false;
-};
-
-window.register = async ()=>{
-
-  const email =
-    document.getElementById("email").value.trim();
-
-  const password =
-    document.getElementById("password").value.trim();
-
-  if(password.length < 6){
-
-    log("كلمة المرور لازم 6 أحرف أو أكثر","err");
-
-    return;
-  }
-
-  try{
-
-    document.getElementById("registerBtn").disabled = true;
-
-    log("جاري إنشاء الحساب...","info");
-
-    const user =
-      await createUserWithEmailAndPassword(auth,email,password);
-
-    log("تم إنشاء الحساب: " + user.user.email,"ok");
-
-  }catch(error){
-
-    log(firebaseError(error),"err");
-  }
-
-  document.getElementById("registerBtn").disabled = false;
-};
-
-window.logout = async ()=>{
-
-  try{
-
-    await signOut(auth);
-
-    log("تم تسجيل الخروج","warn");
-
-  }catch(error){
-
-    log(firebaseError(error),"err");
-  }
-};
-
-start();
-
-</script>
-
+<body class="h-screen flex flex-col p-3">
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" id="pwaManifest">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23fbbf24'/%3E%3Cstop offset='100%25' style='stop-color:%23d97706'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='25' fill='url(%23g)'/%3E%3Ctext x='50' y='72' font-size='60' text-anchor='middle' fill='%231a1a2e' font-family='Arial'%3E🐰%3C/text%3E%3C/svg%3E">
+
+    <script>
+        const manifest = { name: "مأكولات الأرنب الضاحك", short_name: "الأرنب الضاحك", start_url: "/", display: "standalone", orientation: "portrait", theme_color: "#1a1a2e", background_color: "#1a1a2e", icons: [{ src: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23fbbf24'/%3E%3Cstop offset='100%25' style='stop-color:%23d97706'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='25' fill='url(%23g)'/%3E%3Ctext x='50' y='72' font-size='60' text-anchor='middle' fill='%231a1a2e' font-family='Arial'%3E🐰%3C/text%3E%3C/svg%3E", sizes: "512x512", type: "image/svg+xml" }] };
+        document.getElementById('pwaManifest').href = URL.createObjectURL(new Blob([JSON.stringify(manifest)], { type: 'application/json' }));
+        if ('serviceWorker' in navigator) { navigator.serviceWorker.register("data:application/javascript," + encodeURIComponent("self.addEventListener('install',e=>self.skipWaiting());self.addEventListener('activate',e=>clients.claim());self.addEventListener('fetch',e=>e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request))));")); }
+    </script>
+
+    <!-- Firebase -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, updateDoc, query, orderBy, where } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+        
+        const firebaseConfig = {
+            apiKey: "AIzaSy5S-w-4dH0aVyz_6QbyADJpWuSetSNwTPM",
+            authDomain: "ahmed-teach.firebaseapp.com",
+            projectId: "ahmed-teach",
+            storageBucket: "ahmed-teach.firebasestorage.app",
+            messagingSenderId: "446158693601",
+            appId: "1:446158693601:web:b8dfbe780485a1e6d3c3a0"
+        };
+        
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        window.db = db;
+        window.TELEGRAM_BOT_TOKEN = '7945152379:AAFtLazXVvOSYzxdwFkQKkRDf7HzRgzG9_s';
+        window.TELEGRAM_CHAT_ID = '909090929';
+        window.collection = collection; window.addDoc = addDoc; window.getDocs = getDocs;
+        window.deleteDoc = deleteDoc; window.updateDoc = updateDoc; window.doc = doc;
+        window.query = query; window.orderBy = orderBy; window.where = where;
+        
+        console.log("🐰 كاشير الأرنب الضاحك جاهز");
+        window.dispatchEvent(new Event('firebaseReady'));
+    </script>
+
+    <!-- PWA Install -->
+    <script>
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); deferredPrompt = e; setTimeout(() => { if (!window.matchMedia('(display-mode: standalone)').matches) document.getElementById('installPrompt').style.display = 'block'; }, 2000); });
+        window.installPWA = async () => { if (deferredPrompt) { deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt = null; } else { alert(/iPad|iPhone|iPod/.test(navigator.userAgent) ? '📱 مشاركة → إضافة للشاشة' : '📱 ⁝ → تثبيت التطبيق'); } document.getElementById('installPrompt').style.display = 'none'; };
+        window.closeInstallPrompt = () => document.getElementById('installPrompt').style.display = 'none';
+    </script>
+
+    <audio id="newOrderSound" src="https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3" preload="auto"></audio>
+    <audio id="readyOrderSound" src="https://www.soundjay.com/misc/sounds/ding-2.mp3" preload="auto"></audio>
+
+    <!-- زر تثبيت -->
+    <div id="installPrompt" class="install-prompt">
+        <div class="flex items-center justify-between"><div class="flex items-center gap-3"><span class="text-4xl">🐰</span><div><h3 class="text-white font-black text-lg">تثبيت التطبيق</h3><p class="text-gray-300 text-sm">ثبت الكاشير على شاشتك</p></div></div><div class="flex gap-2"><button onclick="installPWA()" class="gold-gradient text-gray-900 px-5 py-2 rounded-xl font-black">تثبيت</button><button onclick="closeInstallPrompt()" class="text-gray-400 hover:text-white px-3 py-2">✕</button></div></div>
+    </div>
+
+    <!-- تسجيل الدخول -->
+    <div id="loginScreen" class="fixed inset-0 flex items-center justify-center z-50" style="background: #1a1a2e;">
+        <div class="login-container w-full max-w-md p-8 rounded-3xl shadow-2xl">
+            <div class="text-center mb-8"><div class="gold-gradient p-4 rounded-2xl inline-block mb-4"><i class="fas fa-rabbit text-4xl text-gray-900"></i></div><h1 class="text-3xl font-black gold-text">مأكولات الأرنب الضاحك</h1><p class="text-gray-400 text-sm">النظام الذهبي 🐰</p></div>
+            <div class="space-y-4"><input type="text" id="loginUsername" placeholder="اسم المستخدم" class="w-full bg-white/10 border border-gray-600 rounded-xl p-3 text-white"><input type="password" id="loginPassword" placeholder="كلمة المرور" class="w-full bg-white/10 border border-gray-600 rounded-xl p-3 text-white"><button onclick="hardcodedLogin()" class="w-full gold-gradient py-3 rounded-xl font-black text-lg">دخول</button></div>
+            <div class="mt-6 text-center text-gray-400 text-xs"><p>admin/123456 | cashier/123456 | kitchen/123456</p></div>
+        </div>
+    </div>
+
+    <!-- التطبيق الرئيسي -->
+    <div id="mainApp" class="hidden h-full flex flex-col">
+        <header class="glass-card rounded-3xl p-3 mb-3 flex justify-between items-center text-white shadow-2xl">
+            <div class="flex items-center gap-2"><div class="gold-gradient p-2 rounded-2xl"><i class="fas fa-rabbit text-2xl text-gray-900"></i></div><div><h1 class="text-2xl font-black gold-text">مأكولات الأرنب الضاحك</h1><p class="text-xs text-gray-300" id="userRoleDisplay">نكهة بغداد 🐰</p></div></div>
+            <div class="flex gap-2 flex-wrap justify-end">
+                <button onclick="showCashier()" id="btnCashier" class="px-4 py-2 rounded-xl font-bold tab-active"><i class="fas fa-cash-register ml-1"></i> البيع</button>
+                <button onclick="showOrders()" id="btnOrders" class="px-4 py-2 rounded-xl font-bold bg-gray-700 text-white"><i class="fas fa-clipboard-list ml-1"></i> الطلبات</button>
+                <button onclick="showKitchenScreen()" id="btnKitchen" class="px-4 py-2 rounded-xl font-bold bg-gray-700 text-white"><i class="fas fa-utensils ml-1"></i> المطبخ</button>
+                <button onclick="showReports()" id="btnReports" class="px-4 py-2 rounded-xl font-bold bg-gray-700 text-white admin-only"><i class="fas fa-chart-bar ml-1"></i> التقارير</button>
+                <button onclick="showCoupons()" id="btnCoupons" class="px-4 py-2 rounded-xl font-bold bg-gray-700 text-white admin-only"><i class="fas fa-ticket-alt ml-1"></i> الكوبونات</button>
+                <button onclick="showAdmin()" id="btnAdmin" class="px-4 py-2 rounded-xl font-bold bg-gray-700 text-white admin-only"><i class="fas fa-cog ml-1"></i> الإدارة</button>
+                <button onclick="manualBackup()" class="px-4 py-2 rounded-xl font-bold bg-green-600/50 text-white admin-only"><i class="fas fa-download ml-1"></i> نسخ</button>
+                <button onclick="logout()" class="px-4 py-2 rounded-xl font-bold bg-red-600/50 text-white"><i class="fas fa-sign-out-alt"></i></button>
+            </div>
+        </header>
+        <!-- واجهة الكاشير -->
+        <main id="cashierView" class="flex-1 flex flex-col md:flex-row gap-3 overflow-hidden">
+            <div class="flex-[3] flex flex-col gap-3 overflow-hidden">
+                <div class="glass-card-light rounded-3xl p-4">
+                    <div class="flex gap-2 mb-3 flex-wrap">
+                        <button onclick="repeatLastOrder()" class="bg-purple-600 text-white px-4 py-2 rounded-xl font-bold text-sm"><i class="fas fa-copy"></i> نسخ آخر طلب</button>
+                        <button onclick="showCombos()" class="gold-gradient text-gray-900 px-4 py-2 rounded-xl font-bold text-sm"><i class="fas fa-gift"></i> الوجبات المجمعة</button>
+                        <button onclick="toggleDelivery()" id="deliveryToggleBtn" class="bg-blue-600 text-white px-4 py-2 rounded-xl font-bold text-sm"><i class="fas fa-motorcycle"></i> توصيل</button>
+                    </div>
+                    <div id="deliveryInfo" class="hidden grid grid-cols-1 md:grid-cols-3 gap-2 mb-3 p-3 bg-blue-50 rounded-xl">
+                        <input type="text" id="customerName" placeholder="اسم الزبون" class="bg-white rounded-lg p-2 text-sm">
+                        <input type="tel" id="customerPhone" placeholder="رقم الهاتف" class="bg-white rounded-lg p-2 text-sm">
+                        <input type="text" id="customerAddress" placeholder="العنوان" class="bg-white rounded-lg p-2 text-sm">
+                        <div class="col-span-full flex items-center gap-3">
+                            <label class="flex items-center gap-2"><input type="checkbox" id="addDeliveryFee" onchange="toggleDeliveryFeeInput()"> إضافة أجور توصيل</label>
+                            <input type="number" id="deliveryFeeAmount" value="2000" min="0" step="500" class="w-24 bg-white rounded-lg p-2 text-sm hidden" placeholder="المبلغ">
+                            <span class="text-xs text-gray-500">د.ع</span>
+                        </div>
+                    </div>
+                    <div id="couponPanel" class="mb-3"><div class="flex gap-2"><input type="text" id="couponCode" placeholder="كود الخصم" class="flex-1 bg-white rounded-lg p-2 text-sm"><button onclick="applyCoupon()" class="bg-green-600 text-white px-4 py-2 rounded-lg text-sm">تطبيق</button></div><p id="couponMessage" class="text-xs mt-1"></p></div>
+                    <div id="combosPanel" class="hidden grid grid-cols-2 md:grid-cols-3 gap-2 mb-3"></div>
+                    <div class="relative"><i class="fas fa-search absolute right-4 top-1/2 -translate-y-1/2 text-gray-400"></i><input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="شنو تريد تدور؟" class="w-full bg-white/80 rounded-2xl py-3 pr-12 pl-4 shadow-inner"></div>
+                    <h3 class="font-bold text-gray-700 mt-3 mb-2"><i class="fas fa-layer-group ml-2 text-yellow-600"></i> الأصناف</h3>
+                    <div id="categoryGrid" class="grid grid-cols-3 md:grid-cols-5 gap-2"></div>
+                </div>
+                <div class="glass-card-light rounded-3xl p-4 flex-1 overflow-hidden flex flex-col">
+                    <h3 class="font-bold text-gray-700 mb-2"><i class="fas fa-utensils ml-2 text-yellow-600"></i> قائمة المأكولات</h3>
+                    <div id="productsGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 overflow-y-auto pr-1 pb-2"></div>
+                </div>
+            </div>
+            <div class="flex-1 glass-card rounded-3xl p-4 text-white flex flex-col shadow-2xl border-2 border-yellow-600/30">
+                <div class="flex justify-between items-center border-b border-white/20 pb-3"><h2 class="text-xl font-black"><i class="fas fa-shopping-basket ml-2 text-yellow-400"></i> سلة الزبون</h2><span class="bg-yellow-500/20 px-3 py-1 rounded-full text-sm"><span id="cartCount">0</span> مواد</span></div>
+                <div id="cartItems" class="flex-1 overflow-y-auto my-3 space-y-2"></div>
+                <div id="cartSummary" class="text-sm space-y-1 border-t border-white/20 pt-2 mb-2 hidden"><div class="flex justify-between"><span>المجموع الفرعي:</span><span id="subtotalAmount">0</span> د.ع</div><div class="flex justify-between text-green-400"><span>الخصم:</span><span id="discountAmount">0</span> د.ع</div><div class="flex justify-between text-blue-400"><span>التوصيل:</span><span id="deliveryFeeAmount">0</span> د.ع</div></div>
+                <div class="border-t border-white/20 pt-3 space-y-3"><div class="flex justify-between items-center text-xl font-black"><span>المجموع النهائي</span><span class="gold-text text-3xl"><span id="cartTotal">0</span> <small class="text-sm text-gray-300">د.ع</small></span></div><div class="grid grid-cols-2 gap-2"><button onclick="submitOrder()" class="gold-gradient text-gray-900 py-3 rounded-xl font-black text-lg"><i class="fas fa-paper-plane ml-1"></i> دز الطلب</button><button onclick="clearCart()" class="bg-red-600/80 text-white py-3 rounded-xl font-bold"><i class="fas fa-trash-alt ml-1"></i> مسح</button></div></div>
+            </div>
+        </main>
+
+        <!-- شاشة الطلبات -->
+        <main id="ordersView" class="flex-1 overflow-y-auto hidden"><div class="max-w-7xl mx-auto space-y-4"><div class="grid grid-cols-4 gap-3"><div class="glass-card-light rounded-2xl p-4"><p class="text-gray-500">طلبات اليوم</p><p class="text-3xl font-black" id="todayOrdersCount">0</p></div><div class="glass-card-light rounded-2xl p-4"><p class="text-gray-500">إجمالي المبيعات</p><p class="text-3xl font-black gold-text"><span id="todaySales">0</span> د.ع</p></div><div class="glass-card-light rounded-2xl p-4"><p class="text-gray-500">متوسط الطلب</p><p class="text-3xl font-black"><span id="avgOrder">0</span> د.ع</p></div><div class="glass-card-light rounded-2xl p-4"><p class="text-gray-500">طلبات التوصيل</p><p class="text-3xl font-black text-blue-600" id="deliveryOrdersCount">0</p></div></div><div class="glass-card-light rounded-3xl p-5"><h3 class="text-xl font-black mb-4"><i class="fas fa-clock ml-2 text-yellow-600"></i> الطلبات المعلقة</h3><div id="activeOrdersList" class="space-y-3 max-h-96 overflow-y-auto"></div></div><div class="glass-card-light rounded-3xl p-5"><h3 class="text-xl font-black mb-4"><i class="fas fa-check-circle ml-2 text-green-600"></i> آخر الطلبات المنجزة</h3><div id="completedOrdersList" class="space-y-2"></div></div></div></main>
+
+        <!-- شاشة المطبخ -->
+        <main id="kitchenView" class="flex-1 overflow-y-auto hidden"><div class="kitchen-screen rounded-3xl p-6"><h2 class="text-3xl font-black gold-text mb-6 text-center">👨‍🍳 شاشة المطبخ</h2><div id="kitchenOrdersList" class="grid grid-cols-1 lg:grid-cols-2 gap-4"></div><div class="text-center mt-6 text-gray-400 text-sm"><i class="fas fa-sync-alt fa-spin ml-1"></i> تحديث كل 10 ثواني</div></div></main>
+
+        <!-- شاشة الكوبونات -->
+        <main id="couponsView" class="flex-1 overflow-y-auto hidden"><div class="max-w-4xl mx-auto space-y-4"><div class="glass-card-light rounded-3xl p-5"><h3 class="text-xl font-black mb-4"><i class="fas fa-ticket-alt ml-2 text-purple-600"></i> إدارة الكوبونات</h3><div class="grid grid-cols-1 md:grid-cols-4 gap-3 mb-4"><input type="text" id="newCouponCode" placeholder="كود الكوبون" class="bg-white/70 rounded-xl p-3"><select id="newCouponType" class="bg-white/70 rounded-xl p-3"><option value="percent">نسبة %</option><option value="fixed">مبلغ ثابت</option></select><input type="number" id="newCouponValue" placeholder="قيمة الخصم" class="bg-white/70 rounded-xl p-3"><button onclick="createCoupon()" class="bg-purple-600 text-white py-3 rounded-xl font-black">إنشاء</button></div><div class="grid grid-cols-1 md:grid-cols-2 gap-2 mb-4"><input type="date" id="couponExpiry" class="bg-white/70 rounded-xl p-3"><input type="number" id="couponMaxUses" placeholder="الحد الأقصى" class="bg-white/70 rounded-xl p-3"></div><div id="couponsList" class="space-y-2"></div></div><div class="glass-card-light rounded-3xl p-5"><h3 class="text-xl font-black mb-4">📊 إحصائيات</h3><div class="grid grid-cols-3 gap-3"><div class="bg-white/50 rounded-xl p-3"><p class="text-gray-500">الكوبونات</p><p class="text-2xl font-black" id="totalCoupons">0</p></div><div class="bg-white/50 rounded-xl p-3"><p class="text-gray-500">الاستخدام</p><p class="text-2xl font-black" id="totalCouponUses">0</p></div><div class="bg-white/50 rounded-xl p-3"><p class="text-gray-500">الخصومات</p><p class="text-2xl font-black"><span id="totalDiscounts">0</span> د.ع</p></div></div></div></div></main>
+
+        <!-- شاشة التقارير -->
+        <main id="reportsView" class="flex-1 overflow-y-auto hidden"><div class="max-w-7xl mx-auto space-y-4"><div class="flex gap-3 justify-end"><button onclick="exportToExcel()" class="bg-green-600 text-white px-6 py-3 rounded-xl font-bold"><i class="fas fa-file-excel ml-2"></i> Excel</button><button onclick="exportToPDF()" class="bg-red-600 text-white px-6 py-3 rounded-xl font-bold"><i class="fas fa-file-pdf ml-2"></i> PDF</button></div><div class="grid grid-cols-5 gap-3"><div class="glass-card-light rounded-2xl p-4"><p>المبيعات</p><p class="text-2xl font-black"><span id="totalSalesAll">0</span> د.ع</p></div><div class="glass-card-light rounded-2xl p-4"><p>الطلبات</p><p class="text-2xl" id="totalOrdersAll">0</p></div><div class="glass-card-light rounded-2xl p-4"><p>المنتجات</p><p class="text-2xl" id="totalProductsAll">0</p></div><div class="glass-card-light rounded-2xl p-4"><p>الأصناف</p><p class="text-2xl" id="totalCategoriesAll">0</p></div><div class="glass-card-light rounded-2xl p-4"><p>التوصيل</p><p class="text-2xl text-blue-600" id="totalDeliveryOrders">0</p></div></div><div class="grid grid-cols-1 lg:grid-cols-2 gap-4"><div class="glass-card-light rounded-3xl p-5"><h3 class="font-black mb-4">📊 الأكثر مبيعاً</h3><canvas id="topProductsChart" height="200"></canvas></div><div class="glass-card-light rounded-3xl p-5"><h3 class="font-black mb-4">📈 مبيعات 7 أيام</h3><canvas id="weeklySalesChart" height="200"></canvas></div></div></div></main>
+
+        <!-- لوحة الإدارة -->
+        <main id="adminView" class="flex-1 overflow-y-auto hidden"><div class="max-w-7xl mx-auto space-y-4"><div class="glass-card-light rounded-3xl p-5"><h3 class="text-xl font-black mb-4"><i class="fas fa-gift ml-2 text-purple-600"></i> الوجبات المجمعة</h3><div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3"><input type="text" id="comboName" placeholder="اسم الوجبة" class="bg-white/70 rounded-xl p-3"><input type="number" id="comboPrice" placeholder="السعر" class="bg-white/70 rounded-xl p-3"></div><div class="bg-white/50 rounded-xl p-3 mb-3"><h4 class="font-bold mb-2">المواد مع الكميات</h4><div id="comboProductsList" class="space-y-2 max-h-60 overflow-y-auto"></div><div class="flex gap-2 mt-3"><select id="comboProductSelect" class="flex-1 bg-white rounded-xl p-2"><option value="">اختر مادة</option></select><input type="number" id="comboProductQty" value="1" min="1" max="20" class="w-20 bg-white rounded-xl p-2 text-center"><button onclick="addProductToCombo()" class="gold-gradient px-4 rounded-xl font-bold"><i class="fas fa-plus"></i></button></div></div><button onclick="saveCombo()" class="w-full bg-purple-600 text-white py-3 rounded-xl font-black">💾 حفظ</button><div id="combosList" class="mt-4 space-y-2"></div></div><div class="glass-card-light rounded-3xl p-5"><h3 class="text-xl font-black mb-4"><i class="fas fa-folder-plus ml-2 text-yellow-600"></i> إضافة صنف</h3><div class="flex gap-2"><input type="text" id="newCatName" placeholder="اسم الصنف" class="flex-1 bg-white/70 rounded-xl p-3"><button onclick="addCategory()" class="gold-gradient px-6 rounded-xl font-bold"><i class="fas fa-plus"></i></button></div><ul id="adminCatList" class="mt-4 space-y-2 max-h-60 overflow-y-auto"></ul></div><div class="glass-card-light rounded-3xl p-5"><h3 class="text-xl font-black mb-4"><i class="fas fa-plus-circle ml-2 text-green-600"></i> إضافة مادة</h3><div class="grid grid-cols-1 md:grid-cols-4 gap-3"><input type="text" id="newProdName" placeholder="اسم المادة" class="bg-white/70 rounded-xl p-3"><input type="number" id="newProdPrice" placeholder="السعر" class="bg-white/70 rounded-xl p-3"><select id="newProdCat" class="bg-white/70 rounded-xl p-3"></select><button onclick="addProduct()" class="bg-green-600 text-white py-3 rounded-xl font-black">إضافة</button></div><input type="text" id="newProdDesc" placeholder="وصف" class="w-full bg-white/70 rounded-xl p-3 mt-3"><div class="mt-6"><h4 class="font-bold mb-2">📋 المواد</h4><table class="w-full"><thead><tr><th>المادة</th><th>الصنف</th><th>السعر</th><th></th></tr></thead><tbody id="adminProdList"></tbody></table></div></div></div></main>
+    </div>
+    <script>
+        let currentCart = [], allProducts = [], allCategories = [], allOrders = [], selectedCat = 'الكل';
+        let userRole = 'admin';
+        let topProductsChartInstance = null, weeklySalesChartInstance = null;
+        let lastOrder = null;
+        let combos = [], coupons = [];
+        let kitchenInterval = null;
+        let isDelivery = false;
+        let currentDiscount = { type: null, value: 0, code: null };
+        let tempComboProducts = [];
+
+        // ================= نسخ احتياطي =================
+        function scheduleAutoBackup() { const n = new Date(); n.setHours(24,0,0,0); setTimeout(() => { performBackup(); setInterval(performBackup, 86400000); }, n - new Date()); }
+        async function performBackup() { try { const b = { t: new Date().toISOString(), c: allCategories, p: allProducts, o: allOrders, cb: combos, cp: coupons }; const bs = JSON.parse(localStorage.getItem('arnob_b')||'[]'); bs.push(b); if(bs.length>7)bs.shift(); localStorage.setItem('arnob_b', JSON.stringify(bs)); const bl = new Blob([JSON.stringify(b)],{type:'application/json'}); const a = document.createElement('a'); a.href = URL.createObjectURL(bl); a.download = `arnob_${new Date().toISOString().split('T')[0]}.json`; a.click(); } catch(e){} }
+        window.manualBackup = () => { performBackup(); alert('✅ تم النسخ الاحتياطي'); };
+
+        // ================= تسجيل الدخول =================
+        window.hardcodedLogin = () => {
+            const u = document.getElementById('loginUsername').value.trim().toLowerCase(), p = document.getElementById('loginPassword').value.trim();
+            if(!u||!p){alert('❌ أدخل المستخدم وكلمة المرور');return;}
+            const users = {admin:{p:'123456',r:'admin'},cashier:{p:'123456',r:'cashier'},kitchen:{p:'123456',r:'kitchen'}};
+            if(users[u]&&users[u].p===p) userRole = users[u].r;
+            else {alert('❌ خطأ');return;}
+            document.getElementById('loginScreen').classList.add('hidden');
+            document.getElementById('mainApp').classList.remove('hidden');
+            document.getElementById('userRoleDisplay').innerText = {admin:'مدير',cashier:'كاشير',kitchen:'طباخ'}[userRole]+' 🐰';
+            if(userRole!=='admin') document.querySelectorAll('.admin-only').forEach(e=>e.classList.add('hidden'));
+            loadAllData(); loadCombos(); loadCoupons(); scheduleAutoBackup();
+            if(userRole==='kitchen') showKitchenScreen();
+        };
+        window.logout = () => { if(kitchenInterval)clearInterval(kitchenInterval); location.reload(); };
+
+        // ================= التوصيل =================
+        window.toggleDelivery = () => { isDelivery=!isDelivery; const i=document.getElementById('deliveryInfo'),b=document.getElementById('deliveryToggleBtn'); if(isDelivery){i.classList.remove('hidden');b.classList.remove('bg-blue-600');b.classList.add('bg-green-600');b.innerHTML='<i class="fas fa-check"></i> توصيل مفعل';}else{i.classList.add('hidden');b.classList.remove('bg-green-600');b.classList.add('bg-blue-600');b.innerHTML='<i class="fas fa-motorcycle"></i> توصيل';} renderCart(); };
+        window.toggleDeliveryFeeInput = () => { document.getElementById('deliveryFeeAmount').classList.toggle('hidden', !document.getElementById('addDeliveryFee').checked); renderCart(); };
+
+        // ================= الكوبونات =================
+        async function loadCoupons() { const s = await getDocs(collection(db,"coupons")); coupons = s.docs.map(d=>({id:d.id,...d.data()})); renderCouponsList(); updateCouponStats(); }
+        window.createCoupon = async () => { const c=document.getElementById('newCouponCode').value.toUpperCase(),t=document.getElementById('newCouponType').value,v=parseFloat(document.getElementById('newCouponValue').value),ex=document.getElementById('couponExpiry').value,mx=parseInt(document.getElementById('couponMaxUses').value)||null; if(!c||!v)return alert('أدخل الكود والقيمة'); await addDoc(collection(db,"coupons"),{code:c,type:t,value:v,expiry:ex,maxUses:mx,usedCount:0,active:true}); document.getElementById('newCouponCode').value='';document.getElementById('newCouponValue').value=''; loadCoupons(); };
+        window.applyCoupon = () => { const c=document.getElementById('couponCode').value.toUpperCase(),cp=coupons.find(x=>x.code===c&&x.active); if(!cp){document.getElementById('couponMessage').innerHTML='<span class="text-red-600">❌ غير صالح</span>';return;} if(cp.expiry&&new Date(cp.expiry)<new Date()){document.getElementById('couponMessage').innerHTML='<span class="text-red-600">❌ منتهي</span>';return;} if(cp.maxUses&&cp.usedCount>=cp.maxUses){document.getElementById('couponMessage').innerHTML='<span class="text-red-600">❌ مكتمل</span>';return;} currentDiscount={type:cp.type,value:cp.value,code:cp.code,id:cp.id}; document.getElementById('couponMessage').innerHTML=`<span class="text-green-600">✅ ${cp.type==='percent'?cp.value+'%':cp.value+' د.ع'}</span>`; renderCart(); };
+        function renderCouponsList() { const l=document.getElementById('couponsList'); if(!coupons.length){l.innerHTML='<p class="text-gray-400">ماكو كوبونات</p>';return;} l.innerHTML=coupons.map(c=>`<div class="flex justify-between bg-white/50 p-3 rounded-xl"><div><span class="font-black">${c.code}</span><span class="mr-3">${c.type==='percent'?c.value+'%':c.value+' د.ع'}</span></div><div class="flex gap-2"><button onclick="toggleCouponStatus('${c.id}')" class="${c.active?'text-green-600':'text-gray-400'}">${c.active?'✅':'⛔'}</button><button onclick="if(confirm(\'حذف؟\'))deleteCoupon('${c.id}')" class="text-red-500">🗑️</button></div></div>`).join(''); }
+        window.toggleCouponStatus = async (id) => { const c=coupons.find(x=>x.id===id); await updateDoc(doc(db,"coupons",id),{active:!c.active}); loadCoupons(); };
+        window.deleteCoupon = async (id) => { await deleteDoc(doc(db,"coupons",id)); loadCoupons(); };
+        function updateCouponStats() { document.getElementById('totalCoupons').innerText=coupons.length; document.getElementById('totalCouponUses').innerText=coupons.reduce((s,c)=>s+(c.usedCount||0),0); }
+
+        // ================= الوجبات المجمعة =================
+        async function loadCombos() { const s=await getDocs(collection(db,"combos")); combos=s.docs.map(d=>({id:d.id,...d.data()})); renderCombosPanel(); renderCombosList(); if(document.getElementById('comboProductSelect')) document.getElementById('comboProductSelect').innerHTML='<option value="">اختر</option>'+allProducts.map(p=>`<option value="${p.id}">${p.name}</option>`).join(''); }
+        function renderCombosPanel() { const p=document.getElementById('combosPanel'); if(!combos.length){p.innerHTML='<p class="text-gray-400 text-center py-2">ماكو وجبات</p>';return;} p.innerHTML=combos.map(c=>`<div onclick="addComboToCart('${c.id}')" class="combo-card bg-gradient-to-br from-purple-100 to-pink-100 p-3 rounded-2xl text-center font-black cursor-pointer shadow"><i class="fas fa-gift text-purple-600"></i><h4>${c.name}</h4><p class="text-xs">${c.products.map(p=>`${p.quantity}x ${p.name}`).join('+')}</p><p class="text-lg font-black text-purple-700">${c.price} د.ع</p></div>`).join(''); }
+        function renderCombosList() { const l=document.getElementById('combosList'); if(!l)return; if(!combos.length){l.innerHTML='<p class="text-gray-400">ماكو وجبات</p>';return;} l.innerHTML=combos.map(c=>`<div class="flex justify-between bg-white/50 p-2 rounded-xl"><div><span class="font-black">${c.name}</span><span class="mr-3">${c.price} د.ع</span></div><button onclick="if(confirm(\'حذف؟\'))deleteCombo('${c.id}')" class="text-red-500">🗑️</button></div>`).join(''); }
+        window.showCombos = () => document.getElementById('combosPanel').classList.toggle('hidden');
+        window.addComboToCart = (id) => { const c=combos.find(x=>x.id===id); if(!c)return; c.products.forEach(p=>{const e=currentCart.find(i=>i.id===p.id); if(e)e.quantity+=p.quantity; else currentCart.push({id:p.id,name:p.name,price:p.price,quantity:p.quantity});}); renderCart(); document.getElementById('combosPanel').classList.add('hidden'); };
+        window.addProductToCombo = () => { const s=document.getElementById('comboProductSelect'),q=parseInt(document.getElementById('comboProductQty').value)||1; const pid=s.value; if(!pid)return; const p=allProducts.find(x=>x.id===pid); if(!p)return; tempComboProducts.push({id:p.id,name:p.name,price:p.price,quantity:q}); renderTempComboProducts(); };
+        function renderTempComboProducts() { const d=document.getElementById('comboProductsList'); if(!tempComboProducts.length){d.innerHTML='<p class="text-gray-400 text-center py-4">أضف مواد</p>';return;} d.innerHTML=tempComboProducts.map((p,i)=>`<div class="flex justify-between bg-white p-2 rounded-lg"><span>${p.quantity}x ${p.name}</span><button onclick="tempComboProducts.splice(${i},1);renderTempComboProducts();" class="text-red-500">🗑️</button></div>`).join(''); }
+        window.saveCombo = async () => { if(!tempComboProducts.length)return alert('أضف مواد'); const n=document.getElementById('comboName').value,pr=parseFloat(document.getElementById('comboPrice').value); if(!n||!pr)return alert('الاسم والسعر'); await addDoc(collection(db,"combos"),{name:n,price:pr,products:tempComboProducts}); tempComboProducts=[]; document.getElementById('comboName').value='';document.getElementById('comboPrice').value=''; loadCombos(); };
+        window.deleteCombo = async (id) => { await deleteDoc(doc(db,"combos",id)); loadCombos(); };
+
+        // ================= نسخ آخر طلب =================
+        window.repeatLastOrder = () => { if(!lastOrder){alert('ماكو طلبات');return;} if(currentCart.length&&!confirm('استبدال السلة؟'))return; currentCart=[]; lastOrder.items.forEach(i=>currentCart.push({...i})); renderCart(); alert('✅ تم النسخ'); };
+
+        // ================= شاشة المطبخ =================
+        function renderKitchenScreen() { const nw=allOrders.filter(o=>o.status==='جديد'||o.status==='قيد الانتظار'); const c=document.getElementById('kitchenOrdersList'); if(!nw.length){c.innerHTML='<p class="text-green-400 text-center py-10 text-xl">✅ ماكو طلبات</p>';return;} c.innerHTML=nw.map(o=>`<div class="kitchen-order-card rounded-2xl p-5 text-white shadow-xl"><div class="flex justify-between mb-3"><span class="text-3xl font-black gold-text">#${o.orderNumber||o.id.slice(-3)}</span><span class="bg-yellow-500/30 px-3 py-1 rounded-full text-sm">${new Date(o.createdAt.toDate()).toLocaleTimeString('ar-IQ')}</span></div>${o.isDelivery?'<div class="bg-blue-500/30 text-blue-200 px-3 py-1 rounded-full text-sm mb-3"><i class="fas fa-motorcycle"></i> توصيل</div>':''}<div class="space-y-2 text-lg">${o.items.map(i=>`<div>${i.quantity}x ${i.name}</div>`).join('')}</div><div class="mt-4 flex justify-end gap-2">${o.status==='قيد الانتظار'?`<button onclick="updateOrderStatus('${o.id}','تم القبول');renderKitchenScreen();" class="bg-green-600 px-4 py-2 rounded-xl font-black">✅ قبول</button><button onclick="updateOrderStatus('${o.id}','مرفوض');renderKitchenScreen();" class="bg-red-600 px-4 py-2 rounded-xl font-black">❌ رفض</button>`:`<button onclick="updateOrderStatus('${o.id}','جاهز');renderKitchenScreen();" class="gold-gradient px-6 py-2 rounded-xl font-black">✅ جاهز</button>`}</div></div>`).join(''); }
+        window.showKitchenScreen = () => { hideAll(); document.getElementById('kitchenView').classList.remove('hidden'); setActiveTab('btnKitchen'); renderKitchenScreen(); if(kitchenInterval)clearInterval(kitchenInterval); kitchenInterval=setInterval(()=>{loadAllData().then(()=>renderKitchenScreen());},10000); };
+
+        // ================= تحميل البيانات =================
+        async function loadAllData() { try { const cs=await getDocs(collection(db,"categories")); allCategories=cs.docs.map(d=>({id:d.id,...d.data()})); const ps=await getDocs(collection(db,"products")); allProducts=ps.docs.map(d=>({id:d.id,...d.data()})); const os=await getDocs(query(collection(db,"orders"),orderBy("createdAt","desc"))); allOrders=os.docs.map(d=>({id:d.id,...d.data()})); if(allOrders.length) lastOrder=allOrders[0]; if(!document.getElementById('cashierView').classList.contains('hidden')){renderCategoryGrid();renderProductsGrid('الكل');renderCart();} if(!document.getElementById('ordersView').classList.contains('hidden')) renderOrdersView(); if(!document.getElementById('kitchenView').classList.contains('hidden')) renderKitchenScreen(); if(!document.getElementById('reportsView').classList.contains('hidden')) renderReportsView(); if(!document.getElementById('couponsView').classList.contains('hidden')) updateCouponStats(); if(!document.getElementById('adminView').classList.contains('hidden')){loadAdminData(); if(document.getElementById('comboProductSelect'))document.getElementById('comboProductSelect').innerHTML='<option value="">اختر</option>'+allProducts.map(p=>`<option value="${p.id}">${p.name}</option>`).join('');} } catch(e){} }
+
+        function renderCategoryGrid() { const g=document.getElementById('categoryGrid'); let h=`<div onclick="filterProducts('الكل')" class="cat-card bg-gradient-to-br from-yellow-400 to-amber-600 p-2 rounded-2xl text-center font-black cursor-pointer ${selectedCat==='الكل'?'ring-4 ring-yellow-200':''}"><i class="fas fa-star"></i> الكل</div>`; const cl=['from-amber-100 to-orange-200','from-emerald-100 to-green-200','from-sky-100 to-blue-200','from-rose-100 to-pink-200']; allCategories.forEach((c,i)=>{h+=`<div onclick="filterProducts('${c.id}')" class="cat-card bg-gradient-to-br ${cl[i%cl.length]} p-2 rounded-2xl text-center font-black cursor-pointer ${selectedCat===c.id?'ring-4 ring-yellow-400':''}"><i class="fas fa-tag"></i> ${c.name}</div>`;}); g.innerHTML=h; }
+        window.filterProducts = (catId) => { selectedCat=catId; renderCategoryGrid(); renderProductsGrid(catId); };
+        window.searchProducts = () => { const t=document.getElementById('searchInput').value.toLowerCase(); renderProductsGrid('search',allProducts.filter(p=>p.name.toLowerCase().includes(t))); };
+        function renderProductsGrid(catId,list=null) { const g=document.getElementById('productsGrid'); const f=list||(catId==='الكل'?allProducts:allProducts.filter(p=>p.category_id==catId)); if(!f.length){g.innerHTML='<div class="col-span-full text-center py-10 text-gray-400"><p>ماكو مواد</p></div>';return;} g.innerHTML=f.map(p=>`<div onclick="addToCart('${p.id}')" class="product-card bg-white/90 p-3 rounded-2xl shadow-lg"><div class="flex justify-between"><h4 class="font-black">${p.name}</h4><span class="gold-gradient px-2 py-0.5 rounded-xl text-sm font-black">${p.price} د.ع</span></div></div>`).join(''); }
+        window.addToCart = (id) => { let p=allProducts.find(x=>x.id===id); let e=currentCart.find(i=>i.id===id); e?e.quantity++:currentCart.push({id:p.id,name:p.name,price:p.price,quantity:1}); renderCart(); };
+        window.updateQuantity = (id,ch) => { let i=currentCart.find(x=>x.id===id); if(i){i.quantity+=ch; if(i.quantity<=0)currentCart=currentCart.filter(x=>x.id!==id);} renderCart(); };
+
+        function calculateTotal() { let s=currentCart.reduce((s,i)=>s+(i.price*i.quantity),0),d=0; if(currentDiscount.type){d=currentDiscount.type==='percent'?s*(currentDiscount.value/100):currentDiscount.value;} let df=(isDelivery&&document.getElementById('addDeliveryFee')?.checked)?(parseInt(document.getElementById('deliveryFeeAmount')?.value)||0):0; return {subtotal:s,discount:d,deliveryFee:df,total:Math.max(0,s-d+df)}; }
+        function renderCart() { let h=''; currentCart.forEach(i=>{h+=`<div class="flex justify-between bg-white/10 p-3 rounded-2xl"><div><span class="font-bold">${i.name}</span><span class="text-xs">${i.price} د.ع</span></div><div class="flex gap-2"><button onclick="updateQuantity('${i.id}',-1)" class="bg-red-500/80 w-7 h-7 rounded-full">➖</button><span class="w-6 text-center">${i.quantity}</span><button onclick="updateQuantity('${i.id}',1)" class="bg-green-500/80 w-7 h-7 rounded-full">➕</button></div></div>`;}); document.getElementById('cartItems').innerHTML=h||'<p class="text-center text-gray-300 py-5">السلة فارغة</p>'; const {subtotal,discount,deliveryFee,total}=calculateTotal(); document.getElementById('cartTotal').innerText=total.toFixed(2); document.getElementById('cartCount').innerText=currentCart.reduce((s,i)=>s+i.quantity,0); const sm=document.getElementById('cartSummary'); if(discount>0||deliveryFee>0){sm.classList.remove('hidden');document.getElementById('subtotalAmount').innerText=subtotal.toFixed(2);document.getElementById('discountAmount').innerText=discount.toFixed(2);document.getElementById('deliveryFeeAmount').innerText=deliveryFee.toFixed(2);}else{sm.classList.add('hidden');} }
+        window.clearCart = () => { currentCart=[]; currentDiscount={type:null,value:0,code:null}; isDelivery=false; document.getElementById('deliveryInfo').classList.add('hidden'); const b=document.getElementById('deliveryToggleBtn'); b.classList.remove('bg-green-600');b.classList.add('bg-blue-600');b.innerHTML='<i class="fas fa-motorcycle"></i> توصيل'; document.getElementById('couponMessage').innerHTML=''; renderCart(); };
+
+        window.submitOrder = async function() {
+            if(!currentCart.length)return alert('السلة فارغة');
+            const {subtotal,discount,deliveryFee,total}=calculateTotal();
+            const orderNumber=Math.floor(100+Math.random()*900);
+            const cn=document.getElementById('customerName')?.value||'',cp=document.getElementById('customerPhone')?.value||'',ca=document.getElementById('customerAddress')?.value||'';
+            if(isDelivery&&(!cn||!cp||!ca))return alert('أدخل بيانات التوصيل');
+            try {
+                const od={orderNumber,items:currentCart,subtotal,discount,deliveryFee,total,status:'جديد',isDelivery,customerName:isDelivery?cn:null,customerPhone:isDelivery?cp:null,customerAddress:isDelivery?ca:null,couponCode:currentDiscount.code||null,createdAt:new Date()};
+                const ref=await addDoc(collection(db,"orders"),od);
+                if(currentDiscount.id){const c=coupons.find(x=>x.id===currentDiscount.id); await updateDoc(doc(db,"coupons",currentDiscount.id),{usedCount:(c.usedCount||0)+1});}
+                document.getElementById('newOrderSound').play();
+                let msg=`🔥 *طلب #${orderNumber}*\n🆔 ${ref.id.slice(-4)}\n`; if(isDelivery)msg+=`🛵 *توصيل*\n👤${cn}\n📞${cp}\n📍${ca}\n`; msg+=`📋 `; currentCart.forEach(i=>msg+=`${i.quantity}x ${i.name}\n`); if(discount>0)msg+=`\n💚 خصم: ${discount.toFixed(2)}`; if(deliveryFee>0)msg+=`\n🛵 توصيل: ${deliveryFee}`; msg+=`\n💰 *الإجمالي: ${total.toFixed(2)}*`;
+                const url=`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,proxy=`https://corsproxy.io/?${encodeURIComponent(url)}`;
+                await fetch(proxy,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:TELEGRAM_CHAT_ID,text:msg,parse_mode:'Markdown'})});
+                alert(`✅ تم إنشاء الطلب #${orderNumber}`); clearCart(); loadAllData(); loadCoupons();
+            } catch(e) { alert('❌ فشل'); }
+        };
+
+        // ================= شاشة الطلبات =================
+        function renderOrdersView() {
+            const today=new Date().toDateString();
+            const to=allOrders.filter(o=>o.createdAt&&new Date(o.createdAt.toDate()).toDateString()===today);
+            const ao=allOrders.filter(o=>o.status==='جديد'||o.status==='قيد الانتظار'||o.status==='جاهز'||o.status==='جاري الاتصال');
+            const co=allOrders.filter(o=>o.status==='تم التسليم'||o.status==='تم القبول'||o.status==='مرفوض').slice(0,10);
+            document.getElementById('todayOrdersCount').innerText=to.length;
+            document.getElementById('todaySales').innerText=to.reduce((s,o)=>s+o.total,0).toFixed(2);
+            document.getElementById('avgOrder').innerText=to.length?(to.reduce((s,o)=>s+o.total,0)/to.length).toFixed(2):'0';
+            document.getElementById('deliveryOrdersCount').innerText=to.filter(o=>o.isDelivery).length;
+            const ad=document.getElementById('activeOrdersList');
+            if(!ao.length) ad.innerHTML='<p class="text-center text-gray-400 py-5">ماكو طلبات</p>';
+            else ad.innerHTML=ao.map(o=>{
+                const statusClass = o.status==='قيد الانتظار'?'status-pending':o.status==='جديد'?'status-new':o.status==='جاهز'?'status-ready':o.status==='جاري الاتصال'?'status-calling':'status-new';
+                let btns = '';
+                if(o.status==='قيد الانتظار') btns = `<button onclick="updateOrderStatus('${o.id}','تم القبول')" class="bg-green-600 text-white px-3 py-1 rounded-lg text-sm">✅ قبول</button><button onclick="updateOrderStatus('${o.id}','مرفوض')" class="bg-red-600 text-white px-3 py-1 rounded-lg text-sm">❌ رفض</button><button onclick="updateOrderStatus('${o.id}','جاري الاتصال')" class="bg-blue-600 text-white px-3 py-1 rounded-lg text-sm">📞 اتصال</button>`;
+                else if(o.status==='جديد'||o.status==='جاري الاتصال') btns = `<button onclick="updateOrderStatus('${o.id}','جاهز')" class="bg-yellow-500 text-white px-3 py-1 rounded-lg text-sm">✅ جاهز</button>`;
+                else if(o.status==='جاهز') btns = `<button onclick="updateOrderStatus('${o.id}','تم التسليم')" class="bg-green-600 text-white px-3 py-1 rounded-lg text-sm">✔️ تم</button>`;
+                return `<div class="bg-white rounded-2xl p-4 shadow"><div class="flex justify-between"><div><span class="text-2xl font-black gold-text">#${o.orderNumber||o.id.slice(-3)}</span><span class="mr-3 status-badge ${statusClass}">${o.status}</span>${o.isDelivery?'<span class="status-badge status-delivery"><i class="fas fa-motorcycle"></i> توصيل</span>':''}</div><span class="text-sm text-gray-500">${o.createdAt?new Date(o.createdAt.toDate()).toLocaleTimeString('ar-IQ'):''}</span></div>${o.isDelivery?`<div class="mt-2 text-sm text-blue-600">👤${o.customerName} 📞${o.customerPhone}</div>`:''}<div class="mt-2 text-sm">${o.items.map(i=>`${i.quantity}x ${i.name}`).join(' • ')}</div><div class="flex justify-between mt-3"><span class="font-black">${o.total.toFixed(2)} د.ع</span><div class="flex gap-2">${btns}<button onclick="printOrderInvoice('${o.id}')" class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm"><i class="fas fa-print"></i></button></div></div></div>`;
+            }).join('');
+            const cd=document.getElementById('completedOrdersList');
+            if(!co.length) cd.innerHTML='<p class="text-center text-gray-400">ماكو</p>';
+            else cd.innerHTML=co.map(o=>`<div class="bg-gray-50 rounded-xl p-3 flex justify-between"><div><span class="font-black">#${o.orderNumber||o.id.slice(-3)}</span><span class="mr-3 text-xs">${o.status}</span></div><span class="font-black gold-text">${o.total.toFixed(2)} د.ع</span></div>`).join('');
+        }
+
+        window.updateOrderStatus = async (orderId, newStatus) => { await updateDoc(doc(db,"orders",orderId),{status:newStatus}); if(newStatus==='جاهز')document.getElementById('readyOrderSound').play(); loadAllData(); };
+
+        window.printOrderInvoice = (orderId) => { const o=allOrders.find(x=>x.id===orderId); if(!o)return; const w=window.open('','_blank'); w.document.write(`<html dir="rtl"><head><title>فاتورة #${o.orderNumber}</title><style>body{font-family:'Cairo';text-align:center;padding:20px}.h{border-bottom:2px dashed #d97706;padding-bottom:10px;margin-bottom:20px}.i{display:flex;justify-content:space-between;margin:10px 0}.t{border-top:2px dashed #d97706;margin-top:20px;padding-top:20px;font-size:1.5em;font-weight:bold}</style></head><body><div class="h"><h1>🐰 الأرنب الضاحك</h1><p>فاتورة #${o.orderNumber}</p>${o.isDelivery?`<p>👤${o.customerName} 📞${o.customerPhone}</p>`:''}<p>${new Date(o.createdAt.toDate()).toLocaleString('ar-IQ')}</p></div><div>${o.items.map(i=>`<div class="i"><span>${i.quantity}x ${i.name}</span><span>${(i.price*i.quantity).toFixed(2)} د.ع</span></div>`).join('')}</div>${o.discount>0?`<div class="i"><span>خصم</span><span>-${o.discount.toFixed(2)}</span></div>`:''}${o.deliveryFee>0?`<div class="i"><span>توصيل</span><span>${o.deliveryFee}</span></div>`:''}<div class="t"><div class="i"><span>الإجمالي</span><span>${o.total.toFixed(2)} د.ع</span></div></div></body></html>`); w.document.close(); w.print(); };
+
+        function renderReportsView() {
+            document.getElementById('totalSalesAll').innerText=allOrders.reduce((s,o)=>s+o.total,0).toFixed(2);
+            document.getElementById('totalOrdersAll').innerText=allOrders.length;
+            document.getElementById('totalProductsAll').innerText=allProducts.length;
+            document.getElementById('totalCategoriesAll').innerText=allCategories.length;
+            document.getElementById('totalDeliveryOrders').innerText=allOrders.filter(o=>o.isDelivery).length;
+            const ps={}; allOrders.forEach(o=>o.items.forEach(i=>ps[i.name]=(ps[i.name]||0)+i.quantity));
+            const tp=Object.entries(ps).sort((a,b)=>b[1]-a[1]).slice(0,5);
+            if(topProductsChartInstance)topProductsChartInstance.destroy();
+            topProductsChartInstance=new Chart(document.getElementById('topProductsChart'),{type:'doughnut',data:{labels:tp.map(p=>p[0]),datasets:[{data:tp.map(p=>p[1]),backgroundColor:['#fbbf24','#d97706','#f59e0b','#b45309','#eab308']}]}});
+            const l7d=[...Array(7)].map((_,i)=>{const d=new Date();d.setDate(d.getDate()-i);return d.toISOString().split('T')[0];}).reverse();
+            const ds=l7d.map(day=>allOrders.filter(o=>o.createdAt&&new Date(o.createdAt.toDate()).toISOString().split('T')[0]===day).reduce((s,o)=>s+o.total,0));
+            if(weeklySalesChartInstance)weeklySalesChartInstance.destroy();
+            weeklySalesChartInstance=new Chart(document.getElementById('weeklySalesChart'),{type:'line',data:{labels:l7d.map(d=>new Date(d).toLocaleDateString('ar-IQ',{weekday:'short'})),datasets:[{label:'المبيعات',data:ds,borderColor:'#fbbf24',tension:0.4}]}});
+        }
+
+        window.exportToExcel = () => { const d=allOrders.map(o=>({'رقم':o.orderNumber,'تاريخ':o.createdAt?new Date(o.createdAt.toDate()).toLocaleString('ar-IQ'):'','نوع':o.isDelivery?'توصيل':'محلي','زبون':o.customerName||'-','هاتف':o.customerPhone||'-','منتجات':o.items.map(i=>`${i.quantity}x ${i.name}`).join(', '),'إجمالي':o.total,'حالة':o.status})); const ws=XLSX.utils.json_to_sheet(d),wb=XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb,ws,"الطلبات"); XLSX.writeFile(wb,`تقرير_${new Date().toISOString().split('T')[0]}.xlsx`); };
+        window.exportToPDF = async () => { const c=await html2canvas(document.getElementById('reportsView')); const p=new jspdf.jsPDF({orientation:'landscape'}); p.addImage(c.toDataURL('image/png'),'PNG',10,10,280,150); p.save(`تقرير_${new Date().toISOString().split('T')[0]}.pdf`); };
+
+        async function loadAdminData() {
+            document.getElementById('newProdCat').innerHTML=allCategories.map(c=>`<option value="${c.id}">${c.name}</option>`).join('');
+            document.getElementById('adminCatList').innerHTML=allCategories.map(c=>`<li class="flex justify-between bg-white/50 p-2 rounded-xl"><span>📁 ${c.name}</span><button onclick="if(confirm('حذف؟'))deleteCategory('${c.id}')" class="text-red-500">🗑️</button></li>`).join('');
+            const cm=Object.fromEntries(allCategories.map(c=>[c.id,c.name]));
+            document.getElementById('adminProdList').innerHTML=allProducts.map(p=>`<tr><td class="p-2">${p.name}</td><td class="p-2">${cm[p.category_id]||''}</td><td class="p-2">${p.price} د.ع</td><td class="p-2"><button onclick="if(confirm('حذف؟'))deleteProduct('${p.id}')" class="text-red-500">🗑️</button></td></tr>`).join('');
+        }
+
+        window.addCategory = async () => { const n=document.getElementById('newCatName').value; if(n){await addDoc(collection(db,"categories"),{name:n});document.getElementById('newCatName').value='';loadAllData();} };
+        window.deleteCategory = async (id) => { await deleteDoc(doc(db,"categories",id)); loadAllData(); };
+        window.addProduct = async () => { const n=document.getElementById('newProdName').value,p=+document.getElementById('newProdPrice').value,c=document.getElementById('newProdCat').value,d=document.getElementById('newProdDesc').value; if(n&&p&&c){await addDoc(collection(db,"products"),{name:n,price:p,category_id:c,description:d});document.getElementById('newProdName').value='';document.getElementById('newProdPrice').value='';document.getElementById('newProdDesc').value='';loadAllData();} };
+        window.deleteProduct = async (id) => { await deleteDoc(doc(db,"products",id)); loadAllData(); };
+
+        // ================= التنقل =================
+        window.showCashier = () => { hideAll(); document.getElementById('cashierView').classList.remove('hidden'); setActiveTab('btnCashier'); loadAllData(); };
+        window.showOrders = () => { hideAll(); document.getElementById('ordersView').classList.remove('hidden'); setActiveTab('btnOrders'); loadAllData(); };
+        window.showReports = () => { hideAll(); document.getElementById('reportsView').classList.remove('hidden'); setActiveTab('btnReports'); loadAllData(); };
+        window.showCoupons = () => { hideAll(); document.getElementById('couponsView').classList.remove('hidden'); setActiveTab('btnCoupons'); loadCoupons(); };
+        window.showAdmin = () => { hideAll(); document.getElementById('adminView').classList.remove('hidden'); setActiveTab('btnAdmin'); loadAllData(); };
+        function hideAll() { ['cashierView','ordersView','kitchenView','reportsView','couponsView','adminView'].forEach(id=>document.getElementById(id).classList.add('hidden')); if(kitchenInterval){clearInterval(kitchenInterval);kitchenInterval=null;} }
+        function setActiveTab(id) { ['btnCashier','btnOrders','btnKitchen','btnReports','btnCoupons','btnAdmin'].forEach(i=>{const b=document.getElementById(i); if(b){b.classList.remove('tab-active','gold-gradient');b.classList.add('bg-gray-700','text-white');}}); const a=document.getElementById(id); if(a){a.classList.add('tab-active','gold-gradient');a.classList.remove('bg-gray-700','text-white');} }
+        window.addEventListener('firebaseReady', ()=>{});
+    </script>
 </body>
 </html>
