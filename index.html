@@ -2,345 +2,1348 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="الأرنب الضاحك">
-    <meta name="theme-color" content="#1a1a2e">
-    <title>🐰 مأكولات الأرنب الضاحك | الكاشير الذهبي</title>
-    
-    <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ستوديو كورة الناصرية | مساعد التصميم الرياضي الذكي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Cairo:wght@600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-    
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
     <style>
-        * { font-family: 'Cairo', sans-serif; }
-        body { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); background-attachment: fixed; }
-        .glass-card { background: rgba(255,255,255,0.1); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.18); box-shadow: 0 8px 32px rgba(31,38,135,0.37); }
-        .glass-card-light { background: rgba(255,255,255,0.85); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.5); }
-        .cat-card:active, .product-card:active, .combo-card:active { transform: scale(0.96); }
-        .product-card, .combo-card { transition: all 0.2s; border-radius: 24px; cursor: pointer; }
-        .product-card:hover, .combo-card:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.3); }
-        ::-webkit-scrollbar { width: 4px; height: 4px; }
-        ::-webkit-scrollbar-track { background: rgba(255,255,255,0.1); border-radius: 10px; }
-        ::-webkit-scrollbar-thumb { background: #fbbf24; border-radius: 10px; }
-        .gold-gradient { background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%); }
-        .gold-text { background: linear-gradient(135deg, #fbbf24, #f59e0b); -webkit-background-clip: text; background-clip: text; color: transparent; }
-        .tab-active { background: linear-gradient(135deg, #fbbf24, #d97706) !important; color: #1a1a2e !important; font-weight: 900; }
-        .status-badge { padding: 2px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; }
-        .status-pending { background: #fef3c7; color: #92400e; }
-        .status-new { background: #dbeafe; color: #1e40af; }
-        .status-ready { background: #d1fae5; color: #065f46; }
-        .status-done { background: #e0e7ff; color: #3730a3; }
-        .status-rejected { background: #fee2e2; color: #991b1b; }
-        .status-calling { background: #e0e7ff; color: #1e40af; }
-        .login-container { background: rgba(255,255,255,0.05); backdrop-filter: blur(20px); border: 1px solid rgba(255,215,0,0.3); }
-        .kitchen-screen { background: #1a1a2e; min-height: 100vh; }
-        .kitchen-order-card { background: linear-gradient(135deg, #2d2d4e, #1e1e3a); border-left: 5px solid #fbbf24; }
-        .install-prompt { position: fixed; bottom: 20px; left: 20px; right: 20px; background: linear-gradient(135deg, #1a1a2e, #16213e); border: 2px solid #fbbf24; border-radius: 20px; padding: 15px; display: none; z-index: 9999; box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
+        :root {
+            /* نظام ألوان رياضي متطور */
+            --bg-primary: #0a0f1e;
+            --bg-secondary: #111827;
+            --bg-card: #1a2332;
+            --bg-card-hover: #1f2b3d;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --accent-primary: #00d4ff;
+            --accent-secondary: #7c3aed;
+            --accent-tertiary: #f59e0b;
+            --gradient-1: linear-gradient(135deg, #00d4ff 0%, #7c3aed 100%);
+            --gradient-2: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
+            --gradient-3: linear-gradient(135deg, #10b981 0%, #00d4ff 100%);
+            --border-color: #2d3a4f;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
+            --shadow-md: 0 8px 32px rgba(0,0,0,0.4);
+            --shadow-lg: 0 16px 48px rgba(0,0,0,0.5);
+            --shadow-glow: 0 0 40px rgba(0,212,255,0.15);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Tajawal', sans-serif;
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(0,212,255,0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(124,58,237,0.03) 0%, transparent 50%),
+                radial-gradient(circle at 50% 80%, rgba(245,158,11,0.03) 0%, transparent 50%);
+            overflow-x: hidden;
+        }
+
+        /* تأثيرات الجسيمات المتحركة */
+        .particles-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.3;
+        }
+
+        .particle {
+            position: absolute;
+            background: var(--accent-primary);
+            border-radius: 50%;
+            animation: float 20s infinite;
+            opacity: 0;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 0.5; }
+            90% { opacity: 0.5; }
+            100% { transform: translateY(-100vh) scale(1); opacity: 0; }
+        }
+
+        /* شريط التقدم */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: var(--gradient-1);
+            z-index: 1000;
+            transition: width 0.3s;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header متطور */
+        header {
+            background: rgba(26,35,50,0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            padding: 20px 30px;
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 20px;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-1);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: var(--shadow-glow);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(0,212,255,0.3); }
+            50% { box-shadow: 0 0 40px rgba(0,212,255,0.6); }
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-title {
+            font-size: 24px;
+            font-weight: 900;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .logo-subtitle {
+            font-size: 11px;
+            color: var(--accent-primary);
+            letter-spacing: 3px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        /* أزرار متطورة */
+        .btn {
+            padding: 12px 24px;
+            border-radius: var(--radius-md);
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-size: 14px;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-primary {
+            background: var(--gradient-1);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0,212,255,0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,212,255,0.5);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--accent-primary);
+            color: var(--accent-primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent-primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background: var(--gradient-3);
+            color: white;
+            box-shadow: 0 4px 15px rgba(16,185,129,0.3);
+        }
+
+        .btn-warning {
+            background: var(--gradient-2);
+            color: white;
+            box-shadow: 0 4px 15px rgba(245,158,11,0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(0,212,255,0.1);
+            border: 1px solid rgba(0,212,255,0.3);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--accent-primary);
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            animation: slideInDown 0.6s;
+        }
+
+        @keyframes slideInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeIn 0.8s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .hero p {
+            color: var(--text-secondary);
+            font-size: 18px;
+            line-height: 1.8;
+            max-width: 700px;
+            margin: 0 auto;
+            animation: fadeIn 1s;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .stat-item {
+            background: rgba(26,35,50,0.6);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: 900;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Cards متطورة */
+        .card {
+            background: var(--bg-card);
+            border-radius: var(--radius-xl);
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--gradient-1);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+            border-color: rgba(0,212,255,0.3);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .card-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 22px;
+            font-weight: 800;
+        }
+
+        .card-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--gradient-1);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            box-shadow: 0 4px 12px rgba(0,212,255,0.2);
+        }
+
+        .card-badge {
+            background: rgba(245,158,11,0.1);
+            border: 1px solid rgba(245,158,11,0.3);
+            color: var(--accent-tertiary);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        /* Forms متطورة */
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .form-group label {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-group label i {
+            color: var(--accent-primary);
+        }
+
+        textarea, input[type="text"], select {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            font-size: 15px;
+            font-family: 'Tajawal', sans-serif;
+            transition: var(--transition);
+            outline: none;
+            resize: vertical;
+        }
+
+        textarea:focus, input:focus, select:focus {
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 4px rgba(0,212,255,0.1);
+            background: var(--bg-card-hover);
+        }
+
+        textarea {
+            min-height: 130px;
+            line-height: 1.6;
+        }
+
+        select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2300d4ff' d='M6 8L0 2h12z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: left 15px center;
+            padding-left: 40px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        /* Final Prompt Box */
+        .prompt-container {
+            position: relative;
+        }
+
+        .final-prompt-box {
+            background: #0a0a0a;
+            color: #10b981;
+            border-radius: var(--radius-lg);
+            padding: 25px;
+            min-height: 220px;
+            font-family: 'Cairo', 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.8;
+            text-align: left;
+            direction: ltr;
+            border: 2px solid #1a3a2a;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            position: relative;
+            box-shadow: inset 0 0 30px rgba(16,185,129,0.05);
+        }
+
+        .prompt-actions {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .prompt-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+        }
+
+        .prompt-btn:hover {
+            background: rgba(0,212,255,0.2);
+            border-color: var(--accent-primary);
+            transform: scale(1.1);
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-card);
+            border: 1px solid var(--accent-primary);
+            color: var(--text-primary);
+            padding: 15px 30px;
+            border-radius: 50px;
+            box-shadow: var(--shadow-lg);
+            z-index: 2000;
+            animation: slideDown 0.3s, fadeOut 0.3s 2.7s;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateX(-50%) translateY(-100px); opacity: 0; }
+            to { transform: translateX(-50%) translateY(0); opacity: 1; }
+        }
+
+        @keyframes fadeOut {
+            to { opacity: 0; }
+        }
+
+        /* History Section */
+        .history-list {
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 10px;
+        }
+
+        .history-item {
+            background: rgba(0,0,0,0.2);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .history-item:hover {
+            background: rgba(0,212,255,0.05);
+            border-color: var(--accent-primary);
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .tab.active {
+            background: var(--accent-primary);
+            color: white;
+            border-color: var(--accent-primary);
+            box-shadow: 0 4px 12px rgba(0,212,255,0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .grid-2, .grid-3, .grid-4 {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h1 {
+                font-size: 28px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-primary);
+            border-radius: 10px;
+        }
+
+        /* Loading Animation */
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
     </style>
 </head>
-<body class="h-screen flex flex-col p-3">
+<body>
 
-    <!-- PWA Manifest -->
-    <link rel="manifest" id="pwaManifest">
-    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23fbbf24'/%3E%3Cstop offset='100%25' style='stop-color:%23d97706'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='25' fill='url(%23g)'/%3E%3Ctext x='50' y='72' font-size='60' text-anchor='middle' fill='%231a1a2e' font-family='Arial'%3E🐰%3C/text%3E%3C/svg%3E">
+<!-- شريط التقدم -->
+<div class="progress-bar" id="progressBar"></div>
 
-    <script>
-        const manifest = { name: "مأكولات الأرنب الضاحك", short_name: "الأرنب الضاحك", start_url: "/", display: "standalone", orientation: "portrait", theme_color: "#1a1a2e", background_color: "#1a1a2e", icons: [{ src: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23fbbf24'/%3E%3Cstop offset='100%25' style='stop-color:%23d97706'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='25' fill='url(%23g)'/%3E%3Ctext x='50' y='72' font-size='60' text-anchor='middle' fill='%231a1a2e' font-family='Arial'%3E🐰%3C/text%3E%3C/svg%3E", sizes: "512x512", type: "image/svg+xml" }] };
-        document.getElementById('pwaManifest').href = URL.createObjectURL(new Blob([JSON.stringify(manifest)], { type: 'application/json' }));
-        if ('serviceWorker' in navigator) { navigator.serviceWorker.register("data:application/javascript," + encodeURIComponent("self.addEventListener('install',e=>self.skipWaiting());self.addEventListener('activate',e=>clients.claim());self.addEventListener('fetch',e=>e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request))));")); }
-    </script>
+<!-- الجسيمات المتحركة -->
+<div class="particles-container" id="particles"></div>
 
-    <!-- Firebase -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-        import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, updateDoc, query, orderBy, where } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+<!-- Toast Container -->
+<div id="toastContainer"></div>
+
+<div class="container">
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <div class="logo-icon">
+                <i class="fa-solid fa-futbol"></i>
+            </div>
+            <div class="logo-text">
+                <div class="logo-title">ستوديو كورة الناصرية</div>
+                <div class="logo-subtitle">✦ AI SPORTS ENGINE ✦</div>
+            </div>
+        </div>
+        <div style="display: flex; gap: 10px;">
+            <button class="btn btn-secondary" onclick="toggleHistory()">
+                <i class="fa-solid fa-clock-rotate-left"></i> السجل
+            </button>
+            <button class="btn btn-primary" onclick="showTips()">
+                <i class="fa-solid fa-lightbulb"></i> نصائح
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <div class="hero">
+        <div class="hero-badge">
+            <i class="fa-solid fa-bolt"></i> الإصدار 2.0 المطور
+        </div>
+        <h1>حوّل أي بوستر مباراة عالمي إلى ثيم احترافي لبطولتك</h1>
+        <p>استخرج الهندسة البصرية، توزيع الإضاءة، ونوع الخطوط من أي تصميم رياضي احترافي لإنتاج بوستر جديد خاص بمبارياتك بأعلى جودة ودقة.</p>
         
-        const firebaseConfig = {
-            apiKey: "AIzaSy5S-w-4dH0aVyz_6QbyADJpWuSetSNwTPM",
-            authDomain: "ahmed-teach.firebaseapp.com",
-            projectId: "ahmed-teach",
-            storageBucket: "ahmed-teach.firebasestorage.app",
-            messagingSenderId: "446158693601",
-            appId: "1:446158693601:web:b8dfbe780485a1e6d3c3a0"
-        };
-        
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        window.db = db;
-        window.TELEGRAM_BOT_TOKEN = '7945152379:AAFtLazXVvOSYzxdwFkQKkRDf7HzRgzG9_s';
-        window.TELEGRAM_CHAT_ID = '909090929';
-        window.collection = collection; window.addDoc = addDoc; window.getDocs = getDocs;
-        window.deleteDoc = deleteDoc; window.updateDoc = updateDoc; window.doc = doc;
-        window.query = query; window.orderBy = orderBy; window.where = where;
-        
-        console.log("🐰 كاشير الأرنب الضاحك جاهز");
-        window.dispatchEvent(new Event('firebaseReady'));
-    </script>
-
-    <!-- PWA Install -->
-    <script>
-        let deferredPrompt;
-        window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); deferredPrompt = e; setTimeout(() => { if (!window.matchMedia('(display-mode: standalone)').matches) document.getElementById('installPrompt').style.display = 'block'; }, 2000); });
-        window.installPWA = async () => { if (deferredPrompt) { deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt = null; } else { alert(/iPad|iPhone|iPod/.test(navigator.userAgent) ? '📱 مشاركة → إضافة للشاشة' : '📱 ⁝ → تثبيت التطبيق'); } document.getElementById('installPrompt').style.display = 'none'; };
-        window.closeInstallPrompt = () => document.getElementById('installPrompt').style.display = 'none';
-    </script>
-
-    <audio id="newOrderSound" src="https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3" preload="auto"></audio>
-    <audio id="readyOrderSound" src="https://www.soundjay.com/misc/sounds/ding-2.mp3" preload="auto"></audio>
-
-    <!-- زر تثبيت -->
-    <div id="installPrompt" class="install-prompt">
-        <div class="flex items-center justify-between"><div class="flex items-center gap-3"><span class="text-4xl">🐰</span><div><h3 class="text-white font-black text-lg">تثبيت التطبيق</h3><p class="text-gray-300 text-sm">ثبت الكاشير على شاشتك</p></div></div><div class="flex gap-2"><button onclick="installPWA()" class="gold-gradient text-gray-900 px-5 py-2 rounded-xl font-black">تثبيت</button><button onclick="closeInstallPrompt()" class="text-gray-400 hover:text-white px-3 py-2">✕</button></div></div>
-    </div>
-
-    <!-- تسجيل الدخول -->
-    <div id="loginScreen" class="fixed inset-0 flex items-center justify-center z-50" style="background: #1a1a2e;">
-        <div class="login-container w-full max-w-md p-8 rounded-3xl shadow-2xl">
-            <div class="text-center mb-8"><div class="gold-gradient p-4 rounded-2xl inline-block mb-4"><i class="fas fa-rabbit text-4xl text-gray-900"></i></div><h1 class="text-3xl font-black gold-text">مأكولات الأرنب الضاحك</h1><p class="text-gray-400 text-sm">النظام الذهبي 🐰</p></div>
-            <div class="space-y-4"><input type="text" id="loginUsername" placeholder="اسم المستخدم" class="w-full bg-white/10 border border-gray-600 rounded-xl p-3 text-white"><input type="password" id="loginPassword" placeholder="كلمة المرور" class="w-full bg-white/10 border border-gray-600 rounded-xl p-3 text-white"><button onclick="hardcodedLogin()" class="w-full gold-gradient py-3 rounded-xl font-black text-lg">دخول</button></div>
-            <div class="mt-6 text-center text-gray-400 text-xs"><p>admin/123456 | cashier/123456 | kitchen/123456</p></div>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <span class="stat-number" id="promptsCount">0</span>
+                <span class="stat-label">برومبت تم إنشاؤه</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">4K</span>
+                <span class="stat-label">دقة التصميم</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">AI</span>
+                <span class="stat-label">ذكاء اصطناعي متقدم</span>
+            </div>
         </div>
     </div>
 
-    <!-- التطبيق الرئيسي -->
-    <div id="mainApp" class="hidden h-full flex flex-col">
-        <header class="glass-card rounded-3xl p-3 mb-3 flex justify-between items-center text-white shadow-2xl">
-            <div class="flex items-center gap-2"><div class="gold-gradient p-2 rounded-2xl"><i class="fas fa-rabbit text-2xl text-gray-900"></i></div><div><h1 class="text-2xl font-black gold-text">مأكولات الأرنب الضاحك</h1><p class="text-xs text-gray-300" id="userRoleDisplay">نكهة بغداد 🐰</p></div></div>
-            <div class="flex gap-2 flex-wrap justify-end">
-                <button onclick="showCashier()" id="btnCashier" class="px-4 py-2 rounded-xl font-bold tab-active"><i class="fas fa-cash-register ml-1"></i> البيع</button>
-                <button onclick="showOrders()" id="btnOrders" class="px-4 py-2 rounded-xl font-bold bg-gray-700 text-white"><i class="fas fa-clipboard-list ml-1"></i> الطلبات</button>
-                <button onclick="showKitchenScreen()" id="btnKitchen" class="px-4 py-2 rounded-xl font-bold bg-gray-700 text-white"><i class="fas fa-utensils ml-1"></i> المطبخ</button>
-                <button onclick="showReports()" id="btnReports" class="px-4 py-2 rounded-xl font-bold bg-gray-700 text-white admin-only"><i class="fas fa-chart-bar ml-1"></i> التقارير</button>
-                <button onclick="showCoupons()" id="btnCoupons" class="px-4 py-2 rounded-xl font-bold bg-gray-700 text-white admin-only"><i class="fas fa-ticket-alt ml-1"></i> الكوبونات</button>
-                <button onclick="showAdmin()" id="btnAdmin" class="px-4 py-2 rounded-xl font-bold bg-gray-700 text-white admin-only"><i class="fas fa-cog ml-1"></i> الإدارة</button>
-                <button onclick="manualBackup()" class="px-4 py-2 rounded-xl font-bold bg-green-600/50 text-white admin-only"><i class="fas fa-download ml-1"></i> نسخ</button>
-                <button onclick="logout()" class="px-4 py-2 rounded-xl font-bold bg-red-600/50 text-white"><i class="fas fa-sign-out-alt"></i></button>
-            </div>
-        </header>
-        <!-- واجهة الكاشير -->
-        <main id="cashierView" class="flex-1 flex flex-col md:flex-row gap-3 overflow-hidden">
-            <div class="flex-[3] flex flex-col gap-3 overflow-hidden">
-                <div class="glass-card-light rounded-3xl p-4">
-                    <div class="flex gap-2 mb-3 flex-wrap">
-                        <button onclick="repeatLastOrder()" class="bg-purple-600 text-white px-4 py-2 rounded-xl font-bold text-sm"><i class="fas fa-copy"></i> نسخ آخر طلب</button>
-                        <button onclick="showCombos()" class="gold-gradient text-gray-900 px-4 py-2 rounded-xl font-bold text-sm"><i class="fas fa-gift"></i> الوجبات المجمعة</button>
-                        <button onclick="toggleDelivery()" id="deliveryToggleBtn" class="bg-blue-600 text-white px-4 py-2 rounded-xl font-bold text-sm"><i class="fas fa-motorcycle"></i> توصيل</button>
-                    </div>
-                    <div id="deliveryInfo" class="hidden grid grid-cols-1 md:grid-cols-3 gap-2 mb-3 p-3 bg-blue-50 rounded-xl">
-                        <input type="text" id="customerName" placeholder="اسم الزبون" class="bg-white rounded-lg p-2 text-sm">
-                        <input type="tel" id="customerPhone" placeholder="رقم الهاتف" class="bg-white rounded-lg p-2 text-sm">
-                        <input type="text" id="customerAddress" placeholder="العنوان" class="bg-white rounded-lg p-2 text-sm">
-                        <div class="col-span-full flex items-center gap-3">
-                            <label class="flex items-center gap-2"><input type="checkbox" id="addDeliveryFee" onchange="toggleDeliveryFeeInput()"> إضافة أجور توصيل</label>
-                            <input type="number" id="deliveryFeeAmount" value="2000" min="0" step="500" class="w-24 bg-white rounded-lg p-2 text-sm hidden" placeholder="المبلغ">
-                            <span class="text-xs text-gray-500">د.ع</span>
-                        </div>
-                    </div>
-                    <div id="couponPanel" class="mb-3"><div class="flex gap-2"><input type="text" id="couponCode" placeholder="كود الخصم" class="flex-1 bg-white rounded-lg p-2 text-sm"><button onclick="applyCoupon()" class="bg-green-600 text-white px-4 py-2 rounded-lg text-sm">تطبيق</button></div><p id="couponMessage" class="text-xs mt-1"></p></div>
-                    <div id="combosPanel" class="hidden grid grid-cols-2 md:grid-cols-3 gap-2 mb-3"></div>
-                    <div class="relative"><i class="fas fa-search absolute right-4 top-1/2 -translate-y-1/2 text-gray-400"></i><input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="شنو تريد تدور؟" class="w-full bg-white/80 rounded-2xl py-3 pr-12 pl-4 shadow-inner"></div>
-                    <h3 class="font-bold text-gray-700 mt-3 mb-2"><i class="fas fa-layer-group ml-2 text-yellow-600"></i> الأصناف</h3>
-                    <div id="categoryGrid" class="grid grid-cols-3 md:grid-cols-5 gap-2"></div>
+    <!-- القسم 1: التحليل -->
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">
+                <div class="card-icon">
+                    <i class="fa-solid fa-microscope"></i>
                 </div>
-                <div class="glass-card-light rounded-3xl p-4 flex-1 overflow-hidden flex flex-col">
-                    <h3 class="font-bold text-gray-700 mb-2"><i class="fas fa-utensils ml-2 text-yellow-600"></i> قائمة المأكولات</h3>
-                    <div id="productsGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 overflow-y-auto pr-1 pb-2"></div>
+                تحليل التصميم المرجعي
+            </div>
+            <div class="card-badge">
+                <i class="fa-solid fa-star"></i> خطوة 1
+            </div>
+        </div>
+        
+        <div class="tabs">
+            <div class="tab active" onclick="switchTab('manual')">إدخال يدوي</div>
+            <div class="tab" onclick="switchTab('template')">قوالب جاهزة</div>
+            <div class="tab" onclick="switchTab('history')">آخر التحليلات</div>
+        </div>
+
+        <div id="manualTab">
+            <textarea id="aiAnalysis" placeholder="الصق هنا نتيجة تحليل الذكاء الاصطناعي (ChatGPT) للبوستر الذي أعجبك...&#10;&#10;يمكنك استخدام الزر أدناه للحصول على برومبت تحليل قوي جاهز للنسخ."></textarea>
+            <div style="margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap;">
+                <button class="btn btn-warning" onclick="copyAnalysisPrompt()">
+                    <i class="fa-solid fa-copy"></i> نسخ برومبت التحليل المتقدم
+                </button>
+                <button class="btn btn-secondary" onclick="clearAnalysis()">
+                    <i class="fa-solid fa-eraser"></i> مسح
+                </button>
+            </div>
+        </div>
+
+        <div id="templateTab" style="display: none;">
+            <div class="grid-2">
+                <div class="form-group">
+                    <label>اختر قالب تحليل جاهز</label>
+                    <select id="templateSelect" onchange="loadTemplate()">
+                        <option value="">-- اختر قالباً --</option>
+                        <option value="modern">تصميم عصري حديث</option>
+                        <option value="classic">تصميم كلاسيكي</option>
+                        <option value="grunge">تصميم جرونج قوي</option>
+                        <option value="neon">تصميم نيون ليلي</option>
+                    </select>
                 </div>
             </div>
-            <div class="flex-1 glass-card rounded-3xl p-4 text-white flex flex-col shadow-2xl border-2 border-yellow-600/30">
-                <div class="flex justify-between items-center border-b border-white/20 pb-3"><h2 class="text-xl font-black"><i class="fas fa-shopping-basket ml-2 text-yellow-400"></i> سلة الزبون</h2><span class="bg-yellow-500/20 px-3 py-1 rounded-full text-sm"><span id="cartCount">0</span> مواد</span></div>
-                <div id="cartItems" class="flex-1 overflow-y-auto my-3 space-y-2"></div>
-                <div id="cartSummary" class="text-sm space-y-1 border-t border-white/20 pt-2 mb-2 hidden"><div class="flex justify-between"><span>المجموع الفرعي:</span><span id="subtotalAmount">0</span> د.ع</div><div class="flex justify-between text-green-400"><span>الخصم:</span><span id="discountAmount">0</span> د.ع</div><div class="flex justify-between text-blue-400"><span>التوصيل:</span><span id="deliveryFeeAmount">0</span> د.ع</div></div>
-                <div class="border-t border-white/20 pt-3 space-y-3"><div class="flex justify-between items-center text-xl font-black"><span>المجموع النهائي</span><span class="gold-text text-3xl"><span id="cartTotal">0</span> <small class="text-sm text-gray-300">د.ع</small></span></div><div class="grid grid-cols-2 gap-2"><button onclick="submitOrder()" class="gold-gradient text-gray-900 py-3 rounded-xl font-black text-lg"><i class="fas fa-paper-plane ml-1"></i> دز الطلب</button><button onclick="clearCart()" class="bg-red-600/80 text-white py-3 rounded-xl font-bold"><i class="fas fa-trash-alt ml-1"></i> مسح</button></div></div>
-            </div>
-        </main>
+        </div>
 
-        <!-- شاشة الطلبات -->
-        <main id="ordersView" class="flex-1 overflow-y-auto hidden"><div class="max-w-7xl mx-auto space-y-4"><div class="grid grid-cols-4 gap-3"><div class="glass-card-light rounded-2xl p-4"><p class="text-gray-500">طلبات اليوم</p><p class="text-3xl font-black" id="todayOrdersCount">0</p></div><div class="glass-card-light rounded-2xl p-4"><p class="text-gray-500">إجمالي المبيعات</p><p class="text-3xl font-black gold-text"><span id="todaySales">0</span> د.ع</p></div><div class="glass-card-light rounded-2xl p-4"><p class="text-gray-500">متوسط الطلب</p><p class="text-3xl font-black"><span id="avgOrder">0</span> د.ع</p></div><div class="glass-card-light rounded-2xl p-4"><p class="text-gray-500">طلبات التوصيل</p><p class="text-3xl font-black text-blue-600" id="deliveryOrdersCount">0</p></div></div><div class="glass-card-light rounded-3xl p-5"><h3 class="text-xl font-black mb-4"><i class="fas fa-clock ml-2 text-yellow-600"></i> الطلبات المعلقة</h3><div id="activeOrdersList" class="space-y-3 max-h-96 overflow-y-auto"></div></div><div class="glass-card-light rounded-3xl p-5"><h3 class="text-xl font-black mb-4"><i class="fas fa-check-circle ml-2 text-green-600"></i> آخر الطلبات المنجزة</h3><div id="completedOrdersList" class="space-y-2"></div></div></div></main>
-
-        <!-- شاشة المطبخ -->
-        <main id="kitchenView" class="flex-1 overflow-y-auto hidden"><div class="kitchen-screen rounded-3xl p-6"><h2 class="text-3xl font-black gold-text mb-6 text-center">👨‍🍳 شاشة المطبخ</h2><div id="kitchenOrdersList" class="grid grid-cols-1 lg:grid-cols-2 gap-4"></div><div class="text-center mt-6 text-gray-400 text-sm"><i class="fas fa-sync-alt fa-spin ml-1"></i> تحديث كل 10 ثواني</div></div></main>
-
-        <!-- شاشة الكوبونات -->
-        <main id="couponsView" class="flex-1 overflow-y-auto hidden"><div class="max-w-4xl mx-auto space-y-4"><div class="glass-card-light rounded-3xl p-5"><h3 class="text-xl font-black mb-4"><i class="fas fa-ticket-alt ml-2 text-purple-600"></i> إدارة الكوبونات</h3><div class="grid grid-cols-1 md:grid-cols-4 gap-3 mb-4"><input type="text" id="newCouponCode" placeholder="كود الكوبون" class="bg-white/70 rounded-xl p-3"><select id="newCouponType" class="bg-white/70 rounded-xl p-3"><option value="percent">نسبة %</option><option value="fixed">مبلغ ثابت</option></select><input type="number" id="newCouponValue" placeholder="قيمة الخصم" class="bg-white/70 rounded-xl p-3"><button onclick="createCoupon()" class="bg-purple-600 text-white py-3 rounded-xl font-black">إنشاء</button></div><div class="grid grid-cols-1 md:grid-cols-2 gap-2 mb-4"><input type="date" id="couponExpiry" class="bg-white/70 rounded-xl p-3"><input type="number" id="couponMaxUses" placeholder="الحد الأقصى" class="bg-white/70 rounded-xl p-3"></div><div id="couponsList" class="space-y-2"></div></div><div class="glass-card-light rounded-3xl p-5"><h3 class="text-xl font-black mb-4">📊 إحصائيات</h3><div class="grid grid-cols-3 gap-3"><div class="bg-white/50 rounded-xl p-3"><p class="text-gray-500">الكوبونات</p><p class="text-2xl font-black" id="totalCoupons">0</p></div><div class="bg-white/50 rounded-xl p-3"><p class="text-gray-500">الاستخدام</p><p class="text-2xl font-black" id="totalCouponUses">0</p></div><div class="bg-white/50 rounded-xl p-3"><p class="text-gray-500">الخصومات</p><p class="text-2xl font-black"><span id="totalDiscounts">0</span> د.ع</p></div></div></div></div></main>
-
-        <!-- شاشة التقارير -->
-        <main id="reportsView" class="flex-1 overflow-y-auto hidden"><div class="max-w-7xl mx-auto space-y-4"><div class="flex gap-3 justify-end"><button onclick="exportToExcel()" class="bg-green-600 text-white px-6 py-3 rounded-xl font-bold"><i class="fas fa-file-excel ml-2"></i> Excel</button><button onclick="exportToPDF()" class="bg-red-600 text-white px-6 py-3 rounded-xl font-bold"><i class="fas fa-file-pdf ml-2"></i> PDF</button></div><div class="grid grid-cols-5 gap-3"><div class="glass-card-light rounded-2xl p-4"><p>المبيعات</p><p class="text-2xl font-black"><span id="totalSalesAll">0</span> د.ع</p></div><div class="glass-card-light rounded-2xl p-4"><p>الطلبات</p><p class="text-2xl" id="totalOrdersAll">0</p></div><div class="glass-card-light rounded-2xl p-4"><p>المنتجات</p><p class="text-2xl" id="totalProductsAll">0</p></div><div class="glass-card-light rounded-2xl p-4"><p>الأصناف</p><p class="text-2xl" id="totalCategoriesAll">0</p></div><div class="glass-card-light rounded-2xl p-4"><p>التوصيل</p><p class="text-2xl text-blue-600" id="totalDeliveryOrders">0</p></div></div><div class="grid grid-cols-1 lg:grid-cols-2 gap-4"><div class="glass-card-light rounded-3xl p-5"><h3 class="font-black mb-4">📊 الأكثر مبيعاً</h3><canvas id="topProductsChart" height="200"></canvas></div><div class="glass-card-light rounded-3xl p-5"><h3 class="font-black mb-4">📈 مبيعات 7 أيام</h3><canvas id="weeklySalesChart" height="200"></canvas></div></div></div></main>
-
-        <!-- لوحة الإدارة -->
-        <main id="adminView" class="flex-1 overflow-y-auto hidden"><div class="max-w-7xl mx-auto space-y-4"><div class="glass-card-light rounded-3xl p-5"><h3 class="text-xl font-black mb-4"><i class="fas fa-gift ml-2 text-purple-600"></i> الوجبات المجمعة</h3><div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3"><input type="text" id="comboName" placeholder="اسم الوجبة" class="bg-white/70 rounded-xl p-3"><input type="number" id="comboPrice" placeholder="السعر" class="bg-white/70 rounded-xl p-3"></div><div class="bg-white/50 rounded-xl p-3 mb-3"><h4 class="font-bold mb-2">المواد مع الكميات</h4><div id="comboProductsList" class="space-y-2 max-h-60 overflow-y-auto"></div><div class="flex gap-2 mt-3"><select id="comboProductSelect" class="flex-1 bg-white rounded-xl p-2"><option value="">اختر مادة</option></select><input type="number" id="comboProductQty" value="1" min="1" max="20" class="w-20 bg-white rounded-xl p-2 text-center"><button onclick="addProductToCombo()" class="gold-gradient px-4 rounded-xl font-bold"><i class="fas fa-plus"></i></button></div></div><button onclick="saveCombo()" class="w-full bg-purple-600 text-white py-3 rounded-xl font-black">💾 حفظ</button><div id="combosList" class="mt-4 space-y-2"></div></div><div class="glass-card-light rounded-3xl p-5"><h3 class="text-xl font-black mb-4"><i class="fas fa-folder-plus ml-2 text-yellow-600"></i> إضافة صنف</h3><div class="flex gap-2"><input type="text" id="newCatName" placeholder="اسم الصنف" class="flex-1 bg-white/70 rounded-xl p-3"><button onclick="addCategory()" class="gold-gradient px-6 rounded-xl font-bold"><i class="fas fa-plus"></i></button></div><ul id="adminCatList" class="mt-4 space-y-2 max-h-60 overflow-y-auto"></ul></div><div class="glass-card-light rounded-3xl p-5"><h3 class="text-xl font-black mb-4"><i class="fas fa-plus-circle ml-2 text-green-600"></i> إضافة مادة</h3><div class="grid grid-cols-1 md:grid-cols-4 gap-3"><input type="text" id="newProdName" placeholder="اسم المادة" class="bg-white/70 rounded-xl p-3"><input type="number" id="newProdPrice" placeholder="السعر" class="bg-white/70 rounded-xl p-3"><select id="newProdCat" class="bg-white/70 rounded-xl p-3"></select><button onclick="addProduct()" class="bg-green-600 text-white py-3 rounded-xl font-black">إضافة</button></div><input type="text" id="newProdDesc" placeholder="وصف" class="w-full bg-white/70 rounded-xl p-3 mt-3"><div class="mt-6"><h4 class="font-bold mb-2">📋 المواد</h4><table class="w-full"><thead><tr><th>المادة</th><th>الصنف</th><th>السعر</th><th></th></tr></thead><tbody id="adminProdList"></tbody></table></div></div></div></main>
+        <div id="historyTab" style="display: none;">
+            <div class="history-list" id="analysisHistory"></div>
+        </div>
     </div>
-    <script>
-        let currentCart = [], allProducts = [], allCategories = [], allOrders = [], selectedCat = 'الكل';
-        let userRole = 'admin';
-        let topProductsChartInstance = null, weeklySalesChartInstance = null;
-        let lastOrder = null;
-        let combos = [], coupons = [];
-        let kitchenInterval = null;
-        let isDelivery = false;
-        let currentDiscount = { type: null, value: 0, code: null };
-        let tempComboProducts = [];
 
-        // ================= نسخ احتياطي =================
-        function scheduleAutoBackup() { const n = new Date(); n.setHours(24,0,0,0); setTimeout(() => { performBackup(); setInterval(performBackup, 86400000); }, n - new Date()); }
-        async function performBackup() { try { const b = { t: new Date().toISOString(), c: allCategories, p: allProducts, o: allOrders, cb: combos, cp: coupons }; const bs = JSON.parse(localStorage.getItem('arnob_b')||'[]'); bs.push(b); if(bs.length>7)bs.shift(); localStorage.setItem('arnob_b', JSON.stringify(bs)); const bl = new Blob([JSON.stringify(b)],{type:'application/json'}); const a = document.createElement('a'); a.href = URL.createObjectURL(bl); a.download = `arnob_${new Date().toISOString().split('T')[0]}.json`; a.click(); } catch(e){} }
-        window.manualBackup = () => { performBackup(); alert('✅ تم النسخ الاحتياطي'); };
+    <!-- القسم 2: البيانات -->
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">
+                <div class="card-icon">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </div>
+                بيانات المباراة والبطولة
+            </div>
+            <div class="card-badge">
+                <i class="fa-solid fa-star"></i> خطوة 2
+            </div>
+        </div>
+        
+        <div class="grid-2">
+            <div class="form-group">
+                <label><i class="fa-solid fa-trophy"></i> اسم البطولة</label>
+                <input type="text" id="tournamentName" placeholder="مثال: كأس شهداء المنصورية" value="كأس شهداء المنصورية">
+            </div>
+            <div class="form-group">
+                <label><i class="fa-solid fa-futbol"></i> نوع المباراة</label>
+                <input type="text" id="matchType" placeholder="مثال: المباراة الافتتاحية" value="المباراة الافتتاحية">
+            </div>
+        </div>
 
-        // ================= تسجيل الدخول =================
-        window.hardcodedLogin = () => {
-            const u = document.getElementById('loginUsername').value.trim().toLowerCase(), p = document.getElementById('loginPassword').value.trim();
-            if(!u||!p){alert('❌ أدخل المستخدم وكلمة المرور');return;}
-            const users = {admin:{p:'123456',r:'admin'},cashier:{p:'123456',r:'cashier'},kitchen:{p:'123456',r:'kitchen'}};
-            if(users[u]&&users[u].p===p) userRole = users[u].r;
-            else {alert('❌ خطأ');return;}
-            document.getElementById('loginScreen').classList.add('hidden');
-            document.getElementById('mainApp').classList.remove('hidden');
-            document.getElementById('userRoleDisplay').innerText = {admin:'مدير',cashier:'كاشير',kitchen:'طباخ'}[userRole]+' 🐰';
-            if(userRole!=='admin') document.querySelectorAll('.admin-only').forEach(e=>e.classList.add('hidden'));
-            loadAllData(); loadCombos(); loadCoupons(); scheduleAutoBackup();
-            if(userRole==='kitchen') showKitchenScreen();
+        <div class="grid-2">
+            <div class="form-group">
+                <label><i class="fa-solid fa-shield-halved"></i> الفريق الأول (المستضيف)</label>
+                <input type="text" id="team1" placeholder="مثال: تحدي المنصورية" value="تحدي المنصورية">
+            </div>
+            <div class="form-group">
+                <label><i class="fa-solid fa-shield"></i> الفريق الثاني (الضيف)</label>
+                <input type="text" id="team2" placeholder="مثال: الكاظمية" value="الكاظمية">
+            </div>
+        </div>
+
+        <div class="grid-3">
+            <div class="form-group">
+                <label><i class="fa-solid fa-clock"></i> الوقت</label>
+                <input type="text" id="matchTime" placeholder="مثال: 10:00 PM" value="10:00 PM">
+            </div>
+            <div class="form-group">
+                <label><i class="fa-solid fa-calendar-days"></i> التاريخ</label>
+                <input type="text" id="matchDate" placeholder="مثال: الجمعة 22 مايو" value="الجمعة 22 مايو">
+            </div>
+            <div class="form-group">
+                <label><i class="fa-solid fa-location-dot"></i> الملعب / المكان</label>
+                <input type="text" id="matchLocation" placeholder="مثال: ملعب المنصورية الخماسي" value="ملعب المنصورية الخماسي">
+            </div>
+        </div>
+
+        <div class="grid-2">
+            <div class="form-group">
+                <label><i class="fa-solid fa-expand"></i> مقاس التصميم</label>
+                <select id="size">
+                    <option value="--ar 4:5">بوست إنستغرام (4:5)</option>
+                    <option value="--ar 1:1">مربع إنستغرام (1:1)</option>
+                    <option value="--ar 16:9">غلاف فيسبوك (16:9)</option>
+                    <option value="--ar 9:16">ستوري (9:16)</option>
+                    <option value="--ar 2:3">بوستر طباعة (2:3)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label><i class="fa-solid fa-user"></i> اللاعبون أو العناصر البارزة</label>
+                <input type="text" id="players" placeholder="مثال: لاعب يرتدي تيشيرت أزرق رقم 20">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label><i class="fa-solid fa-palette"></i> نمط التصميم المفضل</label>
+            <select id="style">
+                <option value="hyper-realistic">واقعي فائق (Hyper-Realistic)</option>
+                <option value="cinematic">سينمائي (Cinematic)</option>
+                <option value="artistic">فني تجريدي (Artistic)</option>
+                <option value="minimalist">بسيط وأنيق (Minimalist)</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- القسم 3: النتيجة -->
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">
+                <div class="card-icon">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                </div>
+                البرومبت النهائي
+            </div>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <button class="btn btn-secondary" onclick="previewPrompt()">
+                    <i class="fa-solid fa-eye"></i> معاينة
+                </button>
+                <button class="btn btn-primary" onclick="generatePrompt()">
+                    <i class="fa-solid fa-gears"></i> إنشاء البرومبت
+                </button>
+            </div>
+        </div>
+        
+        <div class="prompt-container">
+            <div id="finalPromptResult" class="final-prompt-box">
+                <span style="color: #64748b;">⚡ جاهز للإنشاء... اضغط على زر "إنشاء البرومبت" للبدء</span>
+            </div>
+            <div class="prompt-actions">
+                <button class="prompt-btn" onclick="copyFinalPrompt()" title="نسخ">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+                <button class="prompt-btn" onclick="downloadPrompt()" title="تحميل">
+                    <i class="fa-solid fa-download"></i>
+                </button>
+                <button class="prompt-btn" onclick="sharePrompt()" title="مشاركة">
+                    <i class="fa-solid fa-share-nodes"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div style="margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap;">
+            <button class="btn btn-success" onclick="saveToHistory()">
+                <i class="fa-solid fa-floppy-disk"></i> حفظ في السجل
+            </button>
+            <button class="btn btn-secondary" onclick="clearPrompt()">
+                <i class="fa-solid fa-trash-can"></i> مسح النتيجة
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ============ المتغيرات العامة ============
+    let promptsHistory = JSON.parse(localStorage.getItem('promptsHistory') || '[]');
+    let analysisHistory = JSON.parse(localStorage.getItem('analysisHistory') || '[]');
+    let currentPrompt = '';
+
+    // ============ برومبت التحليل المتقدم ============
+    const analysisPromptText = `Act as an elite Sports Art Director and Graphic Designer with 20+ years of experience. Analyze the attached sports/matchday poster with EXTREME precision.
+
+CRITICAL INSTRUCTIONS - DO NOT SUMMARIZE:
+1. TYPOGRAPHY ANALYSIS (HIGHEST PRIORITY):
+   - Exact font classifications (bold athletic, sleek modern sans-serif, metallic 3D, grunge, condensed, extended)
+   - Font weights, spacing, and hierarchy
+   - Text placement coordinates (title position, subtitle, time, location)
+   - Text effects (gradients, shadows, outlines, glow, 3D extrusion)
+   - How text interacts with background elements
+
+2. COLOR PALETTE & LIGHTING:
+   - Primary, secondary, and accent colors (HEX codes if possible)
+   - Lighting setup (key light direction, rim lights, ambient, dramatic shadows)
+   - Color grading style (teal-orange, moody, vibrant, desaturated)
+   - Special effects (lens flares, particle effects, smoke, fog)
+
+3. COMPOSITION & LAYOUT:
+   - Subject placement and scale
+   - Background layers and depth
+   - Texture details (stadium, abstract geometric, grunge, clean)
+   - Visual flow and focal points
+   - Negative space usage
+
+4. RENDERING STYLE:
+   - 3D render style, photography style, or illustration style
+   - Post-processing effects (motion blur, depth of field, chromatic aberration)
+   - Overall atmosphere and mood
+
+OUTPUT ONLY THE VISUAL DNA RULES. Replace all specific names, dates, and logos with [PLACEHOLDER].`;
+
+    // ============ القوالب الجاهزة ============
+    const templates = {
+        modern: `TYPOGRAPHY: Bold modern sans-serif fonts (similar to Montserrat Black for headers, Roboto for body text). Large title text at top center with 3D extrusion effect. Clean white text with subtle drop shadow. Time/location in smaller uppercase text at bottom center with tracking. 
+COLOR PALETTE: Deep navy blue (#0a1628) background, neon cyan (#00d4ff) accents, white (#ffffff) text, subtle gold (#f0c040) highlights. 
+LIGHTING: Dramatic rim lighting from top-right, soft ambient fill, lens flare effects near subject. 
+COMPOSITION: Central player portrait taking 60% of frame, stadium crowd blurred in background, geometric hexagonal overlay pattern. Floating particles for depth.`,
+        
+        classic: `TYPOGRAPHY: Traditional serif fonts for tournament name (similar to Times New Roman Bold Condensed). Team names in athletic block fonts with outline stroke. Gold metallic text effect on main title. Date in elegant script font at bottom.
+COLOR PALETTE: Rich burgundy (#8b0000) and gold (#ffd700) primary scheme. Cream (#f5f5dc) background accents. Dark green (#0a3d0a) for grass references.
+LIGHTING: Classic three-point studio lighting on subjects. Warm golden hour backlight. Soft shadows.
+COMPOSITION: Two players facing each other in 50/50 split. Ornate border frame. Vintage football emblem style. Trophy illustration centered above players.`,
+        
+        grunge: `TYPOGRAPHY: Aggressive distressed fonts (similar to Impact with grunge overlay). Spray paint stencil style for VS text. Rough edges and texture on all text elements. Red and black color scheme with white outlines.
+COLOR PALETTE: Dark charcoal (#1a1a1a) background, blood red (#cc0000) accents, concrete gray (#808080) textures. High contrast black and white elements.
+LIGHTING: Harsh dramatic lighting from single source. Strong shadows. Dust and particle effects. Smoke overlays.
+COMPOSITION: Action shot of player with motion blur. Concrete wall texture background. Torn paper edges. Graffiti-style decorative elements. Street football aesthetic.`,
+        
+        neon: `TYPOGRAPHY: Futuristic neon tube fonts. Glowing cyan (#00ffff) and magenta (#ff00ff) text effects. Electric blue outlines. Digital display style for time/date. Glitch effects on secondary text.
+COLOR PALETTE: Deep black (#000000) background, neon cyan (#00ffff), electric magenta (#ff00ff), acid green (#39ff14). Dark purple (#1a0033) ambient.
+LIGHTING: Neon sign glow effects. Cyberpunk rim lighting. Light reflections on wet surface. Particle sparkles.
+COMPOSITION: Player silhouette with neon outline. Cyberpunk city background. Holographic overlays. Digital grid floor. Futuristic sports arena atmosphere.`
+    };
+
+    // ============ تهيئة الصفحة ============
+    window.addEventListener('load', () => {
+        createParticles();
+        updateStats();
+        loadAnalysisHistory();
+        updateProgressBar();
+    });
+
+    // تحديث شريط التقدم
+    window.addEventListener('scroll', updateProgressBar);
+    function updateProgressBar() {
+        const scrollTop = document.documentElement.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = (scrollTop / scrollHeight) * 100;
+        document.getElementById('progressBar').style.width = progress + '%';
+    }
+
+    // إنشاء الجسيمات
+    function createParticles() {
+        const container = document.getElementById('particles');
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.width = Math.random() * 3 + 1 + 'px';
+            particle.style.height = particle.style.width;
+            particle.style.animationDelay = Math.random() * 20 + 's';
+            particle.style.animationDuration = Math.random() * 10 + 15 + 's';
+            container.appendChild(particle);
+        }
+    }
+
+    // نظام الإشعارات
+    function showToast(message, type = 'success') {
+        const container = document.getElementById('toastContainer');
+        const toast = document.createElement('div');
+        toast.className = 'toast';
+        const icons = {
+            success: '✅',
+            error: '❌',
+            info: 'ℹ️',
+            warning: '⚠️'
         };
-        window.logout = () => { if(kitchenInterval)clearInterval(kitchenInterval); location.reload(); };
+        toast.innerHTML = `${icons[type]} ${message}`;
+        container.appendChild(toast);
+        setTimeout(() => toast.remove(), 3000);
+    }
 
-        // ================= التوصيل =================
-        window.toggleDelivery = () => { isDelivery=!isDelivery; const i=document.getElementById('deliveryInfo'),b=document.getElementById('deliveryToggleBtn'); if(isDelivery){i.classList.remove('hidden');b.classList.remove('bg-blue-600');b.classList.add('bg-green-600');b.innerHTML='<i class="fas fa-check"></i> توصيل مفعل';}else{i.classList.add('hidden');b.classList.remove('bg-green-600');b.classList.add('bg-blue-600');b.innerHTML='<i class="fas fa-motorcycle"></i> توصيل';} renderCart(); };
-        window.toggleDeliveryFeeInput = () => { document.getElementById('deliveryFeeAmount').classList.toggle('hidden', !document.getElementById('addDeliveryFee').checked); renderCart(); };
+    // نسخ برومبت التحليل
+    function copyAnalysisPrompt() {
+        navigator.clipboard.writeText(analysisPromptText).then(() => {
+            showToast('تم نسخ برومبت التحليل! اذهب إلى ChatGPT وارفع الصورة المرجعية ثم الصق النص', 'success');
+            // حفظ في سجل التحليلات
+            if (!analysisHistory.includes('custom')) {
+                analysisHistory.unshift({ type: 'custom', timestamp: new Date().toISOString() });
+                localStorage.setItem('analysisHistory', JSON.stringify(analysisHistory.slice(0, 20)));
+                loadAnalysisHistory();
+            }
+        }).catch(() => {
+            showToast('فشل النسخ. يرجى المحاولة يدوياً', 'error');
+        });
+    }
 
-        // ================= الكوبونات =================
-        async function loadCoupons() { const s = await getDocs(collection(db,"coupons")); coupons = s.docs.map(d=>({id:d.id,...d.data()})); renderCouponsList(); updateCouponStats(); }
-        window.createCoupon = async () => { const c=document.getElementById('newCouponCode').value.toUpperCase(),t=document.getElementById('newCouponType').value,v=parseFloat(document.getElementById('newCouponValue').value),ex=document.getElementById('couponExpiry').value,mx=parseInt(document.getElementById('couponMaxUses').value)||null; if(!c||!v)return alert('أدخل الكود والقيمة'); await addDoc(collection(db,"coupons"),{code:c,type:t,value:v,expiry:ex,maxUses:mx,usedCount:0,active:true}); document.getElementById('newCouponCode').value='';document.getElementById('newCouponValue').value=''; loadCoupons(); };
-        window.applyCoupon = () => { const c=document.getElementById('couponCode').value.toUpperCase(),cp=coupons.find(x=>x.code===c&&x.active); if(!cp){document.getElementById('couponMessage').innerHTML='<span class="text-red-600">❌ غير صالح</span>';return;} if(cp.expiry&&new Date(cp.expiry)<new Date()){document.getElementById('couponMessage').innerHTML='<span class="text-red-600">❌ منتهي</span>';return;} if(cp.maxUses&&cp.usedCount>=cp.maxUses){document.getElementById('couponMessage').innerHTML='<span class="text-red-600">❌ مكتمل</span>';return;} currentDiscount={type:cp.type,value:cp.value,code:cp.code,id:cp.id}; document.getElementById('couponMessage').innerHTML=`<span class="text-green-600">✅ ${cp.type==='percent'?cp.value+'%':cp.value+' د.ع'}</span>`; renderCart(); };
-        function renderCouponsList() { const l=document.getElementById('couponsList'); if(!coupons.length){l.innerHTML='<p class="text-gray-400">ماكو كوبونات</p>';return;} l.innerHTML=coupons.map(c=>`<div class="flex justify-between bg-white/50 p-3 rounded-xl"><div><span class="font-black">${c.code}</span><span class="mr-3">${c.type==='percent'?c.value+'%':c.value+' د.ع'}</span></div><div class="flex gap-2"><button onclick="toggleCouponStatus('${c.id}')" class="${c.active?'text-green-600':'text-gray-400'}">${c.active?'✅':'⛔'}</button><button onclick="if(confirm(\'حذف؟\'))deleteCoupon('${c.id}')" class="text-red-500">🗑️</button></div></div>`).join(''); }
-        window.toggleCouponStatus = async (id) => { const c=coupons.find(x=>x.id===id); await updateDoc(doc(db,"coupons",id),{active:!c.active}); loadCoupons(); };
-        window.deleteCoupon = async (id) => { await deleteDoc(doc(db,"coupons",id)); loadCoupons(); };
-        function updateCouponStats() { document.getElementById('totalCoupons').innerText=coupons.length; document.getElementById('totalCouponUses').innerText=coupons.reduce((s,c)=>s+(c.usedCount||0),0); }
+    // تبديل التبويبات
+    function switchTab(tab) {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        event.target.classList.add('active');
+        
+        document.getElementById('manualTab').style.display = 'none';
+        document.getElementById('templateTab').style.display = 'none';
+        document.getElementById('historyTab').style.display = 'none';
+        
+        if (tab === 'manual') document.getElementById('manualTab').style.display = 'block';
+        if (tab === 'template') document.getElementById('templateTab').style.display = 'block';
+        if (tab === 'history') document.getElementById('historyTab').style.display = 'block';
+    }
 
-        // ================= الوجبات المجمعة =================
-        async function loadCombos() { const s=await getDocs(collection(db,"combos")); combos=s.docs.map(d=>({id:d.id,...d.data()})); renderCombosPanel(); renderCombosList(); if(document.getElementById('comboProductSelect')) document.getElementById('comboProductSelect').innerHTML='<option value="">اختر</option>'+allProducts.map(p=>`<option value="${p.id}">${p.name}</option>`).join(''); }
-        function renderCombosPanel() { const p=document.getElementById('combosPanel'); if(!combos.length){p.innerHTML='<p class="text-gray-400 text-center py-2">ماكو وجبات</p>';return;} p.innerHTML=combos.map(c=>`<div onclick="addComboToCart('${c.id}')" class="combo-card bg-gradient-to-br from-purple-100 to-pink-100 p-3 rounded-2xl text-center font-black cursor-pointer shadow"><i class="fas fa-gift text-purple-600"></i><h4>${c.name}</h4><p class="text-xs">${c.products.map(p=>`${p.quantity}x ${p.name}`).join('+')}</p><p class="text-lg font-black text-purple-700">${c.price} د.ع</p></div>`).join(''); }
-        function renderCombosList() { const l=document.getElementById('combosList'); if(!l)return; if(!combos.length){l.innerHTML='<p class="text-gray-400">ماكو وجبات</p>';return;} l.innerHTML=combos.map(c=>`<div class="flex justify-between bg-white/50 p-2 rounded-xl"><div><span class="font-black">${c.name}</span><span class="mr-3">${c.price} د.ع</span></div><button onclick="if(confirm(\'حذف؟\'))deleteCombo('${c.id}')" class="text-red-500">🗑️</button></div>`).join(''); }
-        window.showCombos = () => document.getElementById('combosPanel').classList.toggle('hidden');
-        window.addComboToCart = (id) => { const c=combos.find(x=>x.id===id); if(!c)return; c.products.forEach(p=>{const e=currentCart.find(i=>i.id===p.id); if(e)e.quantity+=p.quantity; else currentCart.push({id:p.id,name:p.name,price:p.price,quantity:p.quantity});}); renderCart(); document.getElementById('combosPanel').classList.add('hidden'); };
-        window.addProductToCombo = () => { const s=document.getElementById('comboProductSelect'),q=parseInt(document.getElementById('comboProductQty').value)||1; const pid=s.value; if(!pid)return; const p=allProducts.find(x=>x.id===pid); if(!p)return; tempComboProducts.push({id:p.id,name:p.name,price:p.price,quantity:q}); renderTempComboProducts(); };
-        function renderTempComboProducts() { const d=document.getElementById('comboProductsList'); if(!tempComboProducts.length){d.innerHTML='<p class="text-gray-400 text-center py-4">أضف مواد</p>';return;} d.innerHTML=tempComboProducts.map((p,i)=>`<div class="flex justify-between bg-white p-2 rounded-lg"><span>${p.quantity}x ${p.name}</span><button onclick="tempComboProducts.splice(${i},1);renderTempComboProducts();" class="text-red-500">🗑️</button></div>`).join(''); }
-        window.saveCombo = async () => { if(!tempComboProducts.length)return alert('أضف مواد'); const n=document.getElementById('comboName').value,pr=parseFloat(document.getElementById('comboPrice').value); if(!n||!pr)return alert('الاسم والسعر'); await addDoc(collection(db,"combos"),{name:n,price:pr,products:tempComboProducts}); tempComboProducts=[]; document.getElementById('comboName').value='';document.getElementById('comboPrice').value=''; loadCombos(); };
-        window.deleteCombo = async (id) => { await deleteDoc(doc(db,"combos",id)); loadCombos(); };
+    // تحميل قالب
+    function loadTemplate() {
+        const template = document.getElementById('templateSelect').value;
+        if (template && templates[template]) {
+            document.getElementById('aiAnalysis').value = templates[template];
+            showToast('تم تحميل القالب بنجاح', 'success');
+        }
+    }
 
-        // ================= نسخ آخر طلب =================
-        window.repeatLastOrder = () => { if(!lastOrder){alert('ماكو طلبات');return;} if(currentCart.length&&!confirm('استبدال السلة؟'))return; currentCart=[]; lastOrder.items.forEach(i=>currentCart.push({...i})); renderCart(); alert('✅ تم النسخ'); };
+    // تحميل سجل التحليلات
+    function loadAnalysisHistory() {
+        const container = document.getElementById('analysisHistory');
+        if (analysisHistory.length === 0) {
+            container.innerHTML = '<p style="color: #64748b; text-align: center;">لا توجد تحليلات سابقة</p>';
+            return;
+        }
+        container.innerHTML = analysisHistory.map((item, index) => `
+            <div class="history-item" onclick="loadHistoryAnalysis(${index})">
+                <span>📋 تحليل ${item.type} - ${new Date(item.timestamp).toLocaleDateString('ar-SA')}</span>
+                <i class="fa-solid fa-arrow-left"></i>
+            </div>
+        `).join('');
+    }
 
-        // ================= شاشة المطبخ =================
-        function renderKitchenScreen() { const nw=allOrders.filter(o=>o.status==='جديد'||o.status==='قيد الانتظار'); const c=document.getElementById('kitchenOrdersList'); if(!nw.length){c.innerHTML='<p class="text-green-400 text-center py-10 text-xl">✅ ماكو طلبات</p>';return;} c.innerHTML=nw.map(o=>`<div class="kitchen-order-card rounded-2xl p-5 text-white shadow-xl"><div class="flex justify-between mb-3"><span class="text-3xl font-black gold-text">#${o.orderNumber||o.id.slice(-3)}</span><span class="bg-yellow-500/30 px-3 py-1 rounded-full text-sm">${new Date(o.createdAt.toDate()).toLocaleTimeString('ar-IQ')}</span></div>${o.isDelivery?'<div class="bg-blue-500/30 text-blue-200 px-3 py-1 rounded-full text-sm mb-3"><i class="fas fa-motorcycle"></i> توصيل</div>':''}<div class="space-y-2 text-lg">${o.items.map(i=>`<div>${i.quantity}x ${i.name}</div>`).join('')}</div><div class="mt-4 flex justify-end gap-2">${o.status==='قيد الانتظار'?`<button onclick="updateOrderStatus('${o.id}','تم القبول');renderKitchenScreen();" class="bg-green-600 px-4 py-2 rounded-xl font-black">✅ قبول</button><button onclick="updateOrderStatus('${o.id}','مرفوض');renderKitchenScreen();" class="bg-red-600 px-4 py-2 rounded-xl font-black">❌ رفض</button>`:`<button onclick="updateOrderStatus('${o.id}','جاهز');renderKitchenScreen();" class="gold-gradient px-6 py-2 rounded-xl font-black">✅ جاهز</button>`}</div></div>`).join(''); }
-        window.showKitchenScreen = () => { hideAll(); document.getElementById('kitchenView').classList.remove('hidden'); setActiveTab('btnKitchen'); renderKitchenScreen(); if(kitchenInterval)clearInterval(kitchenInterval); kitchenInterval=setInterval(()=>{loadAllData().then(()=>renderKitchenScreen());},10000); };
+    function loadHistoryAnalysis(index) {
+        if (analysisHistory[index] && analysisHistory[index].data) {
+            document.getElementById('aiAnalysis').value = analysisHistory[index].data;
+            switchTab('manual');
+            showToast('تم تحميل التحليل من السجل', 'info');
+        }
+    }
 
-        // ================= تحميل البيانات =================
-        async function loadAllData() { try { const cs=await getDocs(collection(db,"categories")); allCategories=cs.docs.map(d=>({id:d.id,...d.data()})); const ps=await getDocs(collection(db,"products")); allProducts=ps.docs.map(d=>({id:d.id,...d.data()})); const os=await getDocs(query(collection(db,"orders"),orderBy("createdAt","desc"))); allOrders=os.docs.map(d=>({id:d.id,...d.data()})); if(allOrders.length) lastOrder=allOrders[0]; if(!document.getElementById('cashierView').classList.contains('hidden')){renderCategoryGrid();renderProductsGrid('الكل');renderCart();} if(!document.getElementById('ordersView').classList.contains('hidden')) renderOrdersView(); if(!document.getElementById('kitchenView').classList.contains('hidden')) renderKitchenScreen(); if(!document.getElementById('reportsView').classList.contains('hidden')) renderReportsView(); if(!document.getElementById('couponsView').classList.contains('hidden')) updateCouponStats(); if(!document.getElementById('adminView').classList.contains('hidden')){loadAdminData(); if(document.getElementById('comboProductSelect'))document.getElementById('comboProductSelect').innerHTML='<option value="">اختر</option>'+allProducts.map(p=>`<option value="${p.id}">${p.name}</option>`).join('');} } catch(e){} }
+    // إنشاء البرومبت
+    function generatePrompt() {
+        const analysis = document.getElementById('aiAnalysis').value.trim();
+        const tournament = document.getElementById('tournamentName').value.trim() || 'كأس شهداء المنصورية';
+        const matchType = document.getElementById('matchType').value.trim() || 'المباراة الافتتاحية';
+        const team1 = document.getElementById('team1').value.trim() || 'تحدي المنصورية';
+        const team2 = document.getElementById('team2').value.trim() || 'الكاظمية';
+        const time = document.getElementById('matchTime').value.trim() || '10:00 PM';
+        const date = document.getElementById('matchDate').value.trim() || 'الجمعة';
+        const location = document.getElementById('matchLocation').value.trim() || 'ملعب المنصورية';
+        const players = document.getElementById('players').value.trim();
+        const ratio = document.getElementById('size').value;
+        const style = document.getElementById('style').value;
 
-        function renderCategoryGrid() { const g=document.getElementById('categoryGrid'); let h=`<div onclick="filterProducts('الكل')" class="cat-card bg-gradient-to-br from-yellow-400 to-amber-600 p-2 rounded-2xl text-center font-black cursor-pointer ${selectedCat==='الكل'?'ring-4 ring-yellow-200':''}"><i class="fas fa-star"></i> الكل</div>`; const cl=['from-amber-100 to-orange-200','from-emerald-100 to-green-200','from-sky-100 to-blue-200','from-rose-100 to-pink-200']; allCategories.forEach((c,i)=>{h+=`<div onclick="filterProducts('${c.id}')" class="cat-card bg-gradient-to-br ${cl[i%cl.length]} p-2 rounded-2xl text-center font-black cursor-pointer ${selectedCat===c.id?'ring-4 ring-yellow-400':''}"><i class="fas fa-tag"></i> ${c.name}</div>`;}); g.innerHTML=h; }
-        window.filterProducts = (catId) => { selectedCat=catId; renderCategoryGrid(); renderProductsGrid(catId); };
-        window.searchProducts = () => { const t=document.getElementById('searchInput').value.toLowerCase(); renderProductsGrid('search',allProducts.filter(p=>p.name.toLowerCase().includes(t))); };
-        function renderProductsGrid(catId,list=null) { const g=document.getElementById('productsGrid'); const f=list||(catId==='الكل'?allProducts:allProducts.filter(p=>p.category_id==catId)); if(!f.length){g.innerHTML='<div class="col-span-full text-center py-10 text-gray-400"><p>ماكو مواد</p></div>';return;} g.innerHTML=f.map(p=>`<div onclick="addToCart('${p.id}')" class="product-card bg-white/90 p-3 rounded-2xl shadow-lg"><div class="flex justify-between"><h4 class="font-black">${p.name}</h4><span class="gold-gradient px-2 py-0.5 rounded-xl text-sm font-black">${p.price} د.ع</span></div></div>`).join(''); }
-        window.addToCart = (id) => { let p=allProducts.find(x=>x.id===id); let e=currentCart.find(i=>i.id===id); e?e.quantity++:currentCart.push({id:p.id,name:p.name,price:p.price,quantity:1}); renderCart(); };
-        window.updateQuantity = (id,ch) => { let i=currentCart.find(x=>x.id===id); if(i){i.quantity+=ch; if(i.quantity<=0)currentCart=currentCart.filter(x=>x.id!==id);} renderCart(); };
-
-        function calculateTotal() { let s=currentCart.reduce((s,i)=>s+(i.price*i.quantity),0),d=0; if(currentDiscount.type){d=currentDiscount.type==='percent'?s*(currentDiscount.value/100):currentDiscount.value;} let df=(isDelivery&&document.getElementById('addDeliveryFee')?.checked)?(parseInt(document.getElementById('deliveryFeeAmount')?.value)||0):0; return {subtotal:s,discount:d,deliveryFee:df,total:Math.max(0,s-d+df)}; }
-        function renderCart() { let h=''; currentCart.forEach(i=>{h+=`<div class="flex justify-between bg-white/10 p-3 rounded-2xl"><div><span class="font-bold">${i.name}</span><span class="text-xs">${i.price} د.ع</span></div><div class="flex gap-2"><button onclick="updateQuantity('${i.id}',-1)" class="bg-red-500/80 w-7 h-7 rounded-full">➖</button><span class="w-6 text-center">${i.quantity}</span><button onclick="updateQuantity('${i.id}',1)" class="bg-green-500/80 w-7 h-7 rounded-full">➕</button></div></div>`;}); document.getElementById('cartItems').innerHTML=h||'<p class="text-center text-gray-300 py-5">السلة فارغة</p>'; const {subtotal,discount,deliveryFee,total}=calculateTotal(); document.getElementById('cartTotal').innerText=total.toFixed(2); document.getElementById('cartCount').innerText=currentCart.reduce((s,i)=>s+i.quantity,0); const sm=document.getElementById('cartSummary'); if(discount>0||deliveryFee>0){sm.classList.remove('hidden');document.getElementById('subtotalAmount').innerText=subtotal.toFixed(2);document.getElementById('discountAmount').innerText=discount.toFixed(2);document.getElementById('deliveryFeeAmount').innerText=deliveryFee.toFixed(2);}else{sm.classList.add('hidden');} }
-        window.clearCart = () => { currentCart=[]; currentDiscount={type:null,value:0,code:null}; isDelivery=false; document.getElementById('deliveryInfo').classList.add('hidden'); const b=document.getElementById('deliveryToggleBtn'); b.classList.remove('bg-green-600');b.classList.add('bg-blue-600');b.innerHTML='<i class="fas fa-motorcycle"></i> توصيل'; document.getElementById('couponMessage').innerHTML=''; renderCart(); };
-
-        window.submitOrder = async function() {
-            if(!currentCart.length)return alert('السلة فارغة');
-            const {subtotal,discount,deliveryFee,total}=calculateTotal();
-            const orderNumber=Math.floor(100+Math.random()*900);
-            const cn=document.getElementById('customerName')?.value||'',cp=document.getElementById('customerPhone')?.value||'',ca=document.getElementById('customerAddress')?.value||'';
-            if(isDelivery&&(!cn||!cp||!ca))return alert('أدخل بيانات التوصيل');
-            try {
-                const od={orderNumber,items:currentCart,subtotal,discount,deliveryFee,total,status:'جديد',isDelivery,customerName:isDelivery?cn:null,customerPhone:isDelivery?cp:null,customerAddress:isDelivery?ca:null,couponCode:currentDiscount.code||null,createdAt:new Date()};
-                const ref=await addDoc(collection(db,"orders"),od);
-                if(currentDiscount.id){const c=coupons.find(x=>x.id===currentDiscount.id); await updateDoc(doc(db,"coupons",currentDiscount.id),{usedCount:(c.usedCount||0)+1});}
-                document.getElementById('newOrderSound').play();
-                let msg=`🔥 *طلب #${orderNumber}*\n🆔 ${ref.id.slice(-4)}\n`; if(isDelivery)msg+=`🛵 *توصيل*\n👤${cn}\n📞${cp}\n📍${ca}\n`; msg+=`📋 `; currentCart.forEach(i=>msg+=`${i.quantity}x ${i.name}\n`); if(discount>0)msg+=`\n💚 خصم: ${discount.toFixed(2)}`; if(deliveryFee>0)msg+=`\n🛵 توصيل: ${deliveryFee}`; msg+=`\n💰 *الإجمالي: ${total.toFixed(2)}*`;
-                const url=`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,proxy=`https://corsproxy.io/?${encodeURIComponent(url)}`;
-                await fetch(proxy,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:TELEGRAM_CHAT_ID,text:msg,parse_mode:'Markdown'})});
-                alert(`✅ تم إنشاء الطلب #${orderNumber}`); clearCart(); loadAllData(); loadCoupons();
-            } catch(e) { alert('❌ فشل'); }
-        };
-
-        // ================= شاشة الطلبات =================
-        function renderOrdersView() {
-            const today=new Date().toDateString();
-            const to=allOrders.filter(o=>o.createdAt&&new Date(o.createdAt.toDate()).toDateString()===today);
-            const ao=allOrders.filter(o=>o.status==='جديد'||o.status==='قيد الانتظار'||o.status==='جاهز'||o.status==='جاري الاتصال');
-            const co=allOrders.filter(o=>o.status==='تم التسليم'||o.status==='تم القبول'||o.status==='مرفوض').slice(0,10);
-            document.getElementById('todayOrdersCount').innerText=to.length;
-            document.getElementById('todaySales').innerText=to.reduce((s,o)=>s+o.total,0).toFixed(2);
-            document.getElementById('avgOrder').innerText=to.length?(to.reduce((s,o)=>s+o.total,0)/to.length).toFixed(2):'0';
-            document.getElementById('deliveryOrdersCount').innerText=to.filter(o=>o.isDelivery).length;
-            const ad=document.getElementById('activeOrdersList');
-            if(!ao.length) ad.innerHTML='<p class="text-center text-gray-400 py-5">ماكو طلبات</p>';
-            else ad.innerHTML=ao.map(o=>{
-                const statusClass = o.status==='قيد الانتظار'?'status-pending':o.status==='جديد'?'status-new':o.status==='جاهز'?'status-ready':o.status==='جاري الاتصال'?'status-calling':'status-new';
-                let btns = '';
-                if(o.status==='قيد الانتظار') btns = `<button onclick="updateOrderStatus('${o.id}','تم القبول')" class="bg-green-600 text-white px-3 py-1 rounded-lg text-sm">✅ قبول</button><button onclick="updateOrderStatus('${o.id}','مرفوض')" class="bg-red-600 text-white px-3 py-1 rounded-lg text-sm">❌ رفض</button><button onclick="updateOrderStatus('${o.id}','جاري الاتصال')" class="bg-blue-600 text-white px-3 py-1 rounded-lg text-sm">📞 اتصال</button>`;
-                else if(o.status==='جديد'||o.status==='جاري الاتصال') btns = `<button onclick="updateOrderStatus('${o.id}','جاهز')" class="bg-yellow-500 text-white px-3 py-1 rounded-lg text-sm">✅ جاهز</button>`;
-                else if(o.status==='جاهز') btns = `<button onclick="updateOrderStatus('${o.id}','تم التسليم')" class="bg-green-600 text-white px-3 py-1 rounded-lg text-sm">✔️ تم</button>`;
-                return `<div class="bg-white rounded-2xl p-4 shadow"><div class="flex justify-between"><div><span class="text-2xl font-black gold-text">#${o.orderNumber||o.id.slice(-3)}</span><span class="mr-3 status-badge ${statusClass}">${o.status}</span>${o.isDelivery?'<span class="status-badge status-delivery"><i class="fas fa-motorcycle"></i> توصيل</span>':''}</div><span class="text-sm text-gray-500">${o.createdAt?new Date(o.createdAt.toDate()).toLocaleTimeString('ar-IQ'):''}</span></div>${o.isDelivery?`<div class="mt-2 text-sm text-blue-600">👤${o.customerName} 📞${o.customerPhone}</div>`:''}<div class="mt-2 text-sm">${o.items.map(i=>`${i.quantity}x ${i.name}`).join(' • ')}</div><div class="flex justify-between mt-3"><span class="font-black">${o.total.toFixed(2)} د.ع</span><div class="flex gap-2">${btns}<button onclick="printOrderInvoice('${o.id}')" class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm"><i class="fas fa-print"></i></button></div></div></div>`;
-            }).join('');
-            const cd=document.getElementById('completedOrdersList');
-            if(!co.length) cd.innerHTML='<p class="text-center text-gray-400">ماكو</p>';
-            else cd.innerHTML=co.map(o=>`<div class="bg-gray-50 rounded-xl p-3 flex justify-between"><div><span class="font-black">#${o.orderNumber||o.id.slice(-3)}</span><span class="mr-3 text-xs">${o.status}</span></div><span class="font-black gold-text">${o.total.toFixed(2)} د.ع</span></div>`).join('');
+        if (!analysis) {
+            showToast('يرجى لصق تحليل الذكاء الاصطناعي في المربع الأول أولاً!', 'warning');
+            document.getElementById('aiAnalysis').focus();
+            return;
         }
 
-        window.updateOrderStatus = async (orderId, newStatus) => { await updateDoc(doc(db,"orders",orderId),{status:newStatus}); if(newStatus==='جاهز')document.getElementById('readyOrderSound').play(); loadAllData(); };
+        // بناء البرومبت النهائي المتقدم
+        let finalPrompt = `/imagine prompt: Create a masterpiece ${style} sports graphic design poster for a football match. This must be a professional, print-ready design with exceptional attention to typography and visual hierarchy.
 
-        window.printOrderInvoice = (orderId) => { const o=allOrders.find(x=>x.id===orderId); if(!o)return; const w=window.open('','_blank'); w.document.write(`<html dir="rtl"><head><title>فاتورة #${o.orderNumber}</title><style>body{font-family:'Cairo';text-align:center;padding:20px}.h{border-bottom:2px dashed #d97706;padding-bottom:10px;margin-bottom:20px}.i{display:flex;justify-content:space-between;margin:10px 0}.t{border-top:2px dashed #d97706;margin-top:20px;padding-top:20px;font-size:1.5em;font-weight:bold}</style></head><body><div class="h"><h1>🐰 الأرنب الضاحك</h1><p>فاتورة #${o.orderNumber}</p>${o.isDelivery?`<p>👤${o.customerName} 📞${o.customerPhone}</p>`:''}<p>${new Date(o.createdAt.toDate()).toLocaleString('ar-IQ')}</p></div><div>${o.items.map(i=>`<div class="i"><span>${i.quantity}x ${i.name}</span><span>${(i.price*i.quantity).toFixed(2)} د.ع</span></div>`).join('')}</div>${o.discount>0?`<div class="i"><span>خصم</span><span>-${o.discount.toFixed(2)}</span></div>`:''}${o.deliveryFee>0?`<div class="i"><span>توصيل</span><span>${o.deliveryFee}</span></div>`:''}<div class="t"><div class="i"><span>الإجمالي</span><span>${o.total.toFixed(2)} د.ع</span></div></div></body></html>`); w.document.close(); w.print(); };
+**🎨 VISUAL STYLE & TYPOGRAPHY DNA (EXTRACTED FROM REFERENCE):**
+${analysis}
 
-        function renderReportsView() {
-            document.getElementById('totalSalesAll').innerText=allOrders.reduce((s,o)=>s+o.total,0).toFixed(2);
-            document.getElementById('totalOrdersAll').innerText=allOrders.length;
-            document.getElementById('totalProductsAll').innerText=allProducts.length;
-            document.getElementById('totalCategoriesAll').innerText=allCategories.length;
-            document.getElementById('totalDeliveryOrders').innerText=allOrders.filter(o=>o.isDelivery).length;
-            const ps={}; allOrders.forEach(o=>o.items.forEach(i=>ps[i.name]=(ps[i.name]||0)+i.quantity));
-            const tp=Object.entries(ps).sort((a,b)=>b[1]-a[1]).slice(0,5);
-            if(topProductsChartInstance)topProductsChartInstance.destroy();
-            topProductsChartInstance=new Chart(document.getElementById('topProductsChart'),{type:'doughnut',data:{labels:tp.map(p=>p[0]),datasets:[{data:tp.map(p=>p[1]),backgroundColor:['#fbbf24','#d97706','#f59e0b','#b45309','#eab308']}]}});
-            const l7d=[...Array(7)].map((_,i)=>{const d=new Date();d.setDate(d.getDate()-i);return d.toISOString().split('T')[0];}).reverse();
-            const ds=l7d.map(day=>allOrders.filter(o=>o.createdAt&&new Date(o.createdAt.toDate()).toISOString().split('T')[0]===day).reduce((s,o)=>s+o.total,0));
-            if(weeklySalesChartInstance)weeklySalesChartInstance.destroy();
-            weeklySalesChartInstance=new Chart(document.getElementById('weeklySalesChart'),{type:'line',data:{labels:l7d.map(d=>new Date(d).toLocaleDateString('ar-IQ',{weekday:'short'})),datasets:[{label:'المبيعات',data:ds,borderColor:'#fbbf24',tension:0.4}]}});
+**📋 CONTENT TO INTEGRATE WITH EXACT TYPOGRAPHY RULES:**
+• MAIN HEADER (Largest, most prominent): "${tournament}"
+• SUBHEADER: "${matchType}"
+• VS MATCHUP (Bold, dramatic): "${team1} ⚔️ ${team2}"
+• DATE (Elegant, clear): "${date}"
+• TIME (Prominent, easy to read): "${time}"
+• LOCATION: "${location}"
+`;
+
+        if(players) {
+            finalPrompt += `\n**👤 MAIN SUBJECT (Must match lighting and color grading):**\nDynamic professional action portrait of ${players}. Subject must integrate seamlessly with background lighting and color scheme.\n`;
         }
 
-        window.exportToExcel = () => { const d=allOrders.map(o=>({'رقم':o.orderNumber,'تاريخ':o.createdAt?new Date(o.createdAt.toDate()).toLocaleString('ar-IQ'):'','نوع':o.isDelivery?'توصيل':'محلي','زبون':o.customerName||'-','هاتف':o.customerPhone||'-','منتجات':o.items.map(i=>`${i.quantity}x ${i.name}`).join(', '),'إجمالي':o.total,'حالة':o.status})); const ws=XLSX.utils.json_to_sheet(d),wb=XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb,ws,"الطلبات"); XLSX.writeFile(wb,`تقرير_${new Date().toISOString().split('T')[0]}.xlsx`); };
-        window.exportToPDF = async () => { const c=await html2canvas(document.getElementById('reportsView')); const p=new jspdf.jsPDF({orientation:'landscape'}); p.addImage(c.toDataURL('image/png'),'PNG',10,10,280,150); p.save(`تقرير_${new Date().toISOString().split('T')[0]}.pdf`); };
+        finalPrompt += `\n**🔧 TECHNICAL SPECIFICATIONS:**\n• Style: ${style}
+• Resolution: 8K Ultra HD, 300 DPI print-ready
+• Rendering: Unreal Engine 5, Octane Render, photorealistic
+• Post-processing: Professional color grading, cinematic lighting, sharp details
+• Typography: Perfect Arabic text rendering with proper letter connections
+• Effects: Atmospheric depth, professional sports photography aesthetics
+${ratio} --style raw --stylize 250 --v 6.1`;
 
-        async function loadAdminData() {
-            document.getElementById('newProdCat').innerHTML=allCategories.map(c=>`<option value="${c.id}">${c.name}</option>`).join('');
-            document.getElementById('adminCatList').innerHTML=allCategories.map(c=>`<li class="flex justify-between bg-white/50 p-2 rounded-xl"><span>📁 ${c.name}</span><button onclick="if(confirm('حذف؟'))deleteCategory('${c.id}')" class="text-red-500">🗑️</button></li>`).join('');
-            const cm=Object.fromEntries(allCategories.map(c=>[c.id,c.name]));
-            document.getElementById('adminProdList').innerHTML=allProducts.map(p=>`<tr><td class="p-2">${p.name}</td><td class="p-2">${cm[p.category_id]||''}</td><td class="p-2">${p.price} د.ع</td><td class="p-2"><button onclick="if(confirm('حذف؟'))deleteProduct('${p.id}')" class="text-red-500">🗑️</button></td></tr>`).join('');
+        currentPrompt = finalPrompt;
+        document.getElementById('finalPromptResult').innerText = finalPrompt;
+        
+        // حفظ التحليل في السجل
+        saveAnalysisToHistory(analysis);
+        
+        // تحديث الإحصائيات
+        updateStats();
+        
+        // تأثير وميض
+        const promptBox = document.getElementById('finalPromptResult');
+        promptBox.style.boxShadow = '0 0 30px rgba(16,185,129,0.3)';
+        setTimeout(() => {
+            promptBox.style.boxShadow = 'inset 0 0 30px rgba(16,185,129,0.05)';
+        }, 500);
+
+        showToast('✨ تم إنشاء البرومبت بنجاح! يمكنك الآن نسخه واستخدامه', 'success');
+    }
+
+    // حفظ التحليل في السجل
+    function saveAnalysisToHistory(analysis) {
+        analysisHistory.unshift({
+            type: 'generated',
+            data: analysis,
+            timestamp: new Date().toISOString()
+        });
+        analysisHistory = analysisHistory.slice(0, 20);
+        localStorage.setItem('analysisHistory', JSON.stringify(analysisHistory));
+        loadAnalysisHistory();
+    }
+
+    // نسخ البرومبت النهائي
+    function copyFinalPrompt() {
+        if (!currentPrompt) {
+            showToast('اضغط على "إنشاء البرومبت" أولاً!', 'warning');
+            return;
         }
+        navigator.clipboard.writeText(currentPrompt).then(() => {
+            showToast('✅ تم نسخ البرومبت! ضعه الآن في Midjourney أو أي منشئ صور', 'success');
+        }).catch(() => {
+            // نسخ احتياطي
+            const textArea = document.createElement('textarea');
+            textArea.value = currentPrompt;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            showToast('✅ تم نسخ البرومبت!', 'success');
+        });
+    }
 
-        window.addCategory = async () => { const n=document.getElementById('newCatName').value; if(n){await addDoc(collection(db,"categories"),{name:n});document.getElementById('newCatName').value='';loadAllData();} };
-        window.deleteCategory = async (id) => { await deleteDoc(doc(db,"categories",id)); loadAllData(); };
-        window.addProduct = async () => { const n=document.getElementById('newProdName').value,p=+document.getElementById('newProdPrice').value,c=document.getElementById('newProdCat').value,d=document.getElementById('newProdDesc').value; if(n&&p&&c){await addDoc(collection(db,"products"),{name:n,price:p,category_id:c,description:d});document.getElementById('newProdName').value='';document.getElementById('newProdPrice').value='';document.getElementById('newProdDesc').value='';loadAllData();} };
-        window.deleteProduct = async (id) => { await deleteDoc(doc(db,"products",id)); loadAllData(); };
+    // معاينة البرومبت
+    function previewPrompt() {
+        if (!currentPrompt) {
+            showToast('قم بإنشاء البرومبت أولاً', 'warning');
+            return;
+        }
+        const previewWindow = window.open('', '_blank', 'width=800,height=600');
+        previewWindow.document.write(`
+            <html dir="ltr">
+            <head><title>معاينة البرومبت</title>
+            <style>
+                body { background: #0a0a0a; color: #10b981; font-family: monospace; padding: 30px; white-space: pre-wrap; line-height: 1.8; font-size: 14px; }
+            </style>
+            </head>
+            <body>${currentPrompt.replace(/\n/g, '<br>')}</body>
+            </html>
+        `);
+    }
 
-        // ================= التنقل =================
-        window.showCashier = () => { hideAll(); document.getElementById('cashierView').classList.remove('hidden'); setActiveTab('btnCashier'); loadAllData(); };
-        window.showOrders = () => { hideAll(); document.getElementById('ordersView').classList.remove('hidden'); setActiveTab('btnOrders'); loadAllData(); };
-        window.showReports = () => { hideAll(); document.getElementById('reportsView').classList.remove('hidden'); setActiveTab('btnReports'); loadAllData(); };
-        window.showCoupons = () => { hideAll(); document.getElementById('couponsView').classList.remove('hidden'); setActiveTab('btnCoupons'); loadCoupons(); };
-        window.showAdmin = () => { hideAll(); document.getElementById('adminView').classList.remove('hidden'); setActiveTab('btnAdmin'); loadAllData(); };
-        function hideAll() { ['cashierView','ordersView','kitchenView','reportsView','couponsView','adminView'].forEach(id=>document.getElementById(id).classList.add('hidden')); if(kitchenInterval){clearInterval(kitchenInterval);kitchenInterval=null;} }
-        function setActiveTab(id) { ['btnCashier','btnOrders','btnKitchen','btnReports','btnCoupons','btnAdmin'].forEach(i=>{const b=document.getElementById(i); if(b){b.classList.remove('tab-active','gold-gradient');b.classList.add('bg-gray-700','text-white');}}); const a=document.getElementById(id); if(a){a.classList.add('tab-active','gold-gradient');a.classList.remove('bg-gray-700','text-white');} }
-        window.addEventListener('firebaseReady', ()=>{});
-    </script>
+    // تحميل البرومبت
+    function downloadPrompt() {
+        if (!currentPrompt) {
+            showToast('قم بإنشاء البرومبت أولاً', 'warning');
+            return;
+        }
+        const blob = new Blob([currentPrompt], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `prompt-${Date.now()}.txt`;
+        a.click();
+        URL.revokeObjectURL(url);
+        showToast('📥 تم تحميل البرومبت', 'success');
+    }
+
+    // مشاركة البرومبت
+    function sharePrompt() {
+        if (!currentPrompt) {
+            showToast('قم بإنشاء البرومبت أولاً', 'warning');
+            return;
+        }
+        if (navigator.share) {
+            navigator.share({
+                title: 'برومبت تصميم رياضي',
+                text: currentPrompt
+            }).catch(() => {});
+        } else {
+            copyFinalPrompt();
+            showToast('تم النسخ للمشاركة! (المتصفح لا يدعم المشاركة المباشرة)', 'info');
+        }
+    }
+
+    // حفظ في السجل
+    function saveToHistory() {
+        if (!currentPrompt) {
+            showToast('قم بإنشاء البرومبت أولاً', 'warning');
+            return;
+        }
+        promptsHistory.unshift({
+            prompt: currentPrompt,
+            timestamp: new Date().toISOString(),
+            tournament: document.getElementById('tournamentName').value
+        });
+        promptsHistory = promptsHistory.slice(0, 50);
+        localStorage.setItem('promptsHistory', JSON.stringify(promptsHistory));
+        updateStats();
+        showToast('💾 تم حفظ البرومبت في السجل', 'success');
+    }
+
+    // مسح البرومبت
+    function clearPrompt() {
+        currentPrompt = '';
+        document.getElementById('finalPromptResult').innerHTML = '<span style="color: #64748b;">⚡ جاهز للإنشاء... اضغط على زر "إنشاء البرومبت" للبدء</span>';
+        showToast('تم مسح النتيجة', 'info');
+    }
+
+    // مسح التحليل
+    function clearAnalysis() {
+        document.getElementById('aiAnalysis').value = '';
+        showToast('تم مسح التحليل', 'info');
+    }
+
+    // عرض/إخفاء السجل
+    function toggleHistory() {
+        const historySection = document.getElementById('historySection');
+        if (historySection) {
+            historySection.remove();
+            return;
+        }
+        
+        const section = document.createElement('div');
+        section.id = 'historySection';
+        section.innerHTML = `
+            <div class="card" style="margin-top: 30px;">
+                <div class="card-header">
+                    <div class="card-title">
+                        <div class="card-icon">📚</div>
+                        سجل البرومبتات (${promptsHistory.length})
+                    </div>
+                    <button class="btn btn-secondary" onclick="clearHistory()">
+                        <i class="fa-solid fa-trash"></i> مسح الكل
+                    </button>
+                </div>
+                <div class="history-list" style="max-height: 400px;">
+                    ${promptsHistory.length === 0 ? 
+                        '<p style="color: #64748b; text-align: center;">لا توجد برومبتات محفوظة</p>' :
+                        promptsHistory.map((item, index) => `
+                            <div class="history-item">
+                                <div>
+                                    <strong>${item.tournament || 'بدون اسم'}</strong>
+                                    <br><small style="color: #64748b;">${new Date(item.timestamp).toLocaleString('ar-SA')}</small>
+                                </div>
+                                <div style="display: flex; gap: 10px;">
+                                    <button class="btn btn-secondary" style="padding: 8px 12px; font-size: 12px;" 
+                                            onclick="loadHistoryPrompt(${index})">
+                                        <i class="fa-solid fa-download"></i> تحميل
+                                    </button>
+                                </div>
+                            </div>
+                        `).join('')
+                    }
+                </div>
+            </div>
+        `;
+        document.querySelector('.container').appendChild(section);
+        section.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // تحميل برومبت من السجل
+    function loadHistoryPrompt(index) {
+        if (promptsHistory[index]) {
+            currentPrompt = promptsHistory[index].prompt;
+            document.getElementById('finalPromptResult').innerText = currentPrompt;
+            document.getElementById('historySection')?.remove();
+            document.getElementById('finalPromptResult').scrollIntoView({ behavior: 'smooth' });
+            showToast('تم تحميل البرومبت من السجل', 'success');
+        }
+    }
+
+    // مسح السجل
+    function clearHistory() {
+        if (confirm('هل أنت متأكد من مسح جميع البرومبتات المحفوظة؟')) {
+            promptsHistory = [];
+            localStorage.removeItem('promptsHistory');
+            updateStats();
+            document.getElementById('historySection')?.remove();
+            showToast('تم مسح السجل بالكامل', 'info');
+        }
+    }
+
+    // تحديث الإحصائيات
+    function updateStats() {
+        document.getElementById('promptsCount').textContent = promptsHistory.length;
+    }
+
+    // عرض النصائح
+    function showTips() {
+        const tips = [
+            '💡 استخدم صوراً عالية الجودة كمرجع للحصول على أفضل النتائج',
+            '🎯 كلما كان وصف التحليل أكثر تفصيلاً، كانت النتيجة أفضل',
+            '📝 احفظ برومبتاتك الناجحة في السجل لإعادة استخدامها',
+            '🖼️ جرب أحجام مختلفة للتصميم حسب المنصة المستهدفة',
+            '✨ أضف وصفاً دقيقاً للاعبين للحصول على نتائج مخصصة'
+        ];
+        const randomTip = tips[Math.floor(Math.random() * tips.length)];
+        showToast(randomTip, 'info');
+    }
+
+    // اختصارات لوحة المفاتيح
+    document.addEventListener('keydown', (e) => {
+        if (e.ctrlKey || e.metaKey) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                generatePrompt();
+            }
+            if (e.key === 'c' && e.shiftKey) {
+                e.preventDefault();
+                copyFinalPrompt();
+            }
+        }
+    });
+</script>
+
 </body>
 </html>
