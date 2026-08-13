@@ -1170,7 +1170,7 @@ COMPOSITION: Player silhouette with neon outline. Cyberpunk city background. Hol
         updateStats();
         loadAnalysisHistory();
         updateProgressBar();
-        runPrecisionAnalysis();
+        runPrecisionAnalysis(true);
     });
 
     // تحديث شريط التقدم
@@ -1249,6 +1249,7 @@ COMPOSITION: Player silhouette with neon outline. Cyberpunk city background. Hol
         const template = document.getElementById('templateSelect').value;
         if (template && templates[template]) {
             document.getElementById('aiAnalysis').value = templates[template];
+            runPrecisionAnalysis(true);
             showToast('تم تحميل القالب بنجاح', 'success');
         }
     }
@@ -1273,7 +1274,7 @@ COMPOSITION: Player silhouette with neon outline. Cyberpunk city background. Hol
             document.getElementById('aiAnalysis').value = analysisHistory[index].data;
             const manualTabBtn = document.querySelector('.tab');
             switchTab('manual', manualTabBtn);
-            runPrecisionAnalysis();
+            runPrecisionAnalysis(true);
             showToast('تم تحميل التحليل من السجل', 'info');
         }
     }
@@ -1311,7 +1312,7 @@ COMPOSITION: Player silhouette with neon outline. Cyberpunk city background. Hol
         };
     }
 
-    function runPrecisionAnalysis() {
+    function runPrecisionAnalysis(silent = false) {
         const analysisRaw = document.getElementById('aiAnalysis').value;
         const analysisText = normalizeText(analysisRaw);
         const risks = [];
@@ -1432,7 +1433,9 @@ COMPOSITION: Player silhouette with neon outline. Cyberpunk city background. Hol
             riskContainer.innerHTML = risks.map((risk) => `<div class="risk-item">${risk}</div>`).join('');
         }
 
-        showToast(`اكتمل التحليل الدقيق: ${finalScore}%`, finalScore >= 70 ? 'success' : 'warning');
+        if (!silent) {
+            showToast(`اكتمل التحليل الدقيق: ${finalScore}%`, finalScore >= 70 ? 'success' : 'warning');
+        }
     }
 
     function copyAnalysisReport() {
@@ -1630,7 +1633,7 @@ ${ratio} --style raw --stylize 250 --v 6.1`;
     // مسح التحليل
     function clearAnalysis() {
         document.getElementById('aiAnalysis').value = '';
-        runPrecisionAnalysis();
+        runPrecisionAnalysis(true);
         showToast('تم مسح التحليل', 'info');
     }
 
@@ -1722,12 +1725,12 @@ ${ratio} --style raw --stylize 250 --v 6.1`;
 
     // تحديث حي لمحرك التحليل
     document.getElementById('aiAnalysis').addEventListener('input', () => {
-        runPrecisionAnalysis();
+        runPrecisionAnalysis(true);
     });
 
     ['tournamentName', 'matchType', 'team1', 'team2', 'matchTime', 'matchDate', 'matchLocation'].forEach((id) => {
         document.getElementById(id).addEventListener('input', () => {
-            runPrecisionAnalysis();
+            runPrecisionAnalysis(true);
         });
     });
 
